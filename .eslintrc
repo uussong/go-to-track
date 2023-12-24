@@ -1,6 +1,10 @@
 {
-  "extends": ["react-app", "react-app/jest"],
-  "plugins": ["prettier"],
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "plugin:@tanstack/eslint-plugin-query/recommended"
+  ],
+  "plugins": ["prettier", "@tanstack/query"],
   "rules": {
     "prettier/prettier": "error",
     "react/no-unknown-property": ["error", { "ignore": ["css"] }]
