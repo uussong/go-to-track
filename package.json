@@ -29,7 +29,9 @@
     "eject": "react-scripts eject",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
@@ -53,15 +55,25 @@
     "@babel/preset-react": "^7.23.3",
     "@craco/craco": "^7.1.0",
     "@emotion/babel-plugin": "^11.11.0",
+    "@storybook/addon-essentials": "^7.6.6",
+    "@storybook/addon-interactions": "^7.6.6",
+    "@storybook/addon-links": "^7.6.6",
+    "@storybook/addon-onboarding": "^1.0.10",
+    "@storybook/blocks": "^7.6.6",
+    "@storybook/react": "^7.6.6",
+    "@storybook/react-webpack5": "^7.6.6",
+    "@storybook/test": "^7.6.6",
     "@tanstack/eslint-plugin-query": "^5.14.6",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-prettier": "^5.1.2",
     "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-storybook": "^0.6.15",
     "husky": "^8.0.0",
     "lint-staged": "^15.2.0",
     "prettier": "^3.1.1",
-    "react-app-alias": "^2.2.2"
+    "react-app-alias": "^2.2.2",
+    "storybook": "^7.6.6"
   }
 }
