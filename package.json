@@ -61,6 +61,7 @@
     "@storybook/addon-links": "^7.6.6",
     "@storybook/addon-onboarding": "^1.0.10",
     "@storybook/blocks": "^7.6.6",
+    "@storybook/preset-create-react-app": "^7.6.6",
     "@storybook/react": "^7.6.6",
     "@storybook/react-webpack5": "^7.6.6",
     "@storybook/test": "^7.6.6",
@@ -75,6 +76,7 @@
     "lint-staged": "^15.2.0",
     "prettier": "^3.1.1",
     "react-app-alias": "^2.2.2",
-    "storybook": "^7.6.6"
+    "storybook": "^7.6.6",
+    "tsconfig-paths-webpack-plugin": "^4.1.0"
   }
 }
