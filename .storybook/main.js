@@ -1,4 +1,5 @@
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const { merge } = require('webpack-merge')
 
 module.exports = {
   stories: [
@@ -14,7 +15,22 @@ module.exports = {
   ],
   webpackFinal: async (config) => {
     config.resolve.plugins.push(new TsconfigPathsPlugin({}))
-    return config
+    return merge(config, {
+      module: {
+        rules: [
+          {
+            test: /\.(ts|tsx)$/,
+            loader: require.resolve('babel-loader'),
+            options: {
+              presets: [
+                ['react-app', { flow: false, typescript: true }],
+                require.resolve('@emotion/babel-preset-css-prop'),
+              ],
+            },
+          },
+        ],
+      },
+    })
   },
   framework: {
     name: '@storybook/react-webpack5',
