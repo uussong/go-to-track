@@ -14,26 +14,26 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    text: 'Button',
+    children: 'Button',
   },
 }
 
 export const Secondary: Story = {
   args: {
     variant: 'secondary',
-    text: 'Button',
+    children: 'Button',
   },
 }
 
 export const Large: Story = {
   args: {
     size: 'large',
-    text: 'Button',
+    children: 'Button',
   },
 }
 export const Fill: Story = {
   args: {
     size: 'fill',
-    text: '해보기',
+    children: '해보기',
   },
 }
