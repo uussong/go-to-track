@@ -1,12 +1,8 @@
 import { css } from '@emotion/react'
 import { fonts } from './fonts'
-import { css } from '@emotion/react'
 
 export const globalStyles = css`
   ${fonts}
-`
-
-export const globalStyles = css`
   * {
     box-sizing: inherit;
     margin: 0;
