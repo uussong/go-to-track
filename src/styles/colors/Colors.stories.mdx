@@ -1,0 +1,36 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/blocks'
+import { colors } from '.'
+
+<Meta title="Foundation/Colors" />
+
+<ColorPalette>
+  <ColorItem
+    title="White & Black"
+    colors={{ White: colors.white, Black: colors.black }}
+  />
+  <ColorItem
+    title="Gray Color"
+    colors={{
+      Gray900: colors.gray900,
+      Gray700: colors.gray700,
+      Gray500: colors.gray500,
+      Gray200: colors.gray200,
+      Gray100: colors.gray100,
+    }}
+  />
+  <ColorItem
+    title="Main Color"
+    colors={{ Coral500: colors.coral500, Coral700: colors.coral700 }}
+  />
+  <ColorItem
+    title="Chart Color"
+    colors={{
+      Pink: colors.pink,
+      Yellow: colors.yellow,
+      Blue: colors.blue,
+      Green: colors.green,
+      Purple: colors.purple,
+    }}
+  />
+  <ColorItem title="Status Color" colors={{ Red: colors.red }} />
+</ColorPalette>
