@@ -3,8 +3,8 @@ import { ButtonHTMLAttributes } from 'react'
 import { css } from '@emotion/react'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary'
-  size?: 'medium' | 'large' | 'fill'
+  variant?: keyof typeof variants
+  size?: keyof typeof sizes
   disabled?: boolean
 }
 
