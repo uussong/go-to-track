@@ -74,6 +74,7 @@
     "lint-staged": "^15.2.0",
     "prettier": "^3.1.1",
     "react-app-alias": "^2.2.2",
-    "storybook": "^7.6.6"
+    "storybook": "^7.6.6",
+    "webpack-font-preload-plugin": "^1.5.0"
   }
 }

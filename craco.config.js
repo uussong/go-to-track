@@ -1,4 +1,5 @@
 const { CracoAliasPlugin } = require('react-app-alias')
+const FontPreloadPlugin = require('webpack-font-preload-plugin')
 
 module.exports = {
   plugins: [
@@ -18,5 +19,8 @@ module.exports = {
       ],
     ],
     plugins: ['@emotion/babel-plugin'],
+  },
+  webpack: {
+    plugins: [new FontPreloadPlugin()],
   },
 }
