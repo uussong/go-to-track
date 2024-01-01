@@ -18,5 +18,5 @@
     "jsxImportSource": "@emotion/react"
   },
   "extends": "./tsconfig.paths.json",
-  "include": ["src", "tsconfig.paths.json"]
+  "include": ["src", "tsconfig.paths.json", "src/fonts.d.ts"]
 }
