@@ -1,6 +1,7 @@
 import { colors } from '@/styles/colors'
 import { ButtonHTMLAttributes } from 'react'
 import { css } from '@emotion/react'
+import { flexCenter } from '@/styles/mixins'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: keyof typeof variants
@@ -25,6 +26,7 @@ export const Button = ({
 }
 
 const style = css`
+  ${flexCenter}
   border-radius: 5px;
   font-size: 16px;
   font-weight: 600;
