@@ -4,6 +4,9 @@ import { useUser } from '@/hooks/useUser'
 import { getGoogleRedirectResult } from '@/remote/auth'
 import Loading from '@/components/shared/Loading'
 import GoogleSignIn from '@/components/signin/GoogleSignIn'
+import PageLayout from '@/components/shared/PageLayout'
+import { flexCenter } from '@/styles/mixins'
+import { css } from '@emotion/react'
 
 export default function SignInPage() {
   const navigate = useNavigate()
@@ -33,9 +36,13 @@ export default function SignInPage() {
   }
 
   return (
-    <>
+    <PageLayout styles={styles}>
       <h1>지금 바로 시작해보세요</h1>
       <GoogleSignIn />
-    </>
+    </PageLayout>
   )
 }
+
+const styles = css`
+  ${flexCenter}
+`

@@ -1,3 +1,5 @@
+import PageLayout from '@/components/shared/PageLayout'
+
 export default function MyFormsPage() {
-  return <div>MyFormsPage</div>
+  return <PageLayout>MyFormsPage</PageLayout>
 }
