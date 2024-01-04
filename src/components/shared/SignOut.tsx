@@ -1,8 +1,8 @@
+import { useCallback } from 'react'
 import { signOut } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
-
 import { auth } from '@/remote/firebase'
-import { useCallback } from 'react'
+import { Button } from './button'
 
 export default function SignOut() {
   const navigate = useNavigate()
@@ -16,5 +16,9 @@ export default function SignOut() {
       console.error('로그아웃을 다시 시도해 주세요.', error)
     }
   }, [navigate])
-  return <button onClick={handleSignOut}>로그아웃</button>
+  return (
+    <Button variant={'secondary'} onClick={handleSignOut}>
+      로그아웃
+    </Button>
+  )
 }

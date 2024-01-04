@@ -1,6 +1,6 @@
 import { signInWithRedirect } from 'firebase/auth'
-
 import { auth, provider } from '@/remote/firebase'
+import { Button } from '../shared/button'
 
 export default function GoogleSignIn() {
   const handleGoogleSignIn = async () => {
@@ -13,7 +13,9 @@ export default function GoogleSignIn() {
 
   return (
     <>
-      <button onClick={handleGoogleSignIn}>Google로 시작하기</button>
+      <Button variant={'secondary'} size={'fill'} onClick={handleGoogleSignIn}>
+        Google로 시작하기
+      </Button>
     </>
   )
 }
