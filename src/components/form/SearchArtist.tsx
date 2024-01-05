@@ -13,7 +13,12 @@ export default function SearchArtist() {
     queryKey: ['search', searchInput],
     queryFn: () => getArtistInfo(searchInput),
     enabled: searchInput !== '',
-    select: (data) => data.artists.items,
+    select: (data) =>
+      data.artists.items.filter((artist: any) =>
+        artist.genres.some(
+          (genre: any) => genre.includes('k-pop') || genre.includes('korean'),
+        ),
+      ),
   })
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
