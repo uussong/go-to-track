@@ -12,7 +12,7 @@ export default function SearchArtist() {
     setSearchInput(e.target.value)
   }
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['search', debouncedValue],
     queryFn: () => getArtistInfo(debouncedValue),
     enabled: debouncedValue !== '',
@@ -33,7 +33,7 @@ export default function SearchArtist() {
       <form onSubmit={handleSubmit}>
         <input type="text" onChange={handleInput} />
       </form>
-      {searchInput && <ArtistInfo data={data} />}
+      {searchInput && <ArtistInfo data={data} isLoading={isLoading} />}
     </>
   )
 }

@@ -15,9 +15,12 @@ type Data = {
 
 interface ArtistInfoProps {
   data: Data[]
+  isLoading: boolean
 }
 
-export default function ArtistInfo({ data }: ArtistInfoProps) {
+export default function ArtistInfo({ data, isLoading }: ArtistInfoProps) {
+  if (isLoading) return <Loading />
+
   return (
     <>
       {data && data.length > 0 && (
