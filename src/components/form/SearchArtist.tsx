@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getArtistInfo } from '@/remote/spotify'
 import { useDebounce } from '@/hooks/useDebounce'
+import ArtistInfo from './ArtistInfo'
 
 export default function SearchArtist() {
   const [searchInput, setSearchInput] = useState('')
@@ -32,15 +33,7 @@ export default function SearchArtist() {
       <form onSubmit={handleSubmit}>
         <input type="text" onChange={handleInput} />
       </form>
-      {data && (
-        <>
-          <img
-            src={data[0]?.images[1] && data[0]?.images[1].url}
-            alt={data[0]?.name}
-          />
-          <p>{data[0]?.name}</p>
-        </>
-      )}
+      {searchInput && <ArtistInfo data={data} />}
     </>
   )
 }
