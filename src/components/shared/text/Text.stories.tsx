@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { Text } from '.'
-import { colors } from '@/styles/colors'
 
 const meta = {
   title: 'Foundation/Text',
@@ -11,10 +10,8 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Heading1: Story = {
+export const Body: Story = {
   args: {
-    variant: 'heading1',
-    color: colors.gray900,
     children: 'Text',
   },
 }
