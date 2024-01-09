@@ -2,6 +2,7 @@ import { signInWithRedirect } from 'firebase/auth'
 import { css } from '@emotion/react'
 import { auth, provider } from '@/remote/firebase'
 import { Button } from '../shared/button'
+import { colors } from '@/styles/colors'
 
 export default function GoogleSignIn() {
   const handleGoogleSignIn = async () => {
@@ -28,6 +29,7 @@ export default function GoogleSignIn() {
 
 const styles = css`
   position: relative;
+  border: 2px solid ${colors.gray100};
 
   &:hover::before {
     filter: grayscale(20%);
