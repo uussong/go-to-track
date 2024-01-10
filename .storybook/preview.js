@@ -1,4 +1,3 @@
-import '../src/index.css'
 import { Global } from '@emotion/react'
 import { globalStyles } from '../src/styles/globalStyles'
 

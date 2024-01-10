@@ -1,21 +1,44 @@
 import { HTMLAttributes } from 'react'
 import { colors } from '@/styles/colors'
 import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
 type TypographyVariant = keyof typeof variants
 
-interface TextProps extends HTMLAttributes<HTMLSpanElement> {
+interface TextProps extends HTMLAttributes<HTMLElement> {
   variant?: TypographyVariant
   color?: string
 }
 
+type TagType = {
+  [key in TypographyVariant]: React.ElementType
+}
+
+const tags: TagType = {
+  heading1: 'h1',
+  heading2: 'h2',
+  heading3: 'h3',
+  body: 'p',
+  bodyStrong: 'strong',
+  detail: 'span',
+  detailStrong: 'strong',
+}
+
 export function Text({
-  variant = 'heading1',
+  variant = 'body',
   color = colors.gray900,
   ...props
 }: TextProps) {
-  return <span css={[color, variants[variant]]} {...props} />
+  return (
+    <TextTag
+      as={tags[variant]}
+      css={[{ color }, variants[variant]]}
+      {...props}
+    />
+  )
 }
+
+const TextTag = styled.p``
 
 const variants = {
   heading1: css`

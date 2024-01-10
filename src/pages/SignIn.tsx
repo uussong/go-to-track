@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { css } from '@emotion/react'
 import { useUser } from '@/hooks/useUser'
 import { getGoogleRedirectResult } from '@/remote/auth'
 import Loading from '@/components/shared/Loading'
 import GoogleSignIn from '@/components/signin/GoogleSignIn'
+import PageLayout from '@/components/shared/PageLayout'
+import { flexCenter } from '@/styles/mixins'
+import { Text } from '@/components/shared/text'
 
 export default function SignInPage() {
   const navigate = useNavigate()
@@ -33,9 +37,14 @@ export default function SignInPage() {
   }
 
   return (
-    <>
-      <h1>지금 바로 시작해보세요</h1>
+    <PageLayout styles={styles}>
+      <Text variant={'heading2'}>지금 바로 시작해보세요</Text>
       <GoogleSignIn />
-    </>
+    </PageLayout>
   )
 }
+
+const styles = css`
+  ${flexCenter}
+  gap: 20px;
+`

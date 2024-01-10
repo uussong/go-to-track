@@ -1,6 +1,7 @@
 import { colors } from '@/styles/colors'
 import { ButtonHTMLAttributes } from 'react'
 import { css } from '@emotion/react'
+import { flexCenter } from '@/styles/mixins'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: keyof typeof variants
@@ -25,6 +26,7 @@ export const Button = ({
 }
 
 const style = css`
+  ${flexCenter}
   border-radius: 5px;
   font-size: 16px;
   font-weight: 600;
@@ -37,8 +39,8 @@ const variants = {
   primary: css`
     color: ${colors.white};
     background-color: ${colors.coral500};
-    &:hover {
-      background-color: ${colors.coral700};
+    &:not(:disabled):hover {
+      background-color: ${colors.coral300};
     }
     &:disabled {
       background-color: ${colors.gray200};
@@ -46,11 +48,9 @@ const variants = {
   `,
   secondary: css`
     color: ${colors.gray900};
-    &:hover {
-      background-color: ${colors.gray200};
-    }
-    &:disabled {
-      background-color: transparent;
+    background-color: ${colors.white};
+    &:not(:disabled):hover {
+      color: ${colors.gray700};
     }
   `,
 }
