@@ -6,7 +6,7 @@ export default function SpotifyAuth({
 }: {
   children: React.ReactNode
 }) {
-  const { data, isError, refetch, error } = useQuery({
+  const { data, isError, refetch, error, isSuccess } = useQuery({
     queryKey: ['accessToken'],
     queryFn: getAccessToken,
     refetchInterval: 60 * 60 * 1000,
@@ -17,7 +17,7 @@ export default function SpotifyAuth({
     console.error(error)
   }
 
-  if (data) {
+  if (isSuccess) {
     localStorage.setItem('access_token', data.access_token)
   }
 
