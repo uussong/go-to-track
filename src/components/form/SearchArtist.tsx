@@ -21,7 +21,11 @@ export default function SearchArtist() {
       <form onSubmit={handleSubmit}>
         <input type="text" onChange={handleInput} />
       </form>
-      {isLoading || data === undefined ? null : <ArtistInfo data={data} />}
+      {isLoading || data === undefined ? null : data.length === 0 ? (
+        <p>찾는 가수가 없어요</p>
+      ) : (
+        <ArtistInfo data={data} />
+      )}
     </>
   )
 }
