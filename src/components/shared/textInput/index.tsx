@@ -1,10 +1,14 @@
-import { InputHTMLAttributes, useState } from 'react'
+import { InputHTMLAttributes, useId, useState } from 'react'
 import { css } from '@emotion/react'
 import { colors } from '@/styles/colors'
+import { a11yHidden } from '@/styles/mixins'
 
-interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {}
+interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  label: string
+}
 
-export function TextInput({ ...props }: TextInputProps) {
+export function TextInput({ label, ...props }: TextInputProps) {
+  const inputId = useId()
   const [value, setValue] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +21,11 @@ export function TextInput({ ...props }: TextInputProps) {
 
   return (
     <div css={{ position: 'relative' }}>
+      <label htmlFor={inputId} css={labelStyles}>
+        {label}
+      </label>
       <input
+        id={inputId}
         type="text"
         css={inputStyles}
         value={value}
@@ -32,6 +40,10 @@ export function TextInput({ ...props }: TextInputProps) {
     </div>
   )
 }
+
+const labelStyles = css`
+  ${a11yHidden}
+`
 
 const inputStyles = css`
   position: relative;
