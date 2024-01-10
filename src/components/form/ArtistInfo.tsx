@@ -1,22 +1,5 @@
+import { ArtistInfoProps } from '@/models/artist'
 import Loading from '../shared/Loading'
-
-type Data = {
-  external_urls: { spotify: string }
-  followers: { href: null; total: number }
-  genres: string[]
-  href: string
-  id: string
-  images: { height: number; url: string; width: number }[]
-  name: string
-  popularity: number
-  type: string
-  url: string
-}
-
-interface ArtistInfoProps {
-  data: Data[]
-  isLoading: boolean
-}
 
 export default function ArtistInfo({ data, isLoading }: ArtistInfoProps) {
   if (isLoading) return <Loading />
