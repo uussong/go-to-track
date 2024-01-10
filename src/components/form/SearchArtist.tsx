@@ -33,7 +33,7 @@ export default function SearchArtist() {
       <form onSubmit={handleSubmit}>
         <input type="text" onChange={handleInput} />
       </form>
-      {searchInput && <ArtistInfo data={data} isLoading={isLoading} />}
+      {isLoading || data === undefined ? null : <ArtistInfo data={data} />}
     </>
   )
 }

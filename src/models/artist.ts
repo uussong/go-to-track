@@ -13,5 +13,4 @@ interface ArtistData {
 
 export interface ArtistInfoProps {
   data: ArtistData[]
-  isLoading: boolean
 }
