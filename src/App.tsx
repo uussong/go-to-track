@@ -8,6 +8,8 @@ import SignInPage from './pages/SignIn'
 import MyFormsPage from './pages/MyForms'
 import AuthGuard from './components/auth/AuthGuard'
 import AuthProvider from './context/AuthProvider'
+import SpotifyAuth from './components/auth/SpotifyAuth'
+import FormPage from './pages/Form'
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -28,6 +30,10 @@ const router = createBrowserRouter([
         path: 'myforms',
         element: <MyFormsPage />,
       },
+      {
+        path: 'form',
+        element: <FormPage />,
+      },
     ],
   },
 ])
@@ -36,11 +42,13 @@ function App() {
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <AuthGuard>
-            <RouterProvider router={router} />
-          </AuthGuard>
-        </AuthProvider>
+        <SpotifyAuth>
+          <AuthProvider>
+            <AuthGuard>
+              <RouterProvider router={router} />
+            </AuthGuard>
+          </AuthProvider>
+        </SpotifyAuth>
       </QueryClientProvider>
     </RecoilRoot>
   )
