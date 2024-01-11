@@ -1,4 +1,4 @@
-import { MouseEventHandler, useEffect } from 'react'
+import { MouseEventHandler, useCallback, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import PageLayout from '@/components/shared/PageLayout'
 import { useGetFormData } from '@/hooks/useGetFormData'
@@ -9,8 +9,10 @@ import { useGetAlbumInfo } from '@/hooks/useGetAlbumInfo'
 import useNavbar from '@/hooks/useNavbar'
 import { Button } from '@/components/shared/button'
 import { useDeleteFormData } from '@/hooks/useDeleteFormData'
+import DeleteConfirmModal from '@/components/form/DeleteConfirmModal'
 
 export default function FormPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const { formId } = useParams()
   const { updateNavbar } = useNavbar()
 
@@ -20,25 +22,36 @@ export default function FormPage() {
   const { data: artist } = useGetArtistInfo(form.artistId)
   const { data: album } = useGetAlbumInfo(form.albumId)
 
+  const handleModalOpen = useCallback(() => {
+    setIsModalOpen(!isModalOpen)
+  }, [isModalOpen])
+
   const { mutate } = useDeleteFormData()
 
+  const handleDeleteFormClick = () => {
+    mutate()
+  }
+
   useEffect(() => {
-    const handleDeleteFormClick: MouseEventHandler<HTMLButtonElement> = () => {
-      mutate()
-    }
     updateNavbar({
       left: <Link to={`/myforms`}>My forms</Link>,
       right: (
-        <Button variant={'secondary'} onClick={handleDeleteFormClick}>
+        <Button variant={'secondary'} onClick={handleModalOpen}>
           삭제
         </Button>
       ),
     })
-  }, [updateNavbar, mutate])
+  }, [updateNavbar, handleModalOpen])
 
   return (
     <PageLayout>
       <FormDetail form={form} artist={artist} album={album} />
+      {isModalOpen && (
+        <DeleteConfirmModal
+          handleModalOpen={() => setIsModalOpen(!isModalOpen)}
+          onDelete={handleDeleteFormClick}
+        />
+      )}
     </PageLayout>
   )
 }
