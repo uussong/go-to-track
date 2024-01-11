@@ -29,3 +29,17 @@ export const getArtistInfo = async (searchInput: string) => {
   )
   return data
 }
+
+export const getAlbums = async (artistId: string) => {
+  const accessToken = localStorage.getItem('access_token')
+
+  const { data } = await axios.get(
+    `https://api.spotify.com/v1/artists/${artistId}/albums?include_groups=album,single&limit=50`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  )
+  return data
+}
