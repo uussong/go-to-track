@@ -1,6 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react'
-
 import { Chip } from '.'
+import { useState } from 'react'
 
 const meta = {
   title: 'Components/Chip',
@@ -13,6 +13,14 @@ type Story = StoryFn<typeof meta>
 
 export const Primary: Story = () => {
   const datas = [1, 2, 3]
+  const initialSelected = datas.map(() => false)
+  const [selected, setSelected] = useState<boolean[]>(initialSelected)
+  const handleClick = (index: number) => {
+    const checkSelected = [...selected]
+    checkSelected[index] = !checkSelected[index]
+    setSelected(checkSelected)
+  }
+
   return (
     <ul
       css={{
@@ -23,7 +31,13 @@ export const Primary: Story = () => {
       }}
     >
       {datas.map((data, index) => (
-        <Chip index={index + 1} label={`label ${data}`} />
+        <Chip
+          key={index}
+          index={index + 1}
+          label={`label ${data}`}
+          selected={selected[index]}
+          onClick={() => handleClick(index)}
+        />
       ))}
     </ul>
   )

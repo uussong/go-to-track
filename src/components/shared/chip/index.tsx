@@ -1,27 +1,26 @@
 import { colors } from '@/styles/colors'
 import { css } from '@emotion/react'
-import { HTMLAttributes, useState } from 'react'
+import { HTMLAttributes } from 'react'
 
 interface ChipProps extends HTMLAttributes<HTMLLIElement> {
   index: number
   label: string
+  selected: boolean
 }
-export function Chip({ index, label }: ChipProps) {
-  const [selected, setSelected] = useState(false)
-
-  const handleClick = () => {
-    setSelected(!selected)
-  }
-
+export function Chip({ index, label, selected, onClick, ...props }: ChipProps) {
   return (
-    <li css={[Chipstyles, selected && selectedStyles]} onClick={handleClick}>
+    <li
+      css={[chipStyles, selected && selectedStyles]}
+      onClick={onClick}
+      {...props}
+    >
       <span css={indexStyles}>{index}</span>
       <span css={labelStyles}>{label}</span>
     </li>
   )
 }
 
-const Chipstyles = css`
+const chipStyles = css`
   display: inline-flex;
   align-items: center;
   border-radius: 5px;
