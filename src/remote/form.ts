@@ -6,6 +6,7 @@ import {
   query,
   getDoc,
   orderBy,
+  deleteDoc,
 } from 'firebase/firestore'
 import { store } from './firebase'
 import { COLLECTIONS } from '@/constants/collections'
@@ -60,4 +61,16 @@ export const getFormDataById = async (
   } else {
     return null
   }
+}
+
+export const deleteFormData = async (user: User, formId: string) => {
+  const { uid } = user
+  const formRef = doc(
+    store,
+    COLLECTIONS.FORM,
+    uid,
+    COLLECTIONS.FORMDATA,
+    formId,
+  )
+  await deleteDoc(formRef)
 }
