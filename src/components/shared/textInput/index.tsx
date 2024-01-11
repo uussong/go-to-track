@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, useId, useState } from 'react'
+import { InputHTMLAttributes, useId, useRef } from 'react'
 import { css } from '@emotion/react'
 import { colors } from '@/styles/colors'
 import { a11yHidden } from '@/styles/mixins'
@@ -7,16 +7,19 @@ interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
 }
 
-export function TextInput({ label, ...props }: TextInputProps) {
+export function TextInput({
+  label,
+  value,
+  onChange,
+  ...props
+}: TextInputProps) {
   const inputId = useId()
-  const [value, setValue] = useState('')
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value)
-  }
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const resetValue = () => {
-    setValue('')
+    if (inputRef.current?.value) {
+      inputRef.current.value = ''
+    }
   }
 
   return (
@@ -29,7 +32,8 @@ export function TextInput({ label, ...props }: TextInputProps) {
         type="text"
         css={inputStyles}
         value={value}
-        onChange={handleChange}
+        onChange={onChange}
+        ref={inputRef}
         {...props}
       />
       {value && (
