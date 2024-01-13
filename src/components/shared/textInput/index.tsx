@@ -1,10 +1,11 @@
-import { InputHTMLAttributes, useId, useRef } from 'react'
+import { ChangeEvent, InputHTMLAttributes, useId, useRef } from 'react'
 import { css } from '@emotion/react'
 import { colors } from '@/styles/colors'
 import { a11yHidden } from '@/styles/mixins'
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export function TextInput({
@@ -17,9 +18,8 @@ export function TextInput({
   const inputRef = useRef<HTMLInputElement>(null)
 
   const resetValue = () => {
-    if (inputRef.current?.value) {
-      inputRef.current.value = ''
-    }
+    onChange({ target: { value: '' } } as ChangeEvent<HTMLInputElement>)
+    inputRef.current?.focus()
   }
 
   return (
