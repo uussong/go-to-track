@@ -13,12 +13,15 @@ type Story = StoryFn<typeof meta>
 
 export const Primary: Story = () => {
   const datas = [1, 2, 3]
-  const initialSelected = datas.map(() => false)
-  const [selected, setSelected] = useState<boolean[]>(initialSelected)
-  const handleClick = (index: number) => {
-    const checkSelected = [...selected]
-    checkSelected[index] = !checkSelected[index]
-    setSelected(checkSelected)
+
+  const [selectedValues, setSelectedValues] = useState<number[]>([])
+
+  const handleChipSelect = (clickedIndex: number) => {
+    setSelectedValues((prevValues) =>
+      prevValues.includes(clickedIndex)
+        ? prevValues.filter((index) => index !== clickedIndex)
+        : [...prevValues, clickedIndex],
+    )
   }
 
   return (
@@ -35,8 +38,8 @@ export const Primary: Story = () => {
           key={index}
           index={index + 1}
           label={`label ${data}`}
-          selected={selected[index]}
-          onClick={() => handleClick(index)}
+          selected={selectedValues.includes(index + 1)}
+          onClick={handleChipSelect}
         />
       ))}
     </ul>
