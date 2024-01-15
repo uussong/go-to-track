@@ -1,6 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react'
 import { Chip } from '.'
-import { useState } from 'react'
+import { useRef } from 'react'
 
 const meta = {
   title: 'Components/Chip',
@@ -13,16 +13,7 @@ type Story = StoryFn<typeof meta>
 
 export const Primary: Story = () => {
   const datas = [1, 2, 3]
-
-  const [selectedValues, setSelectedValues] = useState<number[]>([])
-
-  const handleChipSelect = (clickedIndex: number) => {
-    setSelectedValues((prevValues) =>
-      prevValues.includes(clickedIndex)
-        ? prevValues.filter((index) => index !== clickedIndex)
-        : [...prevValues, clickedIndex],
-    )
-  }
+  const chipRefs = datas.map(() => useRef<HTMLLIElement | null>(null))
 
   return (
     <ul
@@ -38,8 +29,7 @@ export const Primary: Story = () => {
           key={index}
           index={index + 1}
           label={`label ${data}`}
-          selected={selectedValues.includes(index + 1)}
-          onClick={handleChipSelect}
+          chipRef={chipRefs[index]}
         />
       ))}
     </ul>
