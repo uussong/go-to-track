@@ -1,6 +1,10 @@
+import { useRecoilValue } from 'recoil'
+import { formState } from '@/stores/form'
 import { useGetTracks } from '@/hooks/useGetTracks'
 
-export default function SelectTrack({ albumId }: { albumId: string }) {
+export default function SelectTrack() {
+  const formData = useRecoilValue(formState)
+  const albumId = formData.albumId
   const { data } = useGetTracks(albumId)
 
   return (
