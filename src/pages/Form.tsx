@@ -1,9 +1,11 @@
+import { Suspense } from 'react'
+import { useRecoilValue } from 'recoil'
 import SearchArtist from '@/components/form/SearchArtist'
 import SelectAlbum from '@/components/form/SelectAlbum'
 import SelectTrack from '@/components/form/SelectTrack'
+import Loading from '@/components/shared/Loading'
 import PageLayout from '@/components/shared/PageLayout'
 import { formState } from '@/stores/form'
-import { useRecoilValue } from 'recoil'
 
 export default function FormPage() {
   const formData = useRecoilValue(formState)
@@ -13,8 +15,12 @@ export default function FormPage() {
   return (
     <PageLayout>
       <SearchArtist />
-      {artistId && <SelectAlbum artistId={artistId} />}
-      {albumId && <SelectTrack albumId={albumId} />}
+      <Suspense fallback={<Loading />}>
+        {artistId && <SelectAlbum artistId={artistId} />}
+      </Suspense>
+      <Suspense fallback={<Loading />}>
+        {albumId && <SelectTrack albumId={albumId} />}
+      </Suspense>
     </PageLayout>
   )
 }
