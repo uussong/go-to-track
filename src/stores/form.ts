@@ -1,6 +1,6 @@
 import { atom } from 'recoil'
 
-export const formState = atom({
-  key: 'formState',
+export const formIdState = atom({
+  key: 'formIdState',
   default: { artistId: '', albumId: '' },
 })

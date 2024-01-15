@@ -4,10 +4,10 @@ import { useSearchArtistInfo } from '@/hooks/useSearchArtistInfo'
 import ArtistInfo from './ArtistInfo'
 import { FormDataProps } from '@/models/form'
 import { useSetRecoilState } from 'recoil'
-import { formState } from '@/stores/form'
+import { formIdState } from '@/stores/form'
 
 export default function SearchArtist({ onNext }: { onNext: () => void }) {
-  const setFormData = useSetRecoilState(formState)
+  const setFormId = useSetRecoilState(formIdState)
   const [searchInput, setSearchInput] = useState('')
   const debouncedValue = useDebounce(searchInput)
   const { data, isLoading } = useSearchArtistInfo(debouncedValue)
@@ -17,7 +17,7 @@ export default function SearchArtist({ onNext }: { onNext: () => void }) {
   }
 
   const handleSetArtist = (artistId: string) => {
-    setFormData((prevData: FormDataProps) => ({
+    setFormId((prevData: FormDataProps) => ({
       ...prevData,
       artistId: artistId,
     }))

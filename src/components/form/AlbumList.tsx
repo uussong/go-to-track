@@ -2,7 +2,7 @@ import { useSetRecoilState } from 'recoil'
 import { css } from '@emotion/react'
 import { AlbumData } from '@/models/album'
 import { FormDataProps } from '@/models/form'
-import { formState } from '@/stores/form'
+import { formIdState } from '@/stores/form'
 
 interface AlbumListProps {
   data: AlbumData[]
@@ -10,10 +10,10 @@ interface AlbumListProps {
 }
 
 export default function AlbumList({ data, onNext }: AlbumListProps) {
-  const setFormData = useSetRecoilState(formState)
+  const setFormId = useSetRecoilState(formIdState)
 
   const handleSelectAlbum = (albumId: string) => {
-    setFormData((prevData: FormDataProps) => ({
+    setFormId((prevData: FormDataProps) => ({
       ...prevData,
       albumId: albumId,
     }))

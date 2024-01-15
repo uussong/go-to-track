@@ -1,10 +1,11 @@
 import { useRecoilValue } from 'recoil'
-import { formState } from '@/stores/form'
+import { formIdState } from '@/stores/form'
 import { useGetTracks } from '@/hooks/useGetTracks'
+import CompleteButton from './CompleteButton'
 
 export default function SelectTrack() {
-  const formData = useRecoilValue(formState)
-  const albumId = formData.albumId
+  const formId = useRecoilValue(formIdState)
+  const albumId = formId.albumId
   const { data } = useGetTracks(albumId)
 
   return (
@@ -16,6 +17,7 @@ export default function SelectTrack() {
             <span>{track.name}</span>
           </div>
         ))}
+      <CompleteButton />
     </>
   )
 }
