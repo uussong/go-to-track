@@ -1,4 +1,4 @@
-interface AlbumData {
+export interface AlbumData {
   album_group: string
   album_type: string
   artists: [
@@ -20,8 +20,4 @@ interface AlbumData {
   total_tracks: number
   type: string
   uri: string
-}
-
-export interface AlbumListProps {
-  data: AlbumData[]
 }

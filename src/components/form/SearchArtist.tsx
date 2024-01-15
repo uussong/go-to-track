@@ -6,7 +6,7 @@ import { FormDataProps } from '@/models/form'
 import { useSetRecoilState } from 'recoil'
 import { formState } from '@/stores/form'
 
-export default function SearchArtist() {
+export default function SearchArtist({ onNext }: { onNext: () => void }) {
   const setFormData = useSetRecoilState(formState)
   const [searchInput, setSearchInput] = useState('')
   const debouncedValue = useDebounce(searchInput)
@@ -27,6 +27,9 @@ export default function SearchArtist() {
     e.preventDefault()
   }
 
+  const handleNext = () => {
+    onNext()
+  }
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -37,7 +40,14 @@ export default function SearchArtist() {
       ) : (
         <>
           <ArtistInfo data={data} />
-          <button onClick={() => handleSetArtist(data[0].id)}>맞아요</button>
+          <button
+            onClick={() => {
+              handleSetArtist(data[0].id)
+              handleNext()
+            }}
+          >
+            맞아요
+          </button>
         </>
       )}
     </>
