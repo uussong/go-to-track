@@ -5,6 +5,7 @@ import { useGetTracks } from '@/hooks/useGetTracks'
 import { Button } from '../shared/button'
 import CompleteButton from './CompleteButton'
 import { Text } from '../shared/text'
+import TrackList from './TrackList'
 
 export default function SelectTrack({
   onPrevious,
@@ -21,13 +22,7 @@ export default function SelectTrack({
   return (
     <>
       <Text variant={'heading2'}>수록곡 목록을 확인해주세요</Text>
-      {data &&
-        data.map((track: any) => (
-          <div key={track.id}>
-            <span>{track.track_number}</span>
-            <span>{track.name}</span>
-          </div>
-        ))}
+      <TrackList data={data} />
       <div css={buttonGroupStyles}>
         <Button variant={'secondary'} onClick={handlePrevious}>
           이전
