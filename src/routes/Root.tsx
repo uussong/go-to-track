@@ -1,11 +1,14 @@
+import { Suspense } from 'react'
+import { Link, Outlet } from 'react-router-dom'
+import { css } from '@emotion/react'
+import Loading from '@/components/shared/Loading'
 import SignOut from '@/components/shared/SignOut'
 import { useUser } from '@/hooks/useUser'
 import { colors } from '@/styles/colors'
-import { css } from '@emotion/react'
-import { Link, Outlet } from 'react-router-dom'
 
 export default function Root() {
   const user = useUser()
+
   return (
     <>
       <header css={headerStyles}>
@@ -18,7 +21,10 @@ export default function Root() {
           </ul>
         </nav>
       </header>
-      <Outlet />
+
+      <Suspense fallback={<Loading />}>
+        <Outlet />
+      </Suspense>
     </>
   )
 }
