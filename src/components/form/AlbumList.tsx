@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useSetRecoilState } from 'recoil'
 import { css } from '@emotion/react'
 import { AlbumData } from '@/models/album'
-import { FormDataProps } from '@/models/form'
+import { FormIdProps } from '@/models/form'
 import { formIdState } from '@/stores/form'
 import { Skeleton } from '../shared/skeleton'
 import { Text } from '../shared/text'
@@ -17,7 +17,7 @@ export default function AlbumList({ data, onNext }: AlbumListProps) {
   const [isLoading, setIsLoading] = useState(true)
 
   const handleSelectAlbum = (albumId: string) => {
-    setFormId((prevData: FormDataProps) => ({
+    setFormId((prevData: FormIdProps) => ({
       ...prevData,
       albumId: albumId,
     }))

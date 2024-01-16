@@ -4,7 +4,7 @@ import { css } from '@emotion/react'
 import { useDebounce } from '@/hooks/useDebounce'
 import { useSearchArtistInfo } from '@/hooks/useSearchArtistInfo'
 import ArtistInfo from './ArtistInfo'
-import { FormDataProps } from '@/models/form'
+import { FormIdProps } from '@/models/form'
 import { formIdState } from '@/stores/form'
 import { Button } from '../shared/button'
 import { Text } from '../shared/text'
@@ -21,7 +21,7 @@ export default function SearchArtist({ onNext }: { onNext: () => void }) {
   }
 
   const handleSetArtist = (artistId: string) => {
-    setFormId((prevData: FormDataProps) => ({
+    setFormId((prevData: FormIdProps) => ({
       ...prevData,
       artistId: artistId,
     }))
