@@ -16,11 +16,16 @@ export default function FormPage() {
       )}
       <Suspense fallback={<Loading />}>
         {step === '앨범선택' && (
-          <SelectAlbum onNext={() => setStep('트랙선택')} />
+          <SelectAlbum
+            onPrevious={() => setStep('가수검색')}
+            onNext={() => setStep('트랙선택')}
+          />
         )}
       </Suspense>
       <Suspense fallback={<Loading />}>
-        {step === '트랙선택' && <SelectTrack />}
+        {step === '트랙선택' && (
+          <SelectTrack onPrevious={() => setStep('앨범선택')} />
+        )}
       </Suspense>
     </PageLayout>
   )

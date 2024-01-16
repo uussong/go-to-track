@@ -1,15 +1,25 @@
 import { useRecoilValue } from 'recoil'
 import { formIdState } from '@/stores/form'
 import { useGetTracks } from '@/hooks/useGetTracks'
-import CompleteButton from './CompleteButton'
+import { Button } from '../shared/button'
 
-export default function SelectTrack() {
+export default function SelectTrack({
+  onPrevious,
+}: {
+  onPrevious: () => void
+}) {
   const formId = useRecoilValue(formIdState)
   const albumId = formId.albumId
   const { data } = useGetTracks(albumId)
 
+  const handlePrevious = () => {
+    onPrevious()
+  }
   return (
     <>
+      <Button variant={'secondary'} onClick={handlePrevious}>
+        이전
+      </Button>
       {data &&
         data.map((track: any) => (
           <div key={track.id}>
@@ -17,7 +27,6 @@ export default function SelectTrack() {
             <span>{track.name}</span>
           </div>
         ))}
-      <CompleteButton />
     </>
   )
 }
