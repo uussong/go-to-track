@@ -1,7 +1,10 @@
 import { useRecoilValue } from 'recoil'
+import { css } from '@emotion/react'
 import { formIdState } from '@/stores/form'
 import { useGetTracks } from '@/hooks/useGetTracks'
 import { Button } from '../shared/button'
+import CompleteButton from './CompleteButton'
+import { Text } from '../shared/text'
 
 export default function SelectTrack({
   onPrevious,
@@ -17,9 +20,7 @@ export default function SelectTrack({
   }
   return (
     <>
-      <Button variant={'secondary'} onClick={handlePrevious}>
-        이전
-      </Button>
+      <Text variant={'heading2'}>수록곡 목록을 확인해주세요</Text>
       {data &&
         data.map((track: any) => (
           <div key={track.id}>
@@ -27,6 +28,18 @@ export default function SelectTrack({
             <span>{track.name}</span>
           </div>
         ))}
+      <div css={buttonGroupStyles}>
+        <Button variant={'secondary'} onClick={handlePrevious}>
+          이전
+        </Button>
+        <CompleteButton />
+      </div>
     </>
   )
 }
+
+const buttonGroupStyles = css`
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+`
