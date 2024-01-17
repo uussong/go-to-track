@@ -1,45 +1,21 @@
-import { ChangeEvent, Suspense } from 'react'
-import { Link, Outlet, useLocation } from 'react-router-dom'
-import { useRecoilState } from 'recoil'
+import { Suspense } from 'react'
+import { Outlet } from 'react-router-dom'
 import { css } from '@emotion/react'
 import Loading from '@/components/shared/Loading'
 import SignOut from '@/components/shared/SignOut'
 import { useUser } from '@/hooks/useUser'
 import { colors } from '@/styles/colors'
-import { formDataState } from '@/stores/form'
-import { Text } from '@/components/shared/text'
+import Navbar from '@/components/shared/Navbar'
 
 export default function Root() {
   const user = useUser()
-  const { pathname } = useLocation()
-  const [formData, setFormData] = useRecoilState(formDataState)
-  const formTitle = formData.formTitle
-
-  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormData({ formTitle: e.target.value })
-  }
 
   return (
     <>
       <header css={headerStyles}>
         <nav css={navStyles}>
           <ul css={ulStyles}>
-            <li>
-              {pathname === `/form` ? (
-                <>
-                  <Link to={`/myforms`}>My forms</Link>
-                  <Text variant={'detail'}> / </Text>
-                  <input
-                    css={inputStyles}
-                    type="text"
-                    value={formTitle}
-                    onChange={handleInput}
-                  />
-                </>
-              ) : (
-                <Link to={``}>Home</Link>
-              )}
-            </li>
+            <Navbar />
             {user && <SignOut />}
           </ul>
         </nav>
@@ -69,8 +45,4 @@ const ulStyles = css`
   justify-content: space-between;
   align-items: center;
   height: 100%;
-`
-
-const inputStyles = css`
-  width: 150px;
 `
