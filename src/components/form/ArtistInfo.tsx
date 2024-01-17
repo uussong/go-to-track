@@ -1,8 +1,12 @@
 import { useState } from 'react'
 import { css } from '@emotion/react'
-import { ArtistInfoProps } from '@/models/artist'
+import { ArtistData } from '@/models/artist'
 import { Skeleton } from '../shared/skeleton'
 import { Text } from '../shared/text'
+
+export interface ArtistInfoProps {
+  data: ArtistData[]
+}
 
 export default function ArtistInfo({ data }: ArtistInfoProps) {
   const [isLoading, setIsLoading] = useState(true)

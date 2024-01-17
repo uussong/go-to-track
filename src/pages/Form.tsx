@@ -4,13 +4,13 @@ import EnterTitle from '@/components/form/EnterTitle'
 import SearchArtist from '@/components/form/SearchArtist'
 import SelectAlbum from '@/components/form/SelectAlbum'
 import SelectTrack from '@/components/form/SelectTrack'
-import { FormDataProps } from '@/models/form'
+import { FormData } from '@/models/form'
 
 export default function FormPage() {
   const [step, setStep] = useState<
     '제목입력' | '가수검색' | '앨범선택' | '트랙선택'
   >('제목입력')
-  const [formData, setFormData] = useState<FormDataProps>({
+  const [formData, setFormData] = useState<FormData>({
     formTitle: '',
     artistId: '',
     albumId: '',

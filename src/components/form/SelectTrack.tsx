@@ -4,10 +4,10 @@ import { Button } from '../shared/button'
 import CompleteButton from './CompleteButton'
 import { Text } from '../shared/text'
 import TrackList from './TrackList'
-import { FormDataProps } from '@/models/form'
+import { FormData } from '@/models/form'
 
 interface SelectTrackProps {
-  formData: FormDataProps
+  formData: FormData
   onPrevious: () => void
 }
 

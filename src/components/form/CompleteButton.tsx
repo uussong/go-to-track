@@ -1,10 +1,10 @@
 import { Button } from '../shared/button'
 import { saveFormData } from '@/remote/form'
-import { FormDataProps } from '@/models/form'
+import { FormData } from '@/models/form'
 import { useNavigate } from 'react-router-dom'
 
 interface CompleteButtonProps {
-  formData: FormDataProps
+  formData: FormData
 }
 
 export default function CompleteButton({ formData }: CompleteButtonProps) {

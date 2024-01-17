@@ -14,7 +14,7 @@ export default function AlbumList({ data, onNext }: AlbumListProps) {
 
   return (
     <section css={sectionStyles}>
-      {data.map((album: any) => (
+      {data.map((album: AlbumData) => (
         <article
           css={articleStyles}
           key={album.id}

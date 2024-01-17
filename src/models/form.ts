@@ -1,9 +1,4 @@
-export interface FormIdProps {
-  artistId: string
-  albumId: string
-}
-
-export interface FormDataProps {
+export interface FormData {
   formTitle: string
   artistId: string
   albumId: string

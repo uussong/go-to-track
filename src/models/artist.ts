@@ -1,4 +1,4 @@
-interface ArtistData {
+export interface ArtistData {
   external_urls: { spotify: string }
   followers: { href: null; total: number }
   genres: string[]
@@ -9,8 +9,4 @@ interface ArtistData {
   popularity: number
   type: string
   url: string
-}
-
-export interface ArtistInfoProps {
-  data: ArtistData[]
 }
