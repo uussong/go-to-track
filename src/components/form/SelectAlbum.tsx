@@ -1,28 +1,25 @@
-import { useRecoilValue } from 'recoil'
 import { css } from '@emotion/react'
-import { formIdState } from '@/stores/form'
 import { useGetAlbums } from '@/hooks/useGetAlbums'
 import AlbumList from './AlbumList'
 import { Button } from '../shared/button'
 import { Text } from '../shared/text'
 
 interface SelectAlbumProps {
+  artistId: string
   onPrevious: () => void
-  onNext: () => void
+  onNext: (albumId: string) => void
 }
 
-export default function SelectAlbum({ onPrevious, onNext }: SelectAlbumProps) {
-  const formId = useRecoilValue(formIdState)
-  const artistId = formId.artistId
+export default function SelectAlbum({
+  artistId,
+  onPrevious,
+  onNext,
+}: SelectAlbumProps) {
   const { data } = useGetAlbums(artistId)
-
-  const handlePrevious = () => {
-    onPrevious()
-  }
 
   return (
     <>
-      <Button variant={'secondary'} onClick={handlePrevious}>
+      <Button variant={'secondary'} onClick={onPrevious}>
         이전
       </Button>
       <Text css={titleStyles} variant={'heading2'}>

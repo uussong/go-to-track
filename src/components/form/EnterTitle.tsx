@@ -4,7 +4,11 @@ import { Text } from '../shared/text'
 import { useSetRecoilState } from 'recoil'
 import { formDataState } from '@/stores/form'
 
-export default function EnterTitle({ onNext }: { onNext: () => void }) {
+interface EnterTitleProps {
+  onNext: (formTitle: string) => void
+}
+
+export default function EnterTitle({ onNext }: EnterTitleProps) {
   const setFormData = useSetRecoilState(formDataState)
   const [input, setInput] = useState('')
 
@@ -12,19 +16,15 @@ export default function EnterTitle({ onNext }: { onNext: () => void }) {
     setInput(e.target.value)
   }
 
-  const handleSetTitle = () => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    onNext(input)
     setFormData({ formTitle: input })
   }
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    onNext()
-    handleSetTitle()
-  }
-
   const handleClick = () => {
-    onNext()
-    handleSetTitle()
+    onNext(input)
+    setFormData({ formTitle: input })
   }
 
   return (

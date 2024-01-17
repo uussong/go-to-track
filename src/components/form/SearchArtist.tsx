@@ -1,17 +1,17 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { useSetRecoilState } from 'recoil'
 import { css } from '@emotion/react'
 import { useDebounce } from '@/hooks/useDebounce'
 import { useSearchArtistInfo } from '@/hooks/useSearchArtistInfo'
 import ArtistInfo from './ArtistInfo'
-import { FormIdProps } from '@/models/form'
-import { formIdState } from '@/stores/form'
 import { Button } from '../shared/button'
 import { Text } from '../shared/text'
 import { flexColumn } from '@/styles/mixins'
 
-export default function SearchArtist({ onNext }: { onNext: () => void }) {
-  const setFormId = useSetRecoilState(formIdState)
+interface SearchArtistProps {
+  onNext: (artistId: string) => void
+}
+
+export default function SearchArtist({ onNext }: SearchArtistProps) {
   const [searchInput, setSearchInput] = useState('')
   const debouncedValue = useDebounce(searchInput)
   const { data, isLoading } = useSearchArtistInfo(debouncedValue)
@@ -20,19 +20,8 @@ export default function SearchArtist({ onNext }: { onNext: () => void }) {
     setSearchInput(e.target.value)
   }
 
-  const handleSetArtist = (artistId: string) => {
-    setFormId((prevData: FormIdProps) => ({
-      ...prevData,
-      artistId: artistId,
-    }))
-  }
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-  }
-
-  const handleNext = () => {
-    onNext()
   }
 
   return (
@@ -52,8 +41,7 @@ export default function SearchArtist({ onNext }: { onNext: () => void }) {
             <Text variant={'bodyStrong'}>찾는 가수가 맞나요?</Text>
             <Button
               onClick={() => {
-                handleSetArtist(data[0].id)
-                handleNext()
+                onNext(data[0].id)
               }}
             >
               맞아요

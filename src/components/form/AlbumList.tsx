@@ -1,31 +1,16 @@
 import { useState } from 'react'
-import { useSetRecoilState } from 'recoil'
 import { css } from '@emotion/react'
 import { AlbumData } from '@/models/album'
-import { FormIdProps } from '@/models/form'
-import { formIdState } from '@/stores/form'
 import { Skeleton } from '../shared/skeleton'
 import { Text } from '../shared/text'
 
 interface AlbumListProps {
   data: AlbumData[]
-  onNext: () => void
+  onNext: (albumId: string) => void
 }
 
 export default function AlbumList({ data, onNext }: AlbumListProps) {
-  const setFormId = useSetRecoilState(formIdState)
   const [isLoading, setIsLoading] = useState(true)
-
-  const handleSelectAlbum = (albumId: string) => {
-    setFormId((prevData: FormIdProps) => ({
-      ...prevData,
-      albumId: albumId,
-    }))
-  }
-
-  const handleNext = () => {
-    onNext()
-  }
 
   return (
     <section css={sectionStyles}>
@@ -34,8 +19,7 @@ export default function AlbumList({ data, onNext }: AlbumListProps) {
           css={articleStyles}
           key={album.id}
           onClick={() => {
-            handleSelectAlbum(album.id)
-            handleNext()
+            onNext(album.id)
           }}
         >
           {isLoading && <Skeleton width={125} height={125} />}
