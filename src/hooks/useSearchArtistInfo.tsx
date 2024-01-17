@@ -3,7 +3,7 @@ import { getArtistInfo } from '@/remote/spotify'
 import { ArtistData } from '@/models/artist'
 
 export const useSearchArtistInfo = (debouncedValue: string) => {
-  const { data, isLoading } = useQuery({
+  return useQuery({
     queryKey: ['search', debouncedValue],
     queryFn: () => getArtistInfo(debouncedValue),
     enabled: debouncedValue !== '',
@@ -14,6 +14,4 @@ export const useSearchArtistInfo = (debouncedValue: string) => {
         ),
       ),
   })
-
-  return { data, isLoading }
 }
