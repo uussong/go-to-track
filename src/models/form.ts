@@ -3,3 +3,8 @@ export interface FormData {
   artistId: string
   albumId: string
 }
+
+export interface FormIdData {
+  artistId: string
+  albumId: string
+}

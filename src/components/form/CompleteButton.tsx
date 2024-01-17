@@ -1,14 +1,21 @@
-import { Button } from '../shared/button'
-import { saveFormData } from '@/remote/form'
-import { FormData } from '@/models/form'
+import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
+import { saveFormData } from '@/remote/form'
+import { FormIdData } from '@/models/form'
+import { formDataState } from '@/stores/form'
+import { Button } from '../shared/button'
 
 interface CompleteButtonProps {
-  formData: FormData
+  formIdData: FormIdData
 }
 
-export default function CompleteButton({ formData }: CompleteButtonProps) {
+export default function CompleteButton({ formIdData }: CompleteButtonProps) {
+  const formTitle = useRecoilValue(formDataState)
   const navigate = useNavigate()
+  const formData = {
+    ...formIdData,
+    ...formTitle,
+  }
 
   const handleClick = () => {
     if (formData) {
