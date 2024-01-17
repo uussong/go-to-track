@@ -1,13 +1,14 @@
 import { Suspense } from 'react'
-import { Outlet } from 'react-router-dom'
+import { useLocation, Link, Outlet } from 'react-router-dom'
 import { css } from '@emotion/react'
 import Loading from '@/components/shared/Loading'
 import SignOut from '@/components/shared/SignOut'
 import { useUser } from '@/hooks/useUser'
 import { colors } from '@/styles/colors'
-import Navbar from '@/components/shared/Navbar'
+import Navbar from '@/components/form/Navbar'
 
 export default function Root() {
+  const { pathname } = useLocation()
   const user = useUser()
 
   return (
@@ -15,8 +16,10 @@ export default function Root() {
       <header css={headerStyles}>
         <nav css={navStyles}>
           <ul css={ulStyles}>
-            <Navbar />
-            {user && <SignOut />}
+            <li>
+              {pathname === `/form` ? <Navbar /> : <Link to={``}>Home</Link>}
+            </li>
+            <li>{user && <SignOut />}</li>
           </ul>
         </nav>
       </header>
