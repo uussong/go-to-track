@@ -1,31 +1,22 @@
 import { colors } from '@/styles/colors'
 import { css } from '@emotion/react'
-import { RefObject, useEffect, useState } from 'react'
 
 interface ChipProps {
   index: number
   label: string
-  chipRef: RefObject<HTMLLIElement>
+  selected: boolean
+  onClick: (clickedIndex: number, isSelected: boolean) => void
 }
 
-export function Chip({ index, label, chipRef, ...props }: ChipProps) {
-  const [selected, setSelected] = useState(false)
-
+export function Chip({ index, label, selected, onClick, ...props }: ChipProps) {
   const handleClick = () => {
-    setSelected(!selected)
+    onClick(index, !selected)
   }
-
-  useEffect(() => {
-    const chipSelected = chipRef?.current?.getAttribute('data-selected')
-    console.log('chip', index, chipSelected)
-  }, [selected, chipRef, index])
 
   return (
     <li
       css={[chipStyles, selected && selectedStyles]}
-      data-selected={selected}
       onClick={handleClick}
-      ref={chipRef}
       {...props}
     >
       <span css={indexStyles}>{index}</span>
