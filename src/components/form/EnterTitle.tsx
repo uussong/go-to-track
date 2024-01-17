@@ -33,7 +33,9 @@ export default function EnterTitle({ onNext }: EnterTitleProps) {
       <Text variant={'heading2'}>먼저 제목을 입력해주세요</Text>
       <form onSubmit={handleSubmit}>
         <input type="text" value={input} onChange={handleInput} />
-        <Button onClick={handleClick}>계속</Button>
+        <Button onClick={handleClick} disabled={input === ''}>
+          계속
+        </Button>
       </form>
     </>
   )
