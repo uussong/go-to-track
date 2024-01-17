@@ -11,7 +11,6 @@ export default function FormPage() {
     '제목입력' | '가수검색' | '앨범선택' | '트랙선택'
   >('제목입력')
   const [formData, setFormData] = useState<FormData>({
-    formTitle: '',
     artistId: '',
     albumId: '',
   })
@@ -20,8 +19,7 @@ export default function FormPage() {
     <PageLayout>
       {step === '제목입력' && (
         <EnterTitle
-          onNext={(formTitle) => {
-            setFormData((prevData) => ({ ...prevData, formTitle }))
+          onNext={() => {
             setStep('가수검색')
           }}
         />

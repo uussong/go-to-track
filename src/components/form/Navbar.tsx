@@ -17,14 +17,12 @@ export default function Navbar() {
     <>
       <Link to={`/myforms`}>My forms</Link>
       <Text variant={'detail'}> / </Text>
-      {formTitle && (
-        <input
-          css={inputStyles}
-          type="text"
-          value={formTitle}
-          onChange={handleInput}
-        />
-      )}
+      <input
+        css={inputStyles}
+        type="text"
+        value={formTitle}
+        onChange={handleInput}
+      />
     </>
   )
 }

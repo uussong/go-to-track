@@ -1,11 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { Button } from '../shared/button'
-import { Text } from '../shared/text'
 import { useSetRecoilState } from 'recoil'
 import { formDataState } from '@/stores/form'
+import { Button } from '../shared/button'
+import { Text } from '../shared/text'
 
 interface EnterTitleProps {
-  onNext: (formTitle: string) => void
+  onNext: () => void
 }
 
 export default function EnterTitle({ onNext }: EnterTitleProps) {
@@ -18,12 +18,7 @@ export default function EnterTitle({ onNext }: EnterTitleProps) {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    onNext(input)
-    setFormData({ formTitle: input })
-  }
-
-  const handleClick = () => {
-    onNext(input)
+    onNext()
     setFormData({ formTitle: input })
   }
 
@@ -33,7 +28,7 @@ export default function EnterTitle({ onNext }: EnterTitleProps) {
       <Text variant={'heading2'}>먼저 제목을 입력해주세요</Text>
       <form onSubmit={handleSubmit}>
         <input type="text" value={input} onChange={handleInput} />
-        <Button onClick={handleClick} disabled={input === ''}>
+        <Button type={'submit'} disabled={input === ''}>
           계속
         </Button>
       </form>
