@@ -9,7 +9,10 @@ export default function MyFormsPage() {
 
   return (
     <PageLayout>
-      <Link to={`/form`} onClick={() => setFormTitle({ formTitle: '' })}>
+      <Link
+        to={`/form/create/title`}
+        onClick={() => setFormTitle({ formTitle: '' })}
+      >
         <Button>만들기</Button>
       </Link>
     </PageLayout>

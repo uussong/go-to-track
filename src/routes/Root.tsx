@@ -17,7 +17,11 @@ export default function Root() {
         <nav css={navStyles}>
           <ul css={ulStyles}>
             <li>
-              {pathname === `/form` ? <Navbar /> : <Link to={``}>Home</Link>}
+              {pathname.includes(`/form`) ? (
+                <Navbar />
+              ) : (
+                <Link to={``}>Home</Link>
+              )}
             </li>
             <li>{user && <SignOut />}</li>
           </ul>

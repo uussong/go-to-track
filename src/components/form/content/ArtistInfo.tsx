@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { css } from '@emotion/react'
 import { ArtistData } from '@/models/artist'
-import { Skeleton } from '../shared/skeleton'
-import { Text } from '../shared/text'
+import { Skeleton } from '../../shared/skeleton'
+import { Text } from '../../shared/text'
 
 export interface ArtistInfoProps {
   data: ArtistData[]

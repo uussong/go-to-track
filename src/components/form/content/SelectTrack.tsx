@@ -1,8 +1,8 @@
 import { css } from '@emotion/react'
 import { useGetTracks } from '@/hooks/useGetTracks'
-import { Button } from '../shared/button'
-import CompleteButton from './CompleteButton'
-import { Text } from '../shared/text'
+import { Button } from '../../shared/button'
+import CompleteButton from '../CompleteButton'
+import { Text } from '../../shared/text'
 import TrackList from './TrackList'
 import { FormIdData } from '@/models/form'
 

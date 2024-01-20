@@ -1,15 +1,14 @@
 import { useState } from 'react'
 import PageLayout from '@/components/shared/PageLayout'
-import EnterTitle from '@/components/form/EnterTitle'
-import SearchArtist from '@/components/form/SearchArtist'
-import SelectAlbum from '@/components/form/SelectAlbum'
-import SelectTrack from '@/components/form/SelectTrack'
+import SearchArtist from '@/components/form/content/SearchArtist'
+import SelectAlbum from '@/components/form/content/SelectAlbum'
+import SelectTrack from '@/components/form/content/SelectTrack'
 import { FormIdData } from '@/models/form'
 
-export default function FormPage() {
-  const [step, setStep] = useState<
-    '제목입력' | '가수검색' | '앨범선택' | '트랙선택'
-  >('제목입력')
+export default function FormContentCreatePage() {
+  const [step, setStep] = useState<'가수검색' | '앨범선택' | '트랙선택'>(
+    '가수검색',
+  )
   const [formIdData, setFormIdData] = useState<FormIdData>({
     artistId: '',
     albumId: '',
@@ -17,13 +16,6 @@ export default function FormPage() {
 
   return (
     <PageLayout>
-      {step === '제목입력' && (
-        <EnterTitle
-          onNext={() => {
-            setStep('가수검색')
-          }}
-        />
-      )}
       {step === '가수검색' && (
         <SearchArtist
           onNext={(artistId) => {

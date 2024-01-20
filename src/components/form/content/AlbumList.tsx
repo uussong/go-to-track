@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { css } from '@emotion/react'
 import { AlbumData } from '@/models/album'
-import { Skeleton } from '../shared/skeleton'
-import { Text } from '../shared/text'
+import { Skeleton } from '../../shared/skeleton'
+import { Text } from '../../shared/text'
 
 interface AlbumListProps {
   data: AlbumData[]

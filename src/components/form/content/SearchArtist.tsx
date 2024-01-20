@@ -3,8 +3,8 @@ import { css } from '@emotion/react'
 import { useDebounce } from '@/hooks/useDebounce'
 import { useSearchArtistInfo } from '@/hooks/useSearchArtistInfo'
 import ArtistInfo from './ArtistInfo'
-import { Button } from '../shared/button'
-import { Text } from '../shared/text'
+import { Button } from '../../shared/button'
+import { Text } from '../../shared/text'
 import { flexColumn } from '@/styles/mixins'
 
 interface SearchArtistProps {

@@ -1,8 +1,8 @@
 import { css } from '@emotion/react'
 import { useGetAlbums } from '@/hooks/useGetAlbums'
 import AlbumList from './AlbumList'
-import { Button } from '../shared/button'
-import { Text } from '../shared/text'
+import { Button } from '../../shared/button'
+import { Text } from '../../shared/text'
 
 interface SelectAlbumProps {
   artistId: string

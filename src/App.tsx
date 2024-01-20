@@ -9,7 +9,8 @@ import MyFormsPage from './pages/MyForms'
 import AuthGuard from './components/auth/AuthGuard'
 import AuthProvider from './context/AuthProvider'
 import SpotifyAuth from './components/auth/SpotifyAuth'
-import FormPage from './pages/Form'
+import FormTitleCreatePage from './pages/FormTitleCreate'
+import FormContentCreatePage from './pages/FormContentCreate'
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -31,8 +32,12 @@ const router = createBrowserRouter([
         element: <MyFormsPage />,
       },
       {
-        path: 'form',
-        element: <FormPage />,
+        path: 'form/create/title',
+        element: <FormTitleCreatePage />,
+      },
+      {
+        path: 'form/create/content',
+        element: <FormContentCreatePage />,
       },
     ],
   },

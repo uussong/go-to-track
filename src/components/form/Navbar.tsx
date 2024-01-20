@@ -8,7 +8,7 @@ import { Text } from '@/components/shared/text'
 export default function Navbar() {
   const [formData, setFormData] = useRecoilState(formDataState)
   const formTitle = formData.formTitle
-
+  console.log(formTitle)
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ formTitle: e.target.value })
   }

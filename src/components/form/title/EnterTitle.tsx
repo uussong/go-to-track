@@ -1,16 +1,14 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useSetRecoilState } from 'recoil'
 import { formDataState } from '@/stores/form'
-import { Button } from '../shared/button'
-import { Text } from '../shared/text'
+import { Button } from '../../shared/button'
+import { Text } from '../../shared/text'
+import { useNavigate } from 'react-router-dom'
 
-interface EnterTitleProps {
-  onNext: () => void
-}
-
-export default function EnterTitle({ onNext }: EnterTitleProps) {
+export default function EnterTitle() {
   const setFormData = useSetRecoilState(formDataState)
   const [input, setInput] = useState('')
+  const navigate = useNavigate()
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value)
@@ -18,8 +16,8 @@ export default function EnterTitle({ onNext }: EnterTitleProps) {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    onNext()
     setFormData({ formTitle: input })
+    navigate(`/form/create/content`)
   }
 
   return (
