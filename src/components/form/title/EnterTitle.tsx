@@ -1,12 +1,13 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { useSetRecoilState } from 'recoil'
-import { formDataState } from '@/stores/form'
 import { Button } from '../../shared/button'
 import { Text } from '../../shared/text'
 import { useNavigate } from 'react-router-dom'
 
-export default function EnterTitle() {
-  const setFormData = useSetRecoilState(formDataState)
+interface EnterTitleProps {
+  setFormData: (formTitle: string) => void
+}
+
+export default function EnterTitle({ setFormData }: EnterTitleProps) {
   const [input, setInput] = useState('')
   const navigate = useNavigate()
 
@@ -16,7 +17,7 @@ export default function EnterTitle() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setFormData({ formTitle: input })
+    setFormData(input)
     navigate(`/form/create/content`)
   }
 
