@@ -6,7 +6,7 @@ import SearchArtist from '@/components/form/content/SearchArtist'
 import SelectAlbum from '@/components/form/content/SelectAlbum'
 import SelectTrack from '@/components/form/content/SelectTrack'
 import { useUser } from '@/hooks/useUser'
-import { formDataState } from '@/stores/form'
+import { formTitleState } from '@/stores/form'
 import { saveFormData } from '@/remote/form'
 
 export default function FormContentCreatePage() {
@@ -14,13 +14,13 @@ export default function FormContentCreatePage() {
     '가수검색',
   )
   const [searchParams, setSearchParams] = useSearchParams()
-  const formTitle = useRecoilValue(formDataState)
+  const formTitle = useRecoilValue(formTitleState)
   const user = useUser()
 
   const artistId = searchParams.get('artist') ?? ''
   const albumId = searchParams.get('album') ?? ''
   const formData = {
-    ...formTitle,
+    formTitle,
     artistId,
     albumId,
   }

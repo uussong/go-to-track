@@ -1,17 +1,14 @@
 import { useSetRecoilState } from 'recoil'
-import { formDataState } from '@/stores/form'
+import { formTitleState } from '@/stores/form'
 import PageLayout from '@/components/shared/PageLayout'
 import EnterTitle from '@/components/form/title/EnterTitle'
 
 export default function FormTitleCreate() {
-  const setFormData = useSetRecoilState(formDataState)
+  const setFormTitle = useSetRecoilState(formTitleState)
+
   return (
     <PageLayout>
-      <EnterTitle
-        setFormData={(formTitle) =>
-          setFormData((prevData) => ({ ...prevData, formTitle }))
-        }
-      />
+      <EnterTitle setFormTitle={(formTitle) => setFormTitle(formTitle)} />
     </PageLayout>
   )
 }

@@ -4,10 +4,10 @@ import { Text } from '../../shared/text'
 import { useNavigate } from 'react-router-dom'
 
 interface EnterTitleProps {
-  setFormData: (formTitle: string) => void
+  setFormTitle: (formTitle: string) => void
 }
 
-export default function EnterTitle({ setFormData }: EnterTitleProps) {
+export default function EnterTitle({ setFormTitle }: EnterTitleProps) {
   const [input, setInput] = useState('')
   const navigate = useNavigate()
 
@@ -17,7 +17,7 @@ export default function EnterTitle({ setFormData }: EnterTitleProps) {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setFormData(input)
+    setFormTitle(input)
     navigate(`/form/create/content`)
   }
 
