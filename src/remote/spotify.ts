@@ -2,7 +2,7 @@ import toeknApi from './instance/tokenInstance'
 import api from './instance/baseInstance'
 
 export const getAccessToken = async () => {
-  const { data } = await toeknApi.post('api/token')
+  const { data } = await toeknApi.post('token')
   return data
 }
 

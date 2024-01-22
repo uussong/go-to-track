@@ -3,7 +3,7 @@ import axios from 'axios'
 const { REACT_APP_CLIENT_ID, REACT_APP_CLIENT_SECRET } = process.env
 
 const tokenApi = axios.create({
-  baseURL: 'https://accounts.spotify.com/',
+  baseURL: 'https://accounts.spotify.com/api/',
   headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 })
 
