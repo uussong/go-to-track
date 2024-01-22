@@ -4,18 +4,17 @@ import { Button } from '../../shared/button'
 import CompleteButton from '../CompleteButton'
 import { Text } from '../../shared/text'
 import TrackList from './TrackList'
-import { FormIdData } from '@/models/form'
 
 interface SelectTrackProps {
   albumId: string
-  formIdData: FormIdData
   onPrevious: () => void
+  onComplete: () => void
 }
 
 export default function SelectTrack({
   albumId,
-  formIdData,
   onPrevious,
+  onComplete,
 }: SelectTrackProps) {
   const { data } = useGetTracks(albumId)
 
@@ -27,7 +26,7 @@ export default function SelectTrack({
         <Button variant={'secondary'} onClick={onPrevious}>
           이전
         </Button>
-        <CompleteButton formIdData={formIdData} />
+        <CompleteButton onComplete={onComplete} />
       </div>
     </>
   )
