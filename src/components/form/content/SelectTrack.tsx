@@ -7,15 +7,17 @@ import TrackList from './TrackList'
 import { FormIdData } from '@/models/form'
 
 interface SelectTrackProps {
+  albumId: string
   formIdData: FormIdData
   onPrevious: () => void
 }
 
 export default function SelectTrack({
+  albumId,
   formIdData,
   onPrevious,
 }: SelectTrackProps) {
-  const { data } = useGetTracks(formIdData.albumId)
+  const { data } = useGetTracks(albumId)
 
   return (
     <>
