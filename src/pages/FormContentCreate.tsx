@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import PageLayout from '@/components/shared/PageLayout'
@@ -8,6 +8,8 @@ import SelectTrack from '@/components/form/content/SelectTrack'
 import { useUser } from '@/hooks/useUser'
 import { formTitleState } from '@/stores/form'
 import { saveFormData } from '@/remote/form'
+import useNavbar from '@/hooks/useNavbar'
+import Navbar from '@/components/form/content/Navbar'
 
 export default function FormContentCreatePage() {
   const [step, setStep] = useState<'가수검색' | '앨범선택' | '트랙선택'>(
@@ -26,6 +28,12 @@ export default function FormContentCreatePage() {
   }
 
   const navigate = useNavigate()
+
+  const { updateNavbar } = useNavbar()
+
+  useEffect(() => {
+    updateNavbar({ left: <Navbar />, title: null })
+  }, [updateNavbar])
 
   const completeFormCreation = () => {
     try {
