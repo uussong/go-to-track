@@ -4,17 +4,17 @@ import { store } from './firebase'
 import { FormData } from '@/models/form'
 import { COLLECTIONS } from '@/constants/collections'
 
-export const saveFormData = async (user: User, formInfo: FormData) => {
+export const saveFormData = async (user: User, formData: FormData) => {
   const { uid } = user
   const userRef = doc(store, COLLECTIONS.FORM, uid)
   const formDataRef = collection(userRef, COLLECTIONS.FORMDATA)
 
   const currentTime = new Date()
 
-  const formData = {
-    ...formInfo,
+  const formDataToSave = {
+    ...formData,
     timestamp: currentTime,
   }
 
-  await addDoc(formDataRef, formData)
+  await addDoc(formDataRef, formDataToSave)
 }

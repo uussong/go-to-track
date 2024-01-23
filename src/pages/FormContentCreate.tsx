@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
-import { useSearchParams, useNavigate } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
+import { User } from 'firebase/auth'
 import PageLayout from '@/components/shared/PageLayout'
 import SearchArtist from '@/components/form/content/SearchArtist'
 import SelectAlbum from '@/components/form/content/SelectAlbum'
 import SelectTrack from '@/components/form/content/SelectTrack'
 import { useUser } from '@/hooks/useUser'
 import { formTitleState } from '@/stores/form'
-import { saveFormData } from '@/remote/form'
 import useNavbar from '@/hooks/useNavbar'
 import Navbar from '@/components/form/content/Navbar'
+import { useSaveFormData } from '@/hooks/useSaveFormData'
 
 export default function FormContentCreatePage() {
   const [step, setStep] = useState<'가수검색' | '앨범선택' | '트랙선택'>(
@@ -18,6 +19,8 @@ export default function FormContentCreatePage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const formTitle = useRecoilValue(formTitleState)
   const user = useUser()
+  const { updateNavbar } = useNavbar()
+  const { mutate } = useSaveFormData()
 
   const artistId = searchParams.get('artist') ?? ''
   const albumId = searchParams.get('album') ?? ''
@@ -27,23 +30,12 @@ export default function FormContentCreatePage() {
     albumId,
   }
 
-  const navigate = useNavigate()
-
-  const { updateNavbar } = useNavbar()
-
   useEffect(() => {
     updateNavbar({ left: <Navbar />, title: null })
   }, [updateNavbar])
 
-  const completeFormCreation = () => {
-    try {
-      if (user && formData) {
-        saveFormData(user, formData)
-        navigate(`/myforms`)
-      }
-    } catch (error) {
-      console.error(error)
-    }
+  const completeFormCreation = async () => {
+    await mutate({ user: user as User, formData })
   }
 
   return (
