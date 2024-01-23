@@ -1,5 +1,5 @@
-import { Suspense, useEffect } from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Suspense } from 'react'
+import { Outlet } from 'react-router-dom'
 import { css } from '@emotion/react'
 import Loading from '@/components/shared/Loading'
 import SignOut from '@/components/shared/SignOut'
@@ -9,12 +9,7 @@ import useNavbar from '@/hooks/useNavbar'
 
 export default function Root() {
   const user = useUser()
-
-  const { navbar, updateNavbar } = useNavbar()
-
-  useEffect(() => {
-    updateNavbar({ left: <Link to={``}>Home</Link>, title: null })
-  }, [updateNavbar])
+  const { navbar } = useNavbar()
 
   return (
     <>
