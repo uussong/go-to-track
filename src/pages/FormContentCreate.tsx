@@ -33,6 +33,14 @@ export default function FormContentCreatePage() {
   }
 
   useEffect(() => {
+    artistId && albumId === ''
+      ? setStep('앨범선택')
+      : artistId && albumId
+        ? setStep('트랙선택')
+        : setStep('가수검색')
+  }, [artistId, albumId])
+
+  useEffect(() => {
     updateNavbar({ left: <Navbar />, title: null })
   }, [updateNavbar])
 
