@@ -13,5 +13,6 @@ export const useSearchArtistInfo = (debouncedValue: string) => {
           (genre: any) => genre.includes('k-pop') || genre.includes('korean'),
         ),
       ),
+    throwOnError: true,
   })
 }
