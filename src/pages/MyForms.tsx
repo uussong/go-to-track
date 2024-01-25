@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
+import { User } from 'firebase/auth'
 import PageLayout from '@/components/shared/PageLayout'
+import FormList from '@/components/myForms/FormList'
 import { useUser } from '@/hooks/useUser'
 import { useGetFormList } from '@/hooks/useGetFormList'
-import { User } from 'firebase/auth'
 
 export default function MyFormsPage() {
   const user = useUser()
@@ -11,9 +12,7 @@ export default function MyFormsPage() {
   return (
     <PageLayout>
       <Link to={`/form`}>만들기</Link>
-      {data.map((form) => (
-        <div>{form.formTitle}</div>
-      ))}
+      {data && <FormList data={data} />}
     </PageLayout>
   )
 }
