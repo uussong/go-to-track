@@ -4,7 +4,7 @@ import { store } from './firebase'
 import { COLLECTIONS } from '@/constants/collections'
 import { FormData } from '@/models/form'
 
-export const getFormData = async (
+export const getFormList = async (
   user: User,
 ): Promise<{ id: string; data: FormData }[]> => {
   const { uid } = user
@@ -13,7 +13,7 @@ export const getFormData = async (
   const q = query(formRef)
   const querySnapshot = await getDocs(q)
 
-  const formDataList: { id: string; data: FormData }[] = []
+  const formList: { id: string; data: FormData }[] = []
 
   querySnapshot.forEach(async (doc) => {
     const formData = doc.data()
@@ -27,8 +27,8 @@ export const getFormData = async (
       },
     }
 
-    formDataList.push(formDataWithId)
+    formList.push(formDataWithId)
   })
 
-  return formDataList
+  return formList
 }
