@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { FormData } from '@/models/form'
 import { Text } from '../shared/text'
 
@@ -10,7 +11,9 @@ export default function FormList({ data }: FormListProps) {
     <section>
       {data.map(({ id, data: form }) => (
         <article key={id}>
-          <Text variant={'bodyStrong'}>{form.formTitle}</Text>
+          <Link to={`/form/${id}`}>
+            <Text variant={'bodyStrong'}>{form.formTitle}</Text>
+          </Link>
         </article>
       ))}
     </section>
