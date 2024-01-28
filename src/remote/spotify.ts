@@ -16,7 +16,7 @@ export const getAccessToken = async () => {
   return data
 }
 
-export const getArtistInfo = async (searchInput: string) => {
+export const searchArtist = async (searchInput: string) => {
   const accessToken = localStorage.getItem('access_token')
 
   const { data } = await axios.get(

@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useDebounce } from '@/hooks/useDebounce'
-import { useSearchArtistInfo } from '@/hooks/useSearchArtistInfo'
+import { useSearchArtist } from '@/hooks/useSearchArtist'
 import ArtistInfo from './ArtistInfo'
 
 export default function SearchArtist() {
   const [searchInput, setSearchInput] = useState('')
   const debouncedValue = useDebounce(searchInput)
-  const { data, isLoading } = useSearchArtistInfo(debouncedValue)
+  const { data, isLoading } = useSearchArtist(debouncedValue)
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value)

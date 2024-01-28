@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
-import { getArtistInfo } from '@/remote/spotify'
+import { searchArtist } from '@/remote/spotify'
 
-export const useSearchArtistInfo = (debouncedValue: string) => {
+export const useSearchArtist = (debouncedValue: string) => {
   const { data, isLoading } = useQuery({
     queryKey: ['search', debouncedValue],
-    queryFn: () => getArtistInfo(debouncedValue),
+    queryFn: () => searchArtist(debouncedValue),
     enabled: debouncedValue !== '',
     select: (data) =>
       data.artists.items.filter((artist: any) =>
