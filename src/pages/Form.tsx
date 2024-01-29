@@ -6,6 +6,7 @@ import { useUser } from '@/hooks/useUser'
 import FormDetail from '@/components/form/FormDetail'
 import { FormData } from '@/models/form'
 import { useGetArtistInfo } from '@/hooks/useGetArtistInfo'
+import { useGetAlbumInfo } from '@/hooks/useGetAlbumInfo'
 
 export default function FormPage() {
   const user = useUser()
@@ -15,10 +16,11 @@ export default function FormPage() {
     data: FormData
   }
   const { data: artist } = useGetArtistInfo(form.artistId)
+  const { data: album } = useGetAlbumInfo(form.albumId)
 
   return (
     <PageLayout>
-      <FormDetail form={form} artist={artist} />
+      <FormDetail form={form} artist={artist} album={album} />
     </PageLayout>
   )
 }
