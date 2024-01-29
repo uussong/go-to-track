@@ -29,3 +29,17 @@ export const searchArtist = async (searchInput: string) => {
   )
   return data
 }
+
+export const getArtistInfo = async (artistId: string) => {
+  const accessToken = localStorage.getItem('access_token')
+
+  const { data } = await axios.get(
+    `https://api.spotify.com/v1/artists/${artistId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  )
+  return data
+}
