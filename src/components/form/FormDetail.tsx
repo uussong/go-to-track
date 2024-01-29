@@ -42,8 +42,8 @@ export default function FormDetail({ form, artist, album }: formDetailProps) {
         <article css={trackArticleStyles}>
           <ul>
             {tracks.map((track) => (
-              <li css={liStyles}>
-                <Text key={track.id}>{track.name}</Text>
+              <li css={liStyles} key={track.id}>
+                <Text>{track.name}</Text>
               </li>
             ))}
           </ul>
