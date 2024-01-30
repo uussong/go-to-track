@@ -1,5 +1,12 @@
 import { User } from 'firebase/auth'
-import { collection, doc, getDocs, query, getDoc } from 'firebase/firestore'
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  getDoc,
+  orderBy,
+} from 'firebase/firestore'
 import { store } from './firebase'
 import { COLLECTIONS } from '@/constants/collections'
 import { FormData } from '@/models/form'
@@ -10,7 +17,7 @@ export const getFormList = async (
   const { uid } = user
   const formRef = collection(store, COLLECTIONS.FORM, uid, COLLECTIONS.FORMDATA)
 
-  const q = query(formRef)
+  const q = query(formRef, orderBy('timestamp', 'desc'))
   const querySnapshot = await getDocs(q)
 
   const formList: { id: string; data: FormData }[] = []
