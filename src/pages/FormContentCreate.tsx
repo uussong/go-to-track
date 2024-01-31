@@ -50,7 +50,7 @@ export default function FormContentCreatePage() {
 
   return (
     <PageLayout>
-      <ErrorBoundary fallback={ErrorPage}>
+      <ErrorBoundary fallback={<ErrorPage />}>
         {step === '가수검색' && (
           <SearchArtist
             onNext={(artistId) => {
@@ -61,7 +61,7 @@ export default function FormContentCreatePage() {
           />
         )}
       </ErrorBoundary>
-      <ErrorBoundary fallback={ErrorPage}>
+      <ErrorBoundary fallback={<ErrorPage />}>
         {step === '앨범선택' && (
           <SelectAlbum
             artistId={artistId}
@@ -78,7 +78,7 @@ export default function FormContentCreatePage() {
           />
         )}
       </ErrorBoundary>
-      <ErrorBoundary fallback={ErrorPage}>
+      <ErrorBoundary fallback={<ErrorPage />}>
         {step === '트랙선택' && (
           <SelectTrack
             albumId={albumId}
