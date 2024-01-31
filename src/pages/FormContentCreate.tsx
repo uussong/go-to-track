@@ -60,8 +60,6 @@ export default function FormContentCreatePage() {
             }}
           />
         )}
-      </ErrorBoundary>
-      <ErrorBoundary fallback={<ErrorPage />}>
         {step === '앨범선택' && (
           <SelectAlbum
             artistId={artistId}
@@ -77,8 +75,6 @@ export default function FormContentCreatePage() {
             }}
           />
         )}
-      </ErrorBoundary>
-      <ErrorBoundary fallback={<ErrorPage />}>
         {step === '트랙선택' && (
           <SelectTrack
             albumId={albumId}
