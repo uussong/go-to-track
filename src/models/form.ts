@@ -6,3 +6,8 @@ export interface FormData {
   formTitle: string
   timestamp: Timestamp
 }
+
+export interface FormListData {
+  id: string
+  data: FormData
+}

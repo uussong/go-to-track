@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
-import { FormData } from '@/models/form'
-import { Text } from '../shared/text'
 import { css } from '@emotion/react'
+import { FormListData } from '@/models/form'
+import { Text } from '../shared/text'
 import { colors } from '@/styles/colors'
 
 interface FormListProps {
-  data: { id: string; data: FormData }[]
+  data: FormListData[]
 }
 
 export default function FormList({ data }: FormListProps) {
