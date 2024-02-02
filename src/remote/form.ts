@@ -9,22 +9,19 @@ import {
 } from 'firebase/firestore'
 import { store } from './firebase'
 import { COLLECTIONS } from '@/constants/collections'
-import { FormData } from '@/models/form'
+import { FormData, FormListData } from '@/models/form'
 
-export const getFormList = async (
-  user: User,
-): Promise<{ id: string; data: FormData }[]> => {
+export const getFormList = async (user: User) => {
   const { uid } = user
   const formRef = collection(store, COLLECTIONS.FORM, uid, COLLECTIONS.FORMDATA)
 
-  const q = query(formRef, orderBy('timestamp', 'desc'))
-  const querySnapshot = await getDocs(q)
+  const querySnapshot = await getDocs(
+    query(formRef, orderBy('timestamp', 'desc')),
+  )
 
-  const formList: { id: string; data: FormData }[] = []
-
-  querySnapshot.forEach(async (doc) => {
+  const formList: FormListData[] = querySnapshot.docs.map((doc) => {
     const formData = doc.data()
-    const formDataWithId = {
+    return {
       id: doc.id,
       data: {
         albumId: formData.albumId,
@@ -33,10 +30,7 @@ export const getFormList = async (
         timestamp: formData.timestamp.toDate(),
       },
     }
-
-    formList.push(formDataWithId)
   })
-
   return formList
 }
 
