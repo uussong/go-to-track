@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import { useSearchParams } from 'react-router-dom'
-import { User } from 'firebase/auth'
 import PageLayout from '@/components/shared/PageLayout'
 import SearchArtist from '@/components/form/content/SearchArtist'
 import SelectAlbum from '@/components/form/content/SelectAlbum'
 import SelectTrack from '@/components/form/content/SelectTrack'
-import { useUser } from '@/hooks/useUser'
 import { formTitleState } from '@/stores/form'
 import useNavbar from '@/hooks/useNavbar'
 import Navbar from '@/components/form/content/Navbar'
@@ -28,7 +26,6 @@ export default function FormContentCreatePage() {
   })
 
   const formTitle = useRecoilValue(formTitleState)
-  const user = useUser()
   const { updateNavbar } = useNavbar()
   const { mutate } = useSaveFormData()
 
@@ -43,7 +40,7 @@ export default function FormContentCreatePage() {
   }, [updateNavbar])
 
   const completeFormCreation = async () => {
-    await mutate({ user: user as User, formData })
+    await mutate({ formData })
   }
 
   return (
