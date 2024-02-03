@@ -15,30 +15,28 @@ import ErrorBoundary from '@/components/shared/ErrorBoundary'
 import ErrorPage from '@/components/form/content/ErrorPage'
 
 export default function FormContentCreatePage() {
-  const [step, setStep] = useState<'가수검색' | '앨범선택' | '트랙선택'>(
-    '가수검색',
-  )
   const [searchParams, setSearchParams] = useSearchParams()
+  const artistId = searchParams.get('artist') ?? ''
+  const albumId = searchParams.get('album') ?? ''
+
+  const [step, setStep] = useState<'가수검색' | '앨범선택' | '트랙선택'>(() => {
+    return artistId && albumId === ''
+      ? '앨범선택'
+      : artistId && albumId
+        ? '트랙선택'
+        : '가수검색'
+  })
+
   const formTitle = useRecoilValue(formTitleState)
   const user = useUser()
   const { updateNavbar } = useNavbar()
   const { mutate } = useSaveFormData()
 
-  const artistId = searchParams.get('artist') ?? ''
-  const albumId = searchParams.get('album') ?? ''
   const formData = {
     formTitle,
     artistId,
     albumId,
   }
-
-  useEffect(() => {
-    artistId && albumId === ''
-      ? setStep('앨범선택')
-      : artistId && albumId
-        ? setStep('트랙선택')
-        : setStep('가수검색')
-  }, [artistId, albumId])
 
   useEffect(() => {
     updateNavbar({ left: <Navbar />, title: null })
