@@ -12,7 +12,7 @@ import { useSaveFormData } from '@/hooks/useSaveFormData'
 import ErrorPage from '@/components/form/content/ErrorPage'
 import withErrorBoundary from '@/components/shared/errorBoundary/withErrorBoundary'
 
-export default function FormContentCreatePage() {
+function FormContentCreatePage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const artistId = searchParams.get('artist') ?? ''
   const albumId = searchParams.get('album') ?? ''
@@ -43,20 +43,10 @@ export default function FormContentCreatePage() {
     await mutate({ formData })
   }
 
-  const SearchArtistWithErrorBoundary = withErrorBoundary(SearchArtist, {
-    fallback: <ErrorPage />,
-  })
-  const SelectAlbumWithErrorBoundary = withErrorBoundary(SelectAlbum, {
-    fallback: <ErrorPage />,
-  })
-  const SelectTrackWithErrorBoundary = withErrorBoundary(SelectTrack, {
-    fallback: <ErrorPage />,
-  })
-
   return (
     <PageLayout>
       {step === '가수검색' && (
-        <SearchArtistWithErrorBoundary
+        <SearchArtist
           onNext={(artistId) => {
             setStep('앨범선택')
             searchParams.set('artist', artistId)
@@ -65,7 +55,7 @@ export default function FormContentCreatePage() {
         />
       )}
       {step === '앨범선택' && (
-        <SelectAlbumWithErrorBoundary
+        <SelectAlbum
           artistId={artistId}
           onPrevious={() => {
             setStep('가수검색')
@@ -80,7 +70,7 @@ export default function FormContentCreatePage() {
         />
       )}
       {step === '트랙선택' && (
-        <SelectTrackWithErrorBoundary
+        <SelectTrack
           albumId={albumId}
           onPrevious={() => {
             setStep('앨범선택')
@@ -93,3 +83,7 @@ export default function FormContentCreatePage() {
     </PageLayout>
   )
 }
+
+export default withErrorBoundary(FormContentCreatePage, {
+  fallback: <ErrorPage />,
+})
