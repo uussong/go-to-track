@@ -16,11 +16,39 @@ export const getAccessToken = async () => {
   return data
 }
 
-export const getArtistInfo = async (searchInput: string) => {
+export const searchArtist = async (searchInput: string) => {
   const accessToken = localStorage.getItem('access_token')
 
   const { data } = await axios.get(
     `https://api.spotify.com/v1/search?q=${searchInput}&type=artist`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  )
+  return data
+}
+
+export const getArtistInfo = async (artistId: string) => {
+  const accessToken = localStorage.getItem('access_token')
+
+  const { data } = await axios.get(
+    `https://api.spotify.com/v1/artists/${artistId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  )
+  return data
+}
+
+export const getAlbumInfo = async (albumId: string) => {
+  const accessToken = localStorage.getItem('access_token')
+
+  const { data } = await axios.get(
+    `https://api.spotify.com/v1/albums/${albumId}`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
