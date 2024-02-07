@@ -6,7 +6,7 @@ export interface TrackData {
     name: string
     type: string
     uri: string
-  }
+  }[]
   available_markets: string[]
   disc_number: number
   duration_ms: number

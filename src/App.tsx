@@ -11,6 +11,7 @@ import AuthProvider from './context/AuthProvider'
 import SpotifyAuth from './components/auth/SpotifyAuth'
 import FormTitleCreatePage from './pages/FormTitleCreate'
 import FormContentCreatePage from './pages/FormContentCreate'
+import FormPage from './pages/Form'
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -32,12 +33,16 @@ const router = createBrowserRouter([
         element: <MyFormsPage />,
       },
       {
-        path: 'form/create/title',
+        path: 'form/:formId/create/title',
         element: <FormTitleCreatePage />,
       },
       {
         path: 'form/create/content',
         element: <FormContentCreatePage />,
+      },
+      {
+        path: 'form/:formId',
+        element: <FormPage />,
       },
     ],
   },
