@@ -2,11 +2,11 @@ import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { User } from 'firebase/auth'
 import { saveFormData } from '@/remote/form'
-import { FormData } from '@/models/form'
+import { FormDataFromUser } from '@/models/form'
 import { useUser } from './useUser'
 
 interface SaveFormDataType {
-  formData: FormData
+  formData: FormDataFromUser
 }
 
 export const useSaveFormData = () => {

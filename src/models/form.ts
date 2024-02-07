@@ -1,4 +1,10 @@
-export interface FormData {
+export interface FormDataFromUser {
+  albumId: string
+  artistId: string
+  formTitle: string
+}
+
+export interface FormDataFromServer {
   albumId: string
   artistId: string
   formTitle: string
@@ -7,7 +13,7 @@ export interface FormData {
 
 export interface FormListData {
   id: string
-  data: FormData
+  data: FormDataFromServer
 }
 
 export interface FormIdData {

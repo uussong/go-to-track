@@ -9,10 +9,14 @@ import {
   orderBy,
 } from 'firebase/firestore'
 import { store } from './firebase'
-import { FormData, FormListData } from '@/models/form'
+import {
+  FormDataFromUser,
+  FormDataFromServer,
+  FormListData,
+} from '@/models/form'
 import { COLLECTIONS } from '@/constants/collections'
 
-export const saveFormData = async (user: User, formData: FormData) => {
+export const saveFormData = async (user: User, formData: FormDataFromUser) => {
   const { uid } = user
   const userRef = doc(store, COLLECTIONS.FORM, uid)
   const formDataRef = collection(userRef, COLLECTIONS.FORMDATA)
@@ -53,7 +57,7 @@ export const getFormList = async (user: User) => {
 export const getFormDataById = async (
   user: User,
   formId: string,
-): Promise<FormData | null> => {
+): Promise<FormDataFromServer | null> => {
   const { uid } = user
   const formRef = doc(
     store,
