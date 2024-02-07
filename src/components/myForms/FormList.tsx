@@ -3,6 +3,7 @@ import { css } from '@emotion/react'
 import { FormListData } from '@/models/form'
 import { Text } from '../shared/text'
 import { colors } from '@/styles/colors'
+import { Button } from '../shared/button'
 
 interface FormListProps {
   data: FormListData[]
@@ -15,6 +16,9 @@ export default function FormList({ data }: FormListProps) {
         <article css={articleStyles} key={id}>
           <Link to={`/form/${id}`} css={linkStyles}>
             <Text variant={'bodyStrong'}>{form.formTitle}</Text>
+          </Link>
+          <Link to={`/form/share/${id}`}>
+            <Button>공유</Button>
           </Link>
         </article>
       ))}
@@ -40,6 +44,6 @@ const articleStyles = css`
 const linkStyles = css`
   display: inline-block;
   width: 100%;
-  height: 100%;
-  padding: 25px;
+  /* height: 100%; */
+  padding: 16px;
 `

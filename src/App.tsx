@@ -10,6 +10,7 @@ import AuthGuard from './components/auth/AuthGuard'
 import AuthProvider from './context/AuthProvider'
 import SpotifyAuth from './components/auth/SpotifyAuth'
 import FormPage from './pages/Form'
+import SharePage from './pages/Share'
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: 'form/:formId',
         element: <FormPage />,
+      },
+      {
+        path: 'form/share/:formId',
+        element: <SharePage />,
       },
     ],
   },
