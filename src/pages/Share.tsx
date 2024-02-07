@@ -3,12 +3,13 @@ import { useParams } from 'react-router-dom'
 import FormEnter from '@/components/form/result/FormEnter'
 import FormInfo from '@/components/form/result/FormInfo'
 import SelectTrack from '@/components/form/result/SelectTrack'
+import FormEnd from '@/components/form/result/FormEnd'
 import PageLayout from '@/components/shared/PageLayout'
 import { useGetFormData } from '@/hooks/useGetFormData'
 import { FormData } from '@/models/form'
 
 export default function SharePage() {
-  const [step, setStep] = useState<'시작' | '정보' | '투표'>('시작')
+  const [step, setStep] = useState<'시작' | '정보' | '투표' | '완료'>('시작')
   const { formId } = useParams()
 
   const { data: form } = useGetFormData(formId ?? '') as {
@@ -23,7 +24,10 @@ export default function SharePage() {
       {step === '정보' && (
         <FormInfo form={form} onNext={() => setStep('투표')} />
       )}
-      {step === '투표' && <SelectTrack albumId={form.albumId} />}
+      {step === '투표' && (
+        <SelectTrack albumId={form.albumId} onNext={() => setStep('완료')} />
+      )}
+      {step === '완료' && <FormEnd />}
     </PageLayout>
   )
 }
