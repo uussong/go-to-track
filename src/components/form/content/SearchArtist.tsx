@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { css } from '@emotion/react'
 import { useDebounce } from '@/hooks/useDebounce'
-import { useSearchArtistInfo } from '@/hooks/useSearchArtistInfo'
+import { useSearchArtist } from '@/hooks/useSearchArtist'
 import ArtistInfo from './ArtistInfo'
 import { Button } from '../../shared/button'
 import { Text } from '../../shared/text'
@@ -14,7 +14,7 @@ interface SearchArtistProps {
 export default function SearchArtist({ onNext }: SearchArtistProps) {
   const [searchInput, setSearchInput] = useState('')
   const debouncedValue = useDebounce(searchInput)
-  const { data, isLoading } = useSearchArtistInfo(debouncedValue)
+  const { data, isLoading } = useSearchArtist(debouncedValue)
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value)
