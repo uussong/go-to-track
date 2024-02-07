@@ -41,8 +41,7 @@ const checkboxStyles = css`
   align-items: center;
   border-radius: 5px;
   box-shadow: inset 0 0 0 2px ${colors.gray100};
-  min-width: 165px;
-  max-width: 343px;
+  width: 100%;
   cursor: pointer;
 
   &:hover {
