@@ -11,7 +11,9 @@ export default function PageLayout({ children, styles }: PageLayoutProps) {
 }
 
 const main = css`
+  display: flex;
+  flex-direction: column;
   width: 100%;
   min-height: 100vh;
-  padding: 72px 16px 0;
+  padding: 72px 16px 16px;
 `
