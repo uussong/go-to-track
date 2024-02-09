@@ -6,6 +6,7 @@ import { Text } from '../shared/text'
 import { SingleAlbumData } from '@/models/album'
 import { Button } from '../shared/button'
 import { colors } from '@/styles/colors'
+import { useUpdateFormData } from '@/hooks/useUpdateFormData'
 
 interface formDetailProps {
   form: FormData
@@ -14,20 +15,24 @@ interface formDetailProps {
 }
 
 export default function FormDetail({ form, artist, album }: formDetailProps) {
-  const [title, setTitle] = useState(form.formTitle)
+  const [title, setTitle] = useState('')
   const [isTrackListVisible, setIsTrackListVisible] = useState(false)
   const tracks = album.tracks.items
+  const { mutate } = useUpdateFormData()
 
   const toggleTrackListVisible = () => {
     setIsTrackListVisible(!isTrackListVisible)
   }
+
   const handleTitleChange = (e: ChangeEvent<HTMLHeadingElement>) => {
     setTitle(e.target.innerText)
   }
 
   const handleEnterKey = async (e: KeyboardEvent<HTMLHeadingElement>) => {
+    const updatedFormData = { ...form, formTitle: title }
     if (e.key === 'Enter') {
       e.preventDefault()
+      mutate({ updatedFormData })
     }
   }
 
