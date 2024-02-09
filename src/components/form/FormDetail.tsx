@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, useState } from 'react'
+import { ChangeEvent, KeyboardEvent, MouseEvent, useState } from 'react'
 import { css } from '@emotion/react'
 import { ArtistData } from '@/models/artist'
 import { FormData } from '@/models/form'
@@ -40,8 +40,12 @@ export default function FormDetail({ form, artist, album }: formDetailProps) {
     }
   }
 
-  const handleUpdateClick = () => {
-    navigate(`/form/edit/${formId}/`)
+  const handleUpdateClick = (e: MouseEvent<HTMLButtonElement>) => {
+    if (e.currentTarget.dataset.step === 'artist') {
+      navigate(`/form/edit/${formId}`)
+    } else if (e.currentTarget.dataset.step === 'album') {
+      navigate(`/form/edit/${formId}?artist=${form.artistId}`)
+    }
   }
 
   return (
@@ -60,8 +64,12 @@ export default function FormDetail({ form, artist, album }: formDetailProps) {
           <img css={imageStyles} src={artist.images[2].url} alt={artist.name} />
           <Text variant={'bodyStrong'}>{artist.name}</Text>
         </div>
-        <Button variant={'secondary'} onClick={handleUpdateClick}>
-          편집
+        <Button
+          variant={'secondary'}
+          data-step={'artist'}
+          onClick={handleUpdateClick}
+        >
+          수정
         </Button>
       </article>
       <div css={lineStyles}></div>
@@ -75,8 +83,13 @@ export default function FormDetail({ form, artist, album }: formDetailProps) {
             </Button>
           </div>
         </div>
-        <Button css={buttonStyles} variant={'secondary'}>
-          편집
+        <Button
+          css={buttonStyles}
+          variant={'secondary'}
+          data-step={'album'}
+          onClick={handleUpdateClick}
+        >
+          수정
         </Button>
       </article>
       {isTrackListVisible && (
@@ -98,7 +111,7 @@ const articleStyles = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 0;
+  padding: 25px 0;
 `
 
 const infoArticleStyles = css`
@@ -117,7 +130,7 @@ const imageStyles = css`
 `
 
 const buttonStyles = css`
-  min-width: 61.45px;
+  min-width: 62px;
 `
 
 const albumDetailStyles = css`
