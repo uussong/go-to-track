@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, KeyboardEvent, useState } from 'react'
 import { css } from '@emotion/react'
 import { ArtistData } from '@/models/artist'
 import { FormData } from '@/models/form'
@@ -14,16 +14,34 @@ interface formDetailProps {
 }
 
 export default function FormDetail({ form, artist, album }: formDetailProps) {
+  const [title, setTitle] = useState(form.formTitle)
   const [isTrackListVisible, setIsTrackListVisible] = useState(false)
   const tracks = album.tracks.items
 
   const toggleTrackListVisible = () => {
     setIsTrackListVisible(!isTrackListVisible)
   }
+  const handleTitleChange = (e: ChangeEvent<HTMLHeadingElement>) => {
+    setTitle(e.target.innerText)
+  }
+
+  const handleEnterKey = async (e: KeyboardEvent<HTMLHeadingElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+    }
+  }
 
   return (
     <section>
-      <Text variant={'heading2'}>{form.formTitle}</Text>
+      <Text
+        variant={'heading2'}
+        contentEditable={true}
+        onInput={handleTitleChange}
+        onKeyDown={handleEnterKey}
+        suppressContentEditableWarning={true}
+      >
+        {form.formTitle}
+      </Text>
       <article css={articleStyles}>
         <img css={imageStyles} src={artist.images[2].url} alt={artist.name} />
         <Text variant={'bodyStrong'}>{artist.name}</Text>
