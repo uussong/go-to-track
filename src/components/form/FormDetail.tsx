@@ -7,6 +7,7 @@ import { SingleAlbumData } from '@/models/album'
 import { Button } from '../shared/button'
 import { colors } from '@/styles/colors'
 import { useUpdateFormData } from '@/hooks/useUpdateFormData'
+import { flexCenter } from '@/styles/mixins'
 
 interface formDetailProps {
   form: FormData
@@ -48,18 +49,26 @@ export default function FormDetail({ form, artist, album }: formDetailProps) {
         {form.formTitle}
       </Text>
       <article css={articleStyles}>
-        <img css={imageStyles} src={artist.images[2].url} alt={artist.name} />
-        <Text variant={'bodyStrong'}>{artist.name}</Text>
+        <div css={infoArticleStyles}>
+          <img css={imageStyles} src={artist.images[2].url} alt={artist.name} />
+          <Text variant={'bodyStrong'}>{artist.name}</Text>
+        </div>
+        <Button variant={'secondary'}>편집</Button>
       </article>
       <div css={lineStyles}></div>
-      <article css={albumArticleStyles}>
-        <img css={imageStyles} src={album.images[1].url} alt={album.name} />
-        <div css={albumDetailStyles}>
-          <Text variant={'bodyStrong'}>{album.name}</Text>
-          <Button variant={'primary'} onClick={toggleTrackListVisible}>
-            수록곡 보기
-          </Button>
+      <article css={articleStyles}>
+        <div css={infoArticleStyles}>
+          <img css={imageStyles} src={album.images[1].url} alt={album.name} />
+          <div css={albumDetailStyles}>
+            <Text variant={'bodyStrong'}>{album.name}</Text>
+            <Button variant={'primary'} onClick={toggleTrackListVisible}>
+              수록곡 보기
+            </Button>
+          </div>
         </div>
+        <Button css={buttonStyles} variant={'secondary'}>
+          편집
+        </Button>
       </article>
       {isTrackListVisible && (
         <article css={trackArticleStyles}>
@@ -78,14 +87,14 @@ export default function FormDetail({ form, artist, album }: formDetailProps) {
 
 const articleStyles = css`
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 25px;
-  padding: 25px 0;
+  padding: 16px 0;
 `
 
-const albumArticleStyles = css`
-  ${articleStyles}
-  padding: 25px 0 0 0;
+const infoArticleStyles = css`
+  ${flexCenter}
+  gap: 16px;
 `
 
 const lineStyles = css`
@@ -96,6 +105,10 @@ const imageStyles = css`
   width: 75px;
   height: 75px;
   border-radius: 10px;
+`
+
+const buttonStyles = css`
+  min-width: 61.45px;
 `
 
 const albumDetailStyles = css`
