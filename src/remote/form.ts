@@ -7,7 +7,6 @@ import {
   getDoc,
   orderBy,
   setDoc,
-  onSnapshot,
 } from 'firebase/firestore'
 import { store } from './firebase'
 import { COLLECTIONS } from '@/constants/collections'
@@ -67,7 +66,7 @@ export const getFormDataById = async (
 export const updateFormData = async (
   user: User,
   formId: string,
-  updatedFormData: FormDataFromUser,
+  updatedFormData: FormDataFromServer,
 ) => {
   const { uid } = user
   const formRef = doc(

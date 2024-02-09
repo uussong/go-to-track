@@ -1,12 +1,23 @@
 import { useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { useRecoilValue } from 'recoil'
 import ConfirmTrack from '@/components/form/content/ConfirmTrack'
 import SearchArtist from '@/components/form/content/SearchArtist'
 import SelectAlbum from '@/components/form/content/SelectAlbum'
 import PageLayout from '@/components/shared/PageLayout'
+import { useUpdateFormData } from '@/hooks/useUpdateFormData'
+import { formTitleState } from '@/stores/form'
+import { useGetFormData } from '@/hooks/useGetFormData'
+import { FormDataFromServer } from '@/models/form'
 
 export default function FormContentUpdate() {
   const [searchParams, setSearchParams] = useSearchParams()
+  const { formId } = useParams()
+  const navigate = useNavigate()
+
+  const { data: form } = useGetFormData(formId ?? '') as {
+    data: FormDataFromServer
+  }
 
   const [step, setStep] = useState<'가수검색' | '앨범선택' | '트랙확인'>(
     searchParams.get('artist') ? '앨범선택' : '가수검색',
@@ -14,6 +25,21 @@ export default function FormContentUpdate() {
 
   const artistId = searchParams.get('artist') ?? ''
   const albumId = searchParams.get('album') ?? ''
+
+  const formTitle = useRecoilValue(formTitleState)
+  const { mutate } = useUpdateFormData()
+
+  const updatedFormData = {
+    ...form,
+    formTitle,
+    artistId,
+    albumId,
+  }
+
+  const updateFormData = () => {
+    mutate({ updatedFormData })
+    navigate(`/myforms`)
+  }
 
   return (
     <PageLayout>
@@ -44,7 +70,7 @@ export default function FormContentUpdate() {
             searchParams.delete('album')
             setSearchParams(searchParams)
           }}
-          onComplete={() => {}}
+          onComplete={updateFormData}
         />
       )}
     </PageLayout>
