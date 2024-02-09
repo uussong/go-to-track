@@ -40,6 +40,16 @@ export default function FormDetail({ form, artist, album }: formDetailProps) {
     }
   }
 
+  const handleBlur = () => {
+    if (title !== form.formTitle) {
+      const updatedFormData = {
+        ...form,
+        formTitle: title === '' ? form.formTitle : title,
+      }
+      mutate({ updatedFormData })
+    }
+  }
+
   const handleUpdateClick = (e: MouseEvent<HTMLButtonElement>) => {
     if (e.currentTarget.dataset.step === 'artist') {
       navigate(`/form/edit/${formId}`)
@@ -55,6 +65,7 @@ export default function FormDetail({ form, artist, album }: formDetailProps) {
         contentEditable={true}
         onInput={handleTitleChange}
         onKeyDown={handleEnterKey}
+        onBlur={handleBlur}
         suppressContentEditableWarning={true}
       >
         {form.formTitle}
