@@ -8,6 +8,7 @@ import { Button } from '../shared/button'
 import { colors } from '@/styles/colors'
 import { useUpdateFormData } from '@/hooks/useUpdateFormData'
 import { flexCenter } from '@/styles/mixins'
+import { useNavigate, useParams } from 'react-router-dom'
 
 interface formDetailProps {
   form: FormData
@@ -20,6 +21,8 @@ export default function FormDetail({ form, artist, album }: formDetailProps) {
   const [isTrackListVisible, setIsTrackListVisible] = useState(false)
   const tracks = album.tracks.items
   const { mutate } = useUpdateFormData()
+  const navigate = useNavigate()
+  const { formId } = useParams()
 
   const toggleTrackListVisible = () => {
     setIsTrackListVisible(!isTrackListVisible)
@@ -35,6 +38,10 @@ export default function FormDetail({ form, artist, album }: formDetailProps) {
       e.preventDefault()
       mutate({ updatedFormData })
     }
+  }
+
+  const handleUpdateClick = () => {
+    navigate(`/form/edit/${formId}/`)
   }
 
   return (
@@ -53,7 +60,9 @@ export default function FormDetail({ form, artist, album }: formDetailProps) {
           <img css={imageStyles} src={artist.images[2].url} alt={artist.name} />
           <Text variant={'bodyStrong'}>{artist.name}</Text>
         </div>
-        <Button variant={'secondary'}>편집</Button>
+        <Button variant={'secondary'} onClick={handleUpdateClick}>
+          편집
+        </Button>
       </article>
       <div css={lineStyles}></div>
       <article css={articleStyles}>
