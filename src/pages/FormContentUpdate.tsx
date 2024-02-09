@@ -29,11 +29,6 @@ export default function FormContentUpdate() {
       {step === '앨범선택' && (
         <SelectAlbum
           artistId={artistId}
-          onPrevious={() => {
-            setStep('가수검색')
-            searchParams.delete('artist')
-            setSearchParams(searchParams)
-          }}
           onNext={(albumId) => {
             setStep('트랙확인')
             searchParams.set('album', albumId)
