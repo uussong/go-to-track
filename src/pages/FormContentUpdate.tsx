@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import ConfirmTrack from '@/components/form/content/ConfirmTrack'
 import SearchArtist from '@/components/form/content/SearchArtist'
@@ -9,6 +9,7 @@ import { useUpdateFormData } from '@/hooks/useUpdateFormData'
 import { formTitleState } from '@/stores/form'
 import { useGetFormData } from '@/hooks/useGetFormData'
 import { FormDataFromServer } from '@/models/form'
+import useNavbar from '@/hooks/useNavbar'
 
 export default function FormContentUpdate() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -27,6 +28,7 @@ export default function FormContentUpdate() {
   const albumId = searchParams.get('album') ?? ''
 
   const formTitle = useRecoilValue(formTitleState)
+  const { updateNavbar } = useNavbar()
   const { mutate } = useUpdateFormData()
 
   const updatedFormData = {
@@ -35,6 +37,19 @@ export default function FormContentUpdate() {
     artistId,
     albumId,
   }
+
+  useEffect(() => {
+    updateNavbar({
+      left: (
+        <>
+          <Link to={`/myforms`}>My forms</Link>
+          <span> / </span>
+          <Link to={`/form/${formId}`}>{form.formTitle}</Link>
+        </>
+      ),
+      title: null,
+    })
+  }, [updateNavbar, formId, form.formTitle])
 
   const updateFormData = () => {
     mutate({ updatedFormData })
