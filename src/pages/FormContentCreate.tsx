@@ -11,6 +11,7 @@ import Navbar from '@/components/form/content/Navbar'
 import { useSaveFormData } from '@/hooks/useSaveFormData'
 import ErrorPage from '@/components/form/content/ErrorPage'
 import withErrorBoundary from '@/components/shared/errorBoundary/withErrorBoundary'
+import SignOut from '@/components/shared/SignOut'
 
 function FormContentCreatePage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -36,7 +37,7 @@ function FormContentCreatePage() {
   }
 
   useEffect(() => {
-    updateNavbar({ left: <Navbar />, title: null })
+    updateNavbar({ left: <Navbar />, right: <SignOut /> })
   }, [updateNavbar])
 
   const completeFormCreation = async () => {

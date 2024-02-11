@@ -10,6 +10,7 @@ import { formTitleState } from '@/stores/form'
 import { useGetFormData } from '@/hooks/useGetFormData'
 import { FormDataFromServer } from '@/models/form'
 import useNavbar from '@/hooks/useNavbar'
+import SignOut from '@/components/shared/SignOut'
 
 export default function FormContentUpdate() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -47,7 +48,7 @@ export default function FormContentUpdate() {
           <Link to={`/form/${formId}`}>{form.formTitle}</Link>
         </>
       ),
-      title: null,
+      right: <SignOut />,
     })
   }, [updateNavbar, formId, form.formTitle])
 

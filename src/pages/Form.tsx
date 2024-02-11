@@ -7,6 +7,7 @@ import { FormData } from '@/models/form'
 import { useGetArtistInfo } from '@/hooks/useGetArtistInfo'
 import { useGetAlbumInfo } from '@/hooks/useGetAlbumInfo'
 import useNavbar from '@/hooks/useNavbar'
+import { Button } from '@/components/shared/button'
 
 export default function FormPage() {
   const { formId } = useParams()
@@ -19,7 +20,10 @@ export default function FormPage() {
   const { data: album } = useGetAlbumInfo(form.albumId)
 
   useEffect(() => {
-    updateNavbar({ left: <Link to={`/myforms`}>My forms</Link>, title: null })
+    updateNavbar({
+      left: <Link to={`/myforms`}>My Forms</Link>,
+      right: <Button variant={'secondary'}>삭제</Button>,
+    })
   }, [updateNavbar])
 
   return (
