@@ -7,7 +7,7 @@ import EnterTitle from '@/components/form/title/EnterTitle'
 import useNavbar from '@/hooks/useNavbar'
 import SignOut from '@/components/shared/SignOut'
 
-export default function FormTitleCreate() {
+export default function FormTitleCreatePage() {
   const setFormTitle = useSetRecoilState(formTitleState)
   const { updateNavbar } = useNavbar()
   useEffect(() => {

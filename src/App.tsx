@@ -12,7 +12,7 @@ import SpotifyAuth from './components/auth/SpotifyAuth'
 import FormTitleCreatePage from './pages/FormTitleCreate'
 import FormContentCreatePage from './pages/FormContentCreate'
 import FormPage from './pages/Form'
-import FormContentUpdate from './pages/FormContentUpdate'
+import FormContentUpdatePage from './pages/FormContentUpdate'
 import SharePage from './pages/Share'
 
 const queryClient = new QueryClient()
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'form/edit/:formId',
-        element: <FormContentUpdate />,
+        element: <FormContentUpdatePage />,
       },
     ],
   },
