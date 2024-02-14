@@ -35,7 +35,7 @@ const router = createBrowserRouter([
         element: <MyFormsPage />,
       },
       {
-        path: 'form/:formId/create/title',
+        path: 'form/create/title',
         element: <FormTitleCreatePage />,
       },
       {
