@@ -26,7 +26,9 @@ export const Button = ({
 }
 
 const style = css`
-  ${flexCenter}
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 5px;
   font-size: 16px;
   font-weight: 600;

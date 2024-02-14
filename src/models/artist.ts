@@ -10,7 +10,3 @@ export interface ArtistData {
   type: string
   url: string
 }
-
-export interface ArtistInfoProps {
-  data: ArtistData[]
-}
