@@ -13,6 +13,7 @@ import FormTitleCreatePage from './pages/FormTitleCreate'
 import FormContentCreatePage from './pages/FormContentCreate'
 import FormPage from './pages/Form'
 import FormContentUpdate from './pages/FormContentUpdate'
+import SharePage from './pages/Share'
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: 'form/:formId',
         element: <FormPage />,
+      },
+      {
+        path: 'form/share/:formId',
+        element: <SharePage />,
       },
       {
         path: 'form/edit/:formId',

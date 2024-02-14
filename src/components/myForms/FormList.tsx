@@ -3,6 +3,7 @@ import { css } from '@emotion/react'
 import { FormListData } from '@/models/form'
 import { Text } from '../shared/text'
 import { colors } from '@/styles/colors'
+import { Button } from '../shared/button'
 
 interface FormListProps {
   data: FormListData[]
@@ -13,8 +14,11 @@ export default function FormList({ data }: FormListProps) {
     <section css={sectionStyles}>
       {data.map(({ id, data: form }) => (
         <article css={articleStyles} key={id}>
-          <Link to={`/form/${id}`} css={linkStyles}>
+          <Link css={linkStyles} to={`/form/${id}`}>
             <Text variant={'bodyStrong'}>{form.formTitle}</Text>
+          </Link>
+          <Link to={`/form/share/${id}`}>
+            <Button variant={'secondary'}>공유</Button>
           </Link>
         </article>
       ))}
@@ -31,15 +35,21 @@ const sectionStyles = css`
 `
 
 const articleStyles = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 165px;
   height: 165px;
   border: 2px solid ${colors.gray100};
   border-radius: 10px;
+  padding: 16px;
 `
 
 const linkStyles = css`
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
-  padding: 25px;
+  text-align: center;
 `

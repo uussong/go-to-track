@@ -37,7 +37,8 @@ export const globalStyles = css`
   }
 
   ol,
-  ul {
+  ul,
+  li {
     list-style: none;
     padding: 0;
   }
