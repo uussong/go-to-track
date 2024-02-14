@@ -12,6 +12,7 @@ import SpotifyAuth from './components/auth/SpotifyAuth'
 import FormTitleCreatePage from './pages/FormTitleCreate'
 import FormContentCreatePage from './pages/FormContentCreate'
 import FormPage from './pages/Form'
+import FormContentUpdate from './pages/FormContentUpdate'
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: 'form/:formId',
         element: <FormPage />,
+      },
+      {
+        path: 'form/edit/:formId',
+        element: <FormContentUpdate />,
       },
     ],
   },

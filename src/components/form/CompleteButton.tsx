@@ -9,5 +9,5 @@ export default function CompleteButton({ onComplete }: CompleteButtonProps) {
     onComplete()
   }
 
-  return <Button onClick={handleClick}>완성</Button>
+  return <Button onClick={handleClick}>완료</Button>
 }

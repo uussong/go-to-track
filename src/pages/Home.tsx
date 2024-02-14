@@ -1,18 +1,22 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { css } from '@emotion/react'
 import PageLayout from '@/components/shared/PageLayout'
 import { Button } from '@/components/shared/button'
 import useNavbar from '@/hooks/useNavbar'
 import { useUser } from '@/hooks/useUser'
 import { flexCenter } from '@/styles/mixins'
-import { css } from '@emotion/react'
+import SignOut from '@/components/shared/SignOut'
 
 export default function HomePage() {
   const user = useUser()
   const { updateNavbar } = useNavbar()
 
   useEffect(() => {
-    updateNavbar({ left: <Link to={``}>Home</Link>, title: null })
+    updateNavbar({
+      left: <Link to={`/`}>Home</Link>,
+      right: <SignOut />,
+    })
   }, [updateNavbar])
 
   return (

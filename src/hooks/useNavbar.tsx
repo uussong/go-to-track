@@ -1,18 +1,19 @@
-import { useCallback } from 'react'
+import { ReactNode, useCallback } from 'react'
 import { useRecoilState } from 'recoil'
 import { navbarState } from '@/stores/navbar'
 
 interface NavbarProps {
-  left: React.ReactNode | null
-  title: React.ReactNode | null
+  left: ReactNode
+  title?: ReactNode
+  right: ReactNode
 }
 
 const useNavbar = () => {
   const [navbar, setNavbar] = useRecoilState(navbarState)
 
   const updateNavbar = useCallback(
-    ({ left, title }: NavbarProps) => {
-      setNavbar({ left, title })
+    ({ left, title, right }: NavbarProps) => {
+      setNavbar({ left, title, right })
     },
     [setNavbar],
   )

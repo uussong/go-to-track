@@ -1,47 +1,56 @@
 import { useEffect, useState } from 'react'
-import { useRecoilValue } from 'recoil'
-import { useSearchParams } from 'react-router-dom'
-import PageLayout from '@/components/shared/PageLayout'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import ConfirmTrack from '@/components/form/content/ConfirmTrack'
 import SearchArtist from '@/components/form/content/SearchArtist'
 import SelectAlbum from '@/components/form/content/SelectAlbum'
-import ConfirmTrack from '@/components/form/content/ConfirmTrack'
-import { formTitleState } from '@/stores/form'
+import PageLayout from '@/components/shared/PageLayout'
+import { useUpdateFormData } from '@/hooks/useUpdateFormData'
+import { useGetFormData } from '@/hooks/useGetFormData'
+import { FormDataFromServer } from '@/models/form'
 import useNavbar from '@/hooks/useNavbar'
-import Navbar from '@/components/form/content/Navbar'
-import { useSaveFormData } from '@/hooks/useSaveFormData'
-import ErrorPage from '@/components/form/content/ErrorPage'
-import withErrorBoundary from '@/components/shared/errorBoundary/withErrorBoundary'
 import SignOut from '@/components/shared/SignOut'
 
-function FormContentCreatePage() {
+export default function FormContentUpdate() {
   const [searchParams, setSearchParams] = useSearchParams()
+  const { formId } = useParams()
+  const navigate = useNavigate()
+
+  const { data: form } = useGetFormData(formId ?? '') as {
+    data: FormDataFromServer
+  }
+
+  const [step, setStep] = useState<'가수검색' | '앨범선택' | '트랙확인'>(
+    searchParams.get('artist') ? '앨범선택' : '가수검색',
+  )
+
   const artistId = searchParams.get('artist') ?? ''
   const albumId = searchParams.get('album') ?? ''
 
-  const [step, setStep] = useState<'가수검색' | '앨범선택' | '트랙확인'>(() => {
-    return artistId && albumId === ''
-      ? '앨범선택'
-      : artistId && albumId
-        ? '트랙확인'
-        : '가수검색'
-  })
-
-  const formTitle = useRecoilValue(formTitleState)
   const { updateNavbar } = useNavbar()
-  const { mutate } = useSaveFormData()
+  const { mutate } = useUpdateFormData()
 
-  const formData = {
-    formTitle,
+  const updatedFormData = {
+    ...form,
     artistId,
     albumId,
   }
 
   useEffect(() => {
-    updateNavbar({ left: <Navbar />, right: <SignOut /> })
-  }, [updateNavbar])
+    updateNavbar({
+      left: (
+        <>
+          <Link to={`/myforms`}>My forms</Link>
+          <span> / </span>
+          <Link to={`/form/${formId}`}>{form.formTitle}</Link>
+        </>
+      ),
+      right: <SignOut />,
+    })
+  }, [updateNavbar, formId, form.formTitle])
 
-  const completeFormCreation = async () => {
-    await mutate({ formData })
+  const updateFormData = () => {
+    mutate({ updatedFormData })
+    navigate(`/myforms`)
   }
 
   return (
@@ -58,11 +67,6 @@ function FormContentCreatePage() {
       {step === '앨범선택' && (
         <SelectAlbum
           artistId={artistId}
-          onPrevious={() => {
-            setStep('가수검색')
-            searchParams.delete('artist')
-            setSearchParams(searchParams)
-          }}
           onNext={(albumId) => {
             setStep('트랙확인')
             searchParams.set('album', albumId)
@@ -78,13 +82,9 @@ function FormContentCreatePage() {
             searchParams.delete('album')
             setSearchParams(searchParams)
           }}
-          onComplete={completeFormCreation}
+          onComplete={updateFormData}
         />
       )}
     </PageLayout>
   )
 }
-
-export default withErrorBoundary(FormContentCreatePage, {
-  fallback: <ErrorPage />,
-})

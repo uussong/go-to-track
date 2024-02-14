@@ -1,14 +1,11 @@
 import { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
 import { css } from '@emotion/react'
-import Loading from '@/components/shared/Loading'
-import SignOut from '@/components/shared/SignOut'
-import { useUser } from '@/hooks/useUser'
-import { colors } from '@/styles/colors'
 import useNavbar from '@/hooks/useNavbar'
+import { colors } from '@/styles/colors'
+import Loading from '@/components/shared/Loading'
 
 export default function Root() {
-  const user = useUser()
   const { navbar } = useNavbar()
 
   return (
@@ -18,7 +15,7 @@ export default function Root() {
           <ul css={ulStyles}>
             <li>{navbar.left}</li>
             <li>{navbar.title}</li>
-            <li>{user && <SignOut />}</li>
+            <li>{navbar.right}</li>
           </ul>
         </nav>
       </header>

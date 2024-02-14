@@ -6,7 +6,7 @@ import { Text } from '../../shared/text'
 
 interface SelectAlbumProps {
   artistId: string
-  onPrevious: () => void
+  onPrevious?: () => void
   onNext: (albumId: string) => void
 }
 
@@ -19,9 +19,11 @@ export default function SelectAlbum({
 
   return (
     <>
-      <Button variant={'secondary'} onClick={onPrevious}>
-        이전
-      </Button>
+      {onPrevious && (
+        <Button variant={'secondary'} onClick={onPrevious}>
+          이전
+        </Button>
+      )}
       <Text css={titleStyles} variant={'heading2'}>
         수록곡을 투표 할 앨범을 선택해주세요
       </Text>

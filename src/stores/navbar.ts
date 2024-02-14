@@ -1,11 +1,10 @@
-import { atom } from 'recoil'
-
 interface NavbarState {
-  left: React.ReactNode | null
-  title: React.ReactNode | null
+  left: ReactNode
+  title: ReactNode
+  right: ReactNode
 }
 
 export const navbarState = atom<NavbarState>({
   key: 'navbarState',
-  default: { left: null, title: null },
+  default: { left: null, title: null, right: null },
 })
