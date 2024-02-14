@@ -5,7 +5,6 @@ import PageLayout from '@/components/shared/PageLayout'
 import { Button } from '@/components/shared/button'
 import useNavbar from '@/hooks/useNavbar'
 import { useUser } from '@/hooks/useUser'
-import useNavbar from '@/hooks/useNavbar'
 import { flexCenter } from '@/styles/mixins'
 import SignOut from '@/components/shared/SignOut'
 
