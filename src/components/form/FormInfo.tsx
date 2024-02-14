@@ -4,7 +4,7 @@ import { Text } from '@/components/shared/text'
 import { useGetAlbumInfo } from '@/hooks/useGetAlbumInfo'
 import { useGetArtistInfo } from '@/hooks/useGetArtistInfo'
 import { FormDataFromUser } from '@/models/form'
-import { flexCenter } from '@/styles/mixins'
+import { flexColumnCenter } from '@/styles/mixins'
 
 interface FormInfoProps {
   form: FormDataFromUser
@@ -38,7 +38,7 @@ const sectionStyles = css`
 `
 
 const divStyles = css`
-  ${flexCenter}
+  ${flexColumnCenter}
   gap: 5px;
 `
 
