@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { css } from '@emotion/react'
 import { ArtistData } from '@/models/artist'
-import { FormData } from '@/models/form'
+import { FormDataFromServer } from '@/models/form'
 import { Text } from '../shared/text'
 import { SingleAlbumData } from '@/models/album'
 import { Button } from '../shared/button'
 import { colors } from '@/styles/colors'
 
 interface formDetailProps {
-  form: FormData
+  form: FormDataFromServer
   artist: ArtistData
   album: SingleAlbumData
 }
