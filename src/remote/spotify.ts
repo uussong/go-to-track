@@ -1,59 +1,36 @@
-import axios from 'axios'
+import toeknApi from './instance/tokenInstance'
+import api from './instance/baseInstance'
 
 export const getAccessToken = async () => {
-  const { REACT_APP_CLIENT_ID, REACT_APP_CLIENT_SECRET } = process.env
-  const body = `grant_type=client_credentials&client_id=${REACT_APP_CLIENT_ID}&client_secret=${REACT_APP_CLIENT_SECRET}`
-
-  const { data } = await axios.post(
-    'https://accounts.spotify.com/api/token',
-    body,
-    {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    },
-  )
+  const { data } = await toeknApi.post('token')
   return data
 }
 
 export const searchArtist = async (searchInput: string) => {
-  const accessToken = localStorage.getItem('access_token')
+  const { data } = await api.get(`search?q=${searchInput}&type=artist`)
+  return data
+}
 
-  const { data } = await axios.get(
-    `https://api.spotify.com/v1/search?q=${searchInput}&type=artist`,
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    },
+export const getAlbums = async (artistId: string) => {
+  const { data } = await api.get(
+    `artists/${artistId}/albums?include_groups=album,single&limit=50`,
   )
   return data
 }
 
-export const getArtistInfo = async (artistId: string) => {
-  const accessToken = localStorage.getItem('access_token')
+export const getTracks = async (albumId: string) => {
+  const { data } = await api.get(`albums/${albumId}/tracks`)
+  return data
+}
 
-  const { data } = await axios.get(
+export const getArtistInfo = async (artistId: string) => {
+  const { data } = await api.get(
     `https://api.spotify.com/v1/artists/${artistId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    },
   )
   return data
 }
 
 export const getAlbumInfo = async (albumId: string) => {
-  const accessToken = localStorage.getItem('access_token')
-
-  const { data } = await axios.get(
-    `https://api.spotify.com/v1/albums/${albumId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    },
-  )
+  const { data } = await api.get(`https://api.spotify.com/v1/albums/${albumId}`)
   return data
 }

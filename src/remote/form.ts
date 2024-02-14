@@ -2,14 +2,35 @@ import { User } from 'firebase/auth'
 import {
   collection,
   doc,
+  addDoc,
   getDocs,
   query,
   getDoc,
   orderBy,
+  deleteDoc,
 } from 'firebase/firestore'
 import { store } from './firebase'
+import {
+  FormDataFromUser,
+  FormDataFromServer,
+  FormListData,
+} from '@/models/form'
 import { COLLECTIONS } from '@/constants/collections'
-import { FormData, FormListData } from '@/models/form'
+
+export const saveFormData = async (user: User, formData: FormDataFromUser) => {
+  const { uid } = user
+  const userRef = doc(store, COLLECTIONS.FORM, uid)
+  const formDataRef = collection(userRef, COLLECTIONS.FORMDATA)
+
+  const currentTime = new Date()
+
+  const formDataToSave = {
+    ...formData,
+    timestamp: currentTime,
+  }
+
+  await addDoc(formDataRef, formDataToSave)
+}
 
 export const getFormList = async (user: User) => {
   const { uid } = user
@@ -37,7 +58,7 @@ export const getFormList = async (user: User) => {
 export const getFormDataById = async (
   user: User,
   formId: string,
-): Promise<FormData | null> => {
+): Promise<FormDataFromServer | null> => {
   const { uid } = user
   const formRef = doc(
     store,
@@ -60,4 +81,16 @@ export const getFormDataById = async (
   } else {
     return null
   }
+}
+
+export const deleteFormData = async (user: User, formId: string) => {
+  const { uid } = user
+  const formRef = doc(
+    store,
+    COLLECTIONS.FORM,
+    uid,
+    COLLECTIONS.FORMDATA,
+    formId,
+  )
+  await deleteDoc(formRef)
 }

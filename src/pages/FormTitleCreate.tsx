@@ -1,17 +1,15 @@
 import { useEffect } from 'react'
+import { useSetRecoilState } from 'recoil'
 import { Link } from 'react-router-dom'
+import { formTitleState } from '@/stores/form'
 import PageLayout from '@/components/shared/PageLayout'
-import { Button } from '@/components/shared/button'
+import EnterTitle from '@/components/form/title/EnterTitle'
 import useNavbar from '@/hooks/useNavbar'
-import FormList from '@/components/myForms/FormList'
-import { useGetFormList } from '@/hooks/useGetFormList'
 import SignOut from '@/components/shared/SignOut'
 
-export default function MyFormsPage() {
-  const { data } = useGetFormList()
-
+export default function FormTitleCreate() {
+  const setFormTitle = useSetRecoilState(formTitleState)
   const { updateNavbar } = useNavbar()
-
   useEffect(() => {
     updateNavbar({
       left: <Link to={`/myforms`}>My forms</Link>,
@@ -21,10 +19,7 @@ export default function MyFormsPage() {
 
   return (
     <PageLayout>
-      <Link to={`/form/create/title`}>
-        <Button>만들기</Button>
-      </Link>
-      <FormList data={data} />
+      <EnterTitle setFormTitle={(formTitle) => setFormTitle(formTitle)} />
     </PageLayout>
   )
 }

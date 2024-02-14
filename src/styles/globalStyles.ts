@@ -79,4 +79,8 @@ export const globalStyles = css`
       cursor: default;
     }
   }
+
+  [contenteditable] {
+    outline: none;
+  }
 `
