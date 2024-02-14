@@ -7,7 +7,7 @@ import {
   query,
   getDoc,
   orderBy,
-  setDoc,
+  deleteDoc,
 } from 'firebase/firestore'
 import { store } from './firebase'
 import {
@@ -83,11 +83,7 @@ export const getFormDataById = async (
   }
 }
 
-export const updateFormData = async (
-  user: User,
-  formId: string,
-  updatedFormData: FormDataFromServer,
-) => {
+export const deleteFormData = async (user: User, formId: string) => {
   const { uid } = user
   const formRef = doc(
     store,
@@ -96,10 +92,5 @@ export const updateFormData = async (
     COLLECTIONS.FORMDATA,
     formId,
   )
-
-  const docSnapshot = await getDoc(formRef)
-
-  if (docSnapshot.exists()) {
-    await setDoc(formRef, updatedFormData)
-  }
+  await deleteDoc(formRef)
 }
