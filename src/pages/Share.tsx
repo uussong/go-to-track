@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import FormEnter from '@/components/form/FormEnter'
-import FormInfo from '@/components/form/FormInfo'
-import SelectTrack from '@/components/form/SelectTrack'
-import FormEnd from '@/components/form/FormEnd'
+import FormEnter from '@/components/form/vote/FormEnter'
+import FormInfo from '@/components/form/vote/FormInfo'
+import SelectTrack from '@/components/form/vote/SelectTrack'
+import FormEnd from '@/components/form/vote/FormEnd'
 import PageLayout from '@/components/shared/PageLayout'
 import { useGetFormData } from '@/hooks/useGetFormData'
 import { FormDataFromUser } from '@/models/form'
@@ -15,6 +15,7 @@ export default function SharePage() {
   const { data: form } = useGetFormData(formId ?? '') as {
     data: FormDataFromUser
   }
+
   return (
     <PageLayout>
       {step === '시작' && (
