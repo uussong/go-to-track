@@ -6,16 +6,15 @@ import SelectTrack from '@/components/form/SelectTrack'
 import FormEnd from '@/components/form/FormEnd'
 import PageLayout from '@/components/shared/PageLayout'
 import { useGetFormData } from '@/hooks/useGetFormData'
-import { FormData } from '@/models/form'
+import { FormDataFromUser } from '@/models/form'
 
 export default function SharePage() {
   const [step, setStep] = useState<'시작' | '정보' | '투표' | '완료'>('시작')
   const { formId } = useParams()
 
   const { data: form } = useGetFormData(formId ?? '') as {
-    data: FormData
+    data: FormDataFromUser
   }
-
   return (
     <PageLayout>
       {step === '시작' && (
