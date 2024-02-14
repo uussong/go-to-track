@@ -8,6 +8,7 @@ import {
   getDoc,
   orderBy,
   deleteDoc,
+  setDoc,
 } from 'firebase/firestore'
 import { store } from './firebase'
 import {
@@ -80,6 +81,27 @@ export const getFormDataById = async (
     }
   } else {
     return null
+  }
+}
+
+export const updateFormData = async (
+  user: User,
+  formId: string,
+  updatedFormData: FormDataFromServer,
+) => {
+  const { uid } = user
+  const formRef = doc(
+    store,
+    COLLECTIONS.FORM,
+    uid,
+    COLLECTIONS.FORMDATA,
+    formId,
+  )
+
+  const docSnapshot = await getDoc(formRef)
+
+  if (docSnapshot.exists()) {
+    await setDoc(formRef, updatedFormData)
   }
 }
 

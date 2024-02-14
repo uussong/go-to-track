@@ -3,11 +3,11 @@ import { Button } from '@/components/shared/button'
 import { Text } from '@/components/shared/text'
 import { useGetAlbumInfo } from '@/hooks/useGetAlbumInfo'
 import { useGetArtistInfo } from '@/hooks/useGetArtistInfo'
-import { FormData } from '@/models/form'
-import { flexCenter } from '@/styles/mixins'
+import { FormDataFromUser } from '@/models/form'
+import { flexColumnCenter } from '@/styles/mixins'
 
 interface FormInfoProps {
-  form: FormData
+  form: FormDataFromUser
   onNext: () => void
 }
 
@@ -38,7 +38,7 @@ const sectionStyles = css`
 `
 
 const divStyles = css`
-  ${flexCenter}
+  ${flexColumnCenter}
   gap: 5px;
 `
 

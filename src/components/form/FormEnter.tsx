@@ -1,7 +1,7 @@
 import { css } from '@emotion/react'
 import { Button } from '@/components/shared/button'
 import { Text } from '@/components/shared/text'
-import { flexCenter } from '@/styles/mixins'
+import { flexColumnCenter } from '@/styles/mixins'
 
 interface FormEnterProps {
   formTitle: string
@@ -18,7 +18,7 @@ export default function FormEnter({ formTitle, onNext }: FormEnterProps) {
 }
 
 const sectionStyles = css`
-  ${flexCenter}
+  ${flexColumnCenter}
   gap: 50px;
   flex-grow: 1;
 `

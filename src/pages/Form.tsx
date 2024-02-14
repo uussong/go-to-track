@@ -1,5 +1,4 @@
-
-import { MouseEventHandler, useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import PageLayout from '@/components/shared/PageLayout'
 import { useGetFormData } from '@/hooks/useGetFormData'
@@ -43,7 +42,6 @@ export default function FormPage() {
       ),
     })
   }, [updateNavbar, handleModalOpen])
-
 
   return (
     <PageLayout>

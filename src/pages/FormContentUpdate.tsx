@@ -10,7 +10,7 @@ import { FormDataFromServer } from '@/models/form'
 import useNavbar from '@/hooks/useNavbar'
 import SignOut from '@/components/shared/SignOut'
 
-export default function FormContentUpdate() {
+export default function FormContentUpdatePage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const { formId } = useParams()
   const navigate = useNavigate()
