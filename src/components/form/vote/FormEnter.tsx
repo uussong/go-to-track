@@ -21,11 +21,16 @@ export default function FormEnter({ formTitle, onNext }: FormEnterProps) {
   const getNickname = () => {
     onNext(nickname)
   }
-  console.log(onNext)
+
   return (
     <section css={sectionStyles}>
       <Text variant={'heading2'}>{formTitle}</Text>
-      <TextInput label={'닉네임 입력'} onChange={handleInputChange} />
+      <TextInput
+        css={inputStyles}
+        label={'닉네임 입력'}
+        placeholder={'닉네임을 입력해 주세요.'}
+        onChange={handleInputChange}
+      />
       <Button onClick={getNickname}>시작하기</Button>
     </section>
   )
@@ -35,4 +40,12 @@ const sectionStyles = css`
   ${flexColumnCenter}
   gap: 50px;
   flex-grow: 1;
+`
+
+const inputStyles = css`
+  text-align: center;
+
+  ::placeholder {
+    text-align: center;
+  }
 `
