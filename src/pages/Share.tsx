@@ -10,6 +10,8 @@ import { FormDataFromUser } from '@/models/form'
 
 export default function SharePage() {
   const [step, setStep] = useState<'시작' | '정보' | '투표' | '완료'>('시작')
+  const [nickname, setNickname] = useState('')
+
   const { formId } = useParams()
 
   const { data: form } = useGetFormData(formId ?? '') as {
@@ -19,13 +21,23 @@ export default function SharePage() {
   return (
     <PageLayout>
       {step === '시작' && (
-        <FormEnter formTitle={form.formTitle} onNext={() => setStep('정보')} />
+        <FormEnter
+          formTitle={form.formTitle}
+          onNext={(nickname) => {
+            setStep('정보')
+            nickname && setNickname(nickname)
+          }}
+        />
       )}
       {step === '정보' && (
         <FormInfo form={form} onNext={() => setStep('투표')} />
       )}
       {step === '투표' && (
-        <SelectTrack albumId={form.albumId} onNext={() => setStep('완료')} />
+        <SelectTrack
+          albumId={form.albumId}
+          onNext={() => setStep('완료')}
+          nickname={nickname}
+        />
       )}
       {step === '완료' && <FormEnd />}
     </PageLayout>

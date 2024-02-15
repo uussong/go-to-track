@@ -1,18 +1,32 @@
+import { ChangeEvent, useState } from 'react'
 import { css } from '@emotion/react'
 import { Button } from '@/components/shared/button'
 import { Text } from '@/components/shared/text'
 import { flexColumnCenter } from '@/styles/mixins'
+import { TextInput } from '@/components/shared/textInput'
 
 interface FormEnterProps {
   formTitle: string
-  onNext: () => void
+  onNext: (nickname: string) => void
 }
 
 export default function FormEnter({ formTitle, onNext }: FormEnterProps) {
+  const [nickname, setNickname] = useState('')
+  console.log(nickname)
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNickname(e.target.value)
+  }
+
+  const getNickname = () => {
+    onNext(nickname)
+  }
+  console.log(onNext)
   return (
     <section css={sectionStyles}>
       <Text variant={'heading2'}>{formTitle}</Text>
-      <Button onClick={onNext}>시작하기</Button>
+      <TextInput label={'닉네임 입력'} onChange={handleInputChange} />
+      <Button onClick={getNickname}>시작하기</Button>
     </section>
   )
 }

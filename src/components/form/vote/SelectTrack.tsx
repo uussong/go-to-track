@@ -9,9 +9,14 @@ import { Text } from '@/components/shared/text'
 interface SelectTrackProps {
   albumId: string
   onNext: () => void
+  nickname?: string
 }
 
-export default function SelectTrack({ albumId, onNext }: SelectTrackProps) {
+export default function SelectTrack({
+  albumId,
+  onNext,
+  nickname,
+}: SelectTrackProps) {
   const { data: album } = useGetAlbumInfo(albumId)
   const tracks = album.tracks.items
 
@@ -32,7 +37,7 @@ export default function SelectTrack({ albumId, onNext }: SelectTrackProps) {
       <div>
         <div css={textGroupStyles}>
           <Text variant={'detailStrong'}>{album.name}</Text>
-          <Text css={{ fontSize: '20px' }}>나의 최애곡은?</Text>
+          <Text>{nickname}의 최애곡은?</Text>
         </div>
         <ul css={ulStyles}>
           {tracks.map((track: TrackData, index: number) => (
