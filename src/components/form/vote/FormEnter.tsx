@@ -1,9 +1,11 @@
 import { ChangeEvent, useState } from 'react'
+import { useSetRecoilState } from 'recoil'
 import { css } from '@emotion/react'
 import { Button } from '@/components/shared/button'
 import { Text } from '@/components/shared/text'
 import { flexColumnCenter } from '@/styles/mixins'
 import { TextInput } from '@/components/shared/textInput'
+import { voteDataState } from '@/stores/form'
 
 interface FormEnterProps {
   formTitle: string
@@ -12,7 +14,7 @@ interface FormEnterProps {
 
 export default function FormEnter({ formTitle, onNext }: FormEnterProps) {
   const [nickname, setNickname] = useState('')
-  console.log(nickname)
+  const setVoteNickname = useSetRecoilState(voteDataState)
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value)
@@ -20,6 +22,10 @@ export default function FormEnter({ formTitle, onNext }: FormEnterProps) {
 
   const getNickname = () => {
     onNext(nickname)
+    setVoteNickname((voteData) => ({
+      ...voteData,
+      nickname: nickname,
+    }))
   }
 
   return (

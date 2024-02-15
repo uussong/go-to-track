@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { useSetRecoilState } from 'recoil'
 import { css } from '@emotion/react'
 import { Checkbox } from '@/components/shared/checkbox'
 import { useGetAlbumInfo } from '@/hooks/useGetAlbumInfo'
 import { TrackData } from '@/models/track'
 import { Button } from '@/components/shared/button'
 import { Text } from '@/components/shared/text'
+import { voteDataState } from '@/stores/form'
 
 interface SelectTrackProps {
   albumId: string
@@ -21,6 +23,7 @@ export default function SelectTrack({
   const tracks = album.tracks.items
 
   const [checkedIndexes, setCheckedIndexes] = useState<number[]>([])
+  const setVoteData = useSetRecoilState(voteDataState)
 
   const handleCheck = (index: number) => {
     if (checkedIndexes.includes(index)) {
@@ -28,6 +31,14 @@ export default function SelectTrack({
     } else {
       setCheckedIndexes([index])
     }
+  }
+
+  const handleSubmit = () => {
+    setVoteData((voteData) => ({
+      ...voteData,
+      vote: { albumId, selectedTrack: checkedIndexes },
+    }))
+    onNext()
   }
 
   return (
@@ -51,7 +62,9 @@ export default function SelectTrack({
           ))}
         </ul>
       </div>
-      <Button onClick={onNext}>제출하기</Button>
+      <Button onClick={handleSubmit} disabled={checkedIndexes.length === 0}>
+        제출하기
+      </Button>
     </section>
   )
 }
