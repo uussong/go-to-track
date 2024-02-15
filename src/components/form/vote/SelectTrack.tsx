@@ -9,7 +9,7 @@ import { Text } from '@/components/shared/text'
 interface SelectTrackProps {
   albumId: string
   onNext: () => void
-  nickname?: string
+  nickname: string
 }
 
 export default function SelectTrack({
@@ -20,16 +20,14 @@ export default function SelectTrack({
   const { data: album } = useGetAlbumInfo(albumId)
   const tracks = album.tracks.items
 
-  const [isChecked, setIsChecked] = useState<boolean[]>(
-    Array(tracks.length).fill(false),
-  )
+  const [checkedIndexes, setCheckedIndexes] = useState<number[]>([])
 
-  const handleCheck = (checkedIndex: number, checked: boolean) => {
-    setIsChecked((prevData) =>
-      prevData.map((value, idx) =>
-        idx + 1 === checkedIndex ? checked : value,
-      ),
-    )
+  const handleCheck = (index: number) => {
+    if (checkedIndexes.includes(index)) {
+      setCheckedIndexes(checkedIndexes.filter((i) => i !== index))
+    } else {
+      setCheckedIndexes([index])
+    }
   }
 
   return (
@@ -44,9 +42,10 @@ export default function SelectTrack({
         <ul css={ulStyles}>
           {tracks.map((track: TrackData, index: number) => (
             <Checkbox
+              key={track.id}
               index={track.track_number}
               label={track.name}
-              checked={isChecked[index]}
+              checked={checkedIndexes.includes(index + 1)}
               onClick={handleCheck}
             />
           ))}
