@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSetRecoilState } from 'recoil'
 import { css } from '@emotion/react'
 import { Checkbox } from '@/components/shared/checkbox'
@@ -26,18 +26,21 @@ export default function SelectTrack({
   const setVoteData = useSetRecoilState(voteDataState)
 
   const handleCheck = (index: number) => {
-    if (checkedIndexes.includes(index)) {
-      setCheckedIndexes(checkedIndexes.filter((i) => i !== index))
-    } else {
-      setCheckedIndexes([index])
-    }
+    setCheckedIndexes((prevIndexes) => {
+      return prevIndexes.includes(index)
+        ? prevIndexes.filter((i) => i !== index)
+        : [index]
+    })
   }
 
-  const handleSubmit = () => {
+  useEffect(() => {
     setVoteData((voteData) => ({
       ...voteData,
       vote: { albumId, selectedTrack: checkedIndexes },
     }))
+  }, [checkedIndexes, albumId, setVoteData])
+
+  const handleSubmit = () => {
     onNext()
   }
 
