@@ -36,8 +36,10 @@ export default function SelectTrack({
     <section css={sectionStyles}>
       <div>
         <div css={textGroupStyles}>
-          <Text variant={'detailStrong'}>{album.name}</Text>
-          <Text>{nickname}의 최애곡은?</Text>
+          <Text variant={'heading2'}>
+            {nickname}님의 <Text variant={'bodyStrong'}>{album.name} </Text>
+            최애곡은?
+          </Text>
         </div>
         <ul css={ulStyles}>
           {tracks.map((track: TrackData, index: number) => (
