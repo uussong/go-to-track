@@ -31,11 +31,11 @@ export default function ShareLink() {
       </Button>
       {stateType === 'success' ? (
         <div css={messageStyles(stateType)}>
-          <Text css={messageTextStyles}>링크가 복사되었어요!</Text>
+          <Text css={messageTextStyles(stateType)}>링크가 복사되었어요!</Text>
         </div>
       ) : stateType === 'error' ? (
         <div css={messageStyles(stateType)}>
-          <Text css={messageTextStyles}>다시 시도해 주세요.</Text>
+          <Text css={messageTextStyles(stateType)}>다시 시도해 주세요.</Text>
         </div>
       ) : null}
     </>
@@ -60,12 +60,12 @@ const fadeInOut = keyframes`
 const messageStyles = (stateType: string) => css`
   position: absolute;
   right: 16px;
-  background-color: ${stateType === 'success' ? colors.green : colors.red};
+  background-color: ${stateType === 'success' ? colors.gray200 : colors.red};
   padding: 12px 16px;
   border-radius: 10px;
   animation: ${fadeInOut} 3s ease-in-out;
 `
 
-const messageTextStyles = css`
-  color: ${colors.white};
+const messageTextStyles = (stateType: string) => css`
+  color: ${stateType === 'success' ? colors.black : colors.white};
 `
