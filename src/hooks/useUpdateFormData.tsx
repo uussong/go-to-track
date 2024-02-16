@@ -1,16 +1,13 @@
 import { useMutation } from '@tanstack/react-query'
-import { User } from 'firebase/auth'
 import { useParams } from 'react-router-dom'
 import { updateFormData } from '@/remote/form'
 import { FormDataFromServer } from '@/models/form'
-import { useUser } from './useUser'
 
 interface UpdateFormDataType {
   updatedFormData: FormDataFromServer
 }
 
 export const useUpdateFormData = () => {
-  const user = useUser()
   const { formId } = useParams()
 
   if (!formId) {
@@ -19,7 +16,7 @@ export const useUpdateFormData = () => {
 
   return useMutation<void, Error, UpdateFormDataType>({
     mutationFn: ({ updatedFormData }) =>
-      updateFormData(user as User, formId, updatedFormData),
+      updateFormData(formId, updatedFormData),
     onError: (error) => console.error(error),
   })
 }

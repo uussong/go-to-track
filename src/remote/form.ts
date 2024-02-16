@@ -78,18 +78,10 @@ export const getFormDataById = async (formId: string) => {
 }
 
 export const updateFormData = async (
-  user: User,
   formId: string,
   updatedFormData: FormDataFromServer,
 ) => {
-  const { uid } = user
-  const formRef = doc(
-    store,
-    COLLECTIONS.FORM,
-    uid,
-    COLLECTIONS.FORMDATA,
-    formId,
-  )
+  const formRef = doc(store, COLLECTIONS.FORM, formId)
 
   const docSnapshot = await getDoc(formRef)
 
@@ -98,14 +90,7 @@ export const updateFormData = async (
   }
 }
 
-export const deleteFormData = async (user: User, formId: string) => {
-  const { uid } = user
-  const formRef = doc(
-    store,
-    COLLECTIONS.FORM,
-    uid,
-    COLLECTIONS.FORMDATA,
-    formId,
-  )
+export const deleteFormData = async (formId: string) => {
+  const formRef = doc(store, COLLECTIONS.FORM, formId)
   await deleteDoc(formRef)
 }
