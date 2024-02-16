@@ -8,7 +8,7 @@ import PageLayout from '@/components/shared/PageLayout'
 import { useGetFormData } from '@/hooks/useGetFormData'
 import { FormDataFromUser } from '@/models/form'
 
-export default function SharePage() {
+export default function FormSharePage() {
   const [step, setStep] = useState<'시작' | '정보' | '투표' | '완료'>('시작')
   const { formId } = useParams()
 
