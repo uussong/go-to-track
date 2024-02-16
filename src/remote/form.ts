@@ -9,6 +9,7 @@ import {
   orderBy,
   deleteDoc,
   setDoc,
+  where,
 } from 'firebase/firestore'
 import { store } from './firebase'
 import {
@@ -20,13 +21,13 @@ import { COLLECTIONS } from '@/constants/collections'
 
 export const saveFormData = async (user: User, formData: FormDataFromUser) => {
   const { uid } = user
-  const userRef = doc(store, COLLECTIONS.FORM, uid)
-  const formDataRef = collection(userRef, COLLECTIONS.FORMDATA)
+  const formDataRef = collection(store, COLLECTIONS.FORM)
 
   const currentTime = new Date()
 
   const formDataToSave = {
     ...formData,
+    uid,
     timestamp: currentTime,
   }
 
@@ -35,10 +36,10 @@ export const saveFormData = async (user: User, formData: FormDataFromUser) => {
 
 export const getFormList = async (user: User) => {
   const { uid } = user
-  const formRef = collection(store, COLLECTIONS.FORM, uid, COLLECTIONS.FORMDATA)
+  const formRef = collection(store, COLLECTIONS.FORM)
 
   const querySnapshot = await getDocs(
-    query(formRef, orderBy('timestamp', 'desc')),
+    query(formRef, where('uid', '==', uid), orderBy('timestamp', 'desc')),
   )
 
   const formList: FormListData[] = querySnapshot.docs.map((doc) => {
@@ -49,6 +50,7 @@ export const getFormList = async (user: User) => {
         albumId: formData.albumId,
         artistId: formData.artistId,
         formTitle: formData.formTitle,
+        uid: formData.uid,
         timestamp: formData.timestamp.toDate(),
       },
     }
@@ -56,18 +58,8 @@ export const getFormList = async (user: User) => {
   return formList
 }
 
-export const getFormDataById = async (
-  user: User,
-  formId: string,
-): Promise<FormDataFromServer | null> => {
-  const { uid } = user
-  const formRef = doc(
-    store,
-    COLLECTIONS.FORM,
-    uid,
-    COLLECTIONS.FORMDATA,
-    formId,
-  )
+export const getFormDataById = async (formId: string) => {
+  const formRef = doc(store, COLLECTIONS.FORM, formId)
 
   const docSnapshot = await getDoc(formRef)
 
@@ -77,6 +69,7 @@ export const getFormDataById = async (
       albumId: formData.albumId,
       artistId: formData.artistId,
       formTitle: formData.formTitle,
+      uid: formData.uid,
       timestamp: formData.timestamp.toDate(),
     }
   } else {
