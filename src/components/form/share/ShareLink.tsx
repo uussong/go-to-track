@@ -8,7 +8,7 @@ import { colors } from '@/styles/colors'
 export default function ShareLink() {
   const [stateType, setStateType] = useState('')
   const { formId } = useParams()
-  const shareLink = `${window.location.origin}/${formId}`
+  const shareLink = `${window.location.origin}/vote/${formId}`
 
   const copyLink = async () => {
     try {
