@@ -56,7 +56,7 @@ const router = createBrowserRouter([
         element: <FormContentUpdatePage />,
       },
       {
-        path: ':formId',
+        path: 'vote/:formId',
         element: <VotePage />,
       },
     ],
