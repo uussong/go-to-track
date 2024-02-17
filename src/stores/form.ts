@@ -1,5 +1,4 @@
 import { atom, AtomEffect } from 'recoil'
-import { VoteData } from '@/models/vote'
 
 const localStorageEffect: <T>(key: string) => AtomEffect<T> =
   (key) =>
@@ -20,10 +19,4 @@ export const formTitleState = atom({
   key: 'formTitleState',
   default: '',
   effects: [localStorageEffect('formTitle')],
-})
-
-export const voteDataState = atom<VoteData>({
-  key: 'voteDataState',
-  default: { nickname: '', vote: { albumId: '', selectedTrack: [] } },
-  effects: [localStorageEffect('voteData')],
 })

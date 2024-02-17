@@ -1,44 +1,36 @@
-import { useEffect, useState } from 'react'
-import { useSetRecoilState } from 'recoil'
+import { useState } from 'react'
 import { css } from '@emotion/react'
 import { Checkbox } from '@/components/shared/checkbox'
 import { useGetAlbumInfo } from '@/hooks/useGetAlbumInfo'
 import { TrackData } from '@/models/track'
 import { Button } from '@/components/shared/button'
 import { Text } from '@/components/shared/text'
-import { voteDataState } from '@/stores/form'
 
 interface SelectTrackProps {
   albumId: string
   onNext: () => void
+  onClick?: (selectedTrack: number[]) => void
   nickname: string
 }
 
 export default function SelectTrack({
   albumId,
   onNext,
+  onClick,
   nickname,
 }: SelectTrackProps) {
   const { data: album } = useGetAlbumInfo(albumId)
   const tracks = album.tracks.items
 
   const [checkedIndexes, setCheckedIndexes] = useState<number[]>([])
-  const setVoteData = useSetRecoilState(voteDataState)
 
   const handleCheck = (index: number) => {
-    setCheckedIndexes((prevIndexes) => {
-      return prevIndexes.includes(index)
-        ? prevIndexes.filter((i) => i !== index)
-        : [index]
-    })
+    const updatedIndexes = checkedIndexes.includes(index)
+      ? checkedIndexes.filter((i) => i !== index)
+      : [index]
+    setCheckedIndexes(updatedIndexes)
+    onClick?.(updatedIndexes)
   }
-
-  useEffect(() => {
-    setVoteData((voteData) => ({
-      ...voteData,
-      vote: { albumId, selectedTrack: checkedIndexes },
-    }))
-  }, [checkedIndexes, albumId, setVoteData])
 
   const handleSubmit = () => {
     onNext()
