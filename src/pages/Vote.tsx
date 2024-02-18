@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import FormEnter from '@/components/form/vote/FormEnter'
 import FormInfo from '@/components/form/vote/FormInfo'
 import SelectTrack from '@/components/form/vote/SelectTrack'
@@ -18,6 +18,7 @@ export default function VotePage() {
   })
 
   const { formId } = useParams()
+  const navigate = useNavigate()
 
   const { data: form } = useGetFormData(formId ?? '') as {
     data: FormDataFromUser
@@ -30,6 +31,12 @@ export default function VotePage() {
       mutate({ formId, voteData })
     }
   }
+
+  useEffect(() => {
+    if (!formId) {
+      navigate(-1)
+    }
+  }, [formId, navigate])
 
   return (
     <PageLayout>
