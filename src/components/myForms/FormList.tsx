@@ -17,9 +17,14 @@ export default function FormList({ data }: FormListProps) {
           <Link css={linkStyles} to={`/form/${id}`}>
             <Text variant={'bodyStrong'}>{form.formTitle}</Text>
           </Link>
-          <Link to={`/form/share/${id}`}>
-            <Button variant={'secondary'}>공유</Button>
-          </Link>
+          <div css={buttonGroupStyles}>
+            <Link to={`/form/result/${id}`}>
+              <Button variant={'secondary'}>결과</Button>
+            </Link>
+            <Link to={`/form/share/${id}`}>
+              <Button variant={'secondary'}>공유</Button>
+            </Link>
+          </div>
         </article>
       ))}
     </section>
@@ -52,4 +57,9 @@ const linkStyles = css`
   width: 100%;
   height: 100%;
   text-align: center;
+`
+
+const buttonGroupStyles = css`
+  display: flex;
+  justify-content: space-between;
 `
