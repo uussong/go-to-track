@@ -14,6 +14,7 @@ import FormContentCreatePage from './pages/FormContentCreate'
 import FormPage from './pages/Form'
 import FormContentUpdatePage from './pages/FormContentUpdate'
 import SharePage from './pages/Share'
+import ResultPage from './pages/Result'
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: 'form/edit/:formId',
         element: <FormContentUpdatePage />,
+      },
+      {
+        path: 'form/result/:formId',
+        element: <ResultPage />,
       },
     ],
   },
