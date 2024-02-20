@@ -6,12 +6,15 @@ import { FormDataFromUser } from '@/models/form'
 import useNavbar from '@/hooks/useNavbar'
 import Navbar from '@/components/form/result/Navbar'
 import SignOut from '@/components/shared/SignOut'
+import { useGetAlbumInfo } from '@/hooks/useGetAlbumInfo'
+import ResultDetail from '@/components/form/result/ResultDetail'
 
 export default function ResultPage() {
   const { formId } = useParams()
   const { data: form } = useGetFormData(formId ?? '') as {
     data: FormDataFromUser
   }
+  const { data: album } = useGetAlbumInfo(form.albumId)
 
   const { updateNavbar } = useNavbar()
 
@@ -22,5 +25,9 @@ export default function ResultPage() {
     })
   }, [updateNavbar, form.formTitle])
 
-  return <PageLayout>ResultPage</PageLayout>
+  return (
+    <PageLayout>
+      <ResultDetail album={album} />
+    </PageLayout>
+  )
 }
