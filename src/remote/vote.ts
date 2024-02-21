@@ -1,6 +1,7 @@
 import { getDocs, collection, query } from 'firebase/firestore'
 import { store } from './firebase'
 import { COLLECTIONS } from '@/constants/collections'
+import { VoteDataCount } from '@/models/vote'
 
 export const getFormVoteCount = async (formId: string) => {
   const voteDataRef = collection(
@@ -24,13 +25,13 @@ export const getSelectedTrackCounts = async (formId: string) => {
   )
   const querySnapshot = await getDocs(voteDataRef)
 
-  const selectedTrackCounts: any = {}
+  const selectedTrackCounts: VoteDataCount = {}
 
   querySnapshot.forEach((doc) => {
     const voteData = doc.data()
-    const selectedTracks = voteData.vote.selectedTrack
+    const selectedTracks: number[] = voteData.vote.selectedTrack
 
-    selectedTracks.forEach((track: any) => {
+    selectedTracks.forEach((track) => {
       if (selectedTrackCounts[track]) {
         selectedTrackCounts[track]++
       } else {
