@@ -3,7 +3,12 @@ import { SingleAlbumData } from '@/models/album'
 import { useParams } from 'react-router-dom'
 import { useGetTrackCounts } from '@/hooks/useGetTrackCounts'
 
-export default function ResultDetail({ album }: { album: SingleAlbumData }) {
+interface ResultDetailProps {
+  album: SingleAlbumData
+  voteCount: number
+}
+
+export default function ResultDetail({ album, voteCount }: ResultDetailProps) {
   const { formId } = useParams()
   const { data: trackCounts } = useGetTrackCounts(formId!)
 
@@ -13,16 +18,22 @@ export default function ResultDetail({ album }: { album: SingleAlbumData }) {
     <section>
       <Text variant={'heading2'}>{album.name}</Text>
       <ul>
-        {tracks.map((track) => (
-          <li key={track.id}>
-            <Text>{track.name}</Text>
-            <Text variant={'detailStrong'}>
-              {trackCounts[track.track_number]
-                ? trackCounts[track.track_number]
-                : 0}
-            </Text>
-          </li>
-        ))}
+        {tracks.map((track) => {
+          const trackVoteCount = trackCounts[track.track_number] || 0
+          let trackPercentage = (trackVoteCount / voteCount) * 100
+          if (Number.isInteger(trackPercentage)) {
+            trackPercentage = Math.round(trackPercentage)
+          } else {
+            trackPercentage = parseFloat(trackPercentage.toFixed(1))
+          }
+          return (
+            <li key={track.id}>
+              <Text>{track.name}</Text>
+              <Text variant={'detailStrong'}>{trackVoteCount}</Text>
+              <Text variant={'detail'}>{trackPercentage}%</Text>
+            </li>
+          )
+        })}
       </ul>
     </section>
   )

@@ -30,7 +30,7 @@ export default function ResultPage() {
   return (
     <PageLayout>
       <p>총 {voteCount}명이 투표한 결과</p>
-      <ResultDetail album={album} />
+      <ResultDetail album={album} voteCount={voteCount} />
     </PageLayout>
   )
 }
