@@ -16,11 +16,28 @@ export default function ResultDetail({ album, voteCount }: ResultDetailProps) {
 
   const tracks = album.tracks.items
 
+  const getRandomColor = (() => {
+    const colorOptions: (keyof typeof colors)[] = [
+      'pink',
+      'yellow',
+      'blue',
+      'green',
+      'purple',
+    ]
+    let startingColorIndex = Math.floor(Math.random() * colorOptions.length)
+
+    return (index: number) => {
+      const colorIndex = (index + startingColorIndex) % colorOptions.length
+      const selectedColor = colorOptions[colorIndex]
+      return colors[selectedColor]
+    }
+  })()
+
   return (
     <section>
       <Text variant={'heading2'}>{album.name}</Text>
       <ul>
-        {tracks.map((track) => {
+        {tracks.map((track, index) => {
           const trackVoteCount = trackCounts[track.track_number] || 0
           let trackPercentage = (trackVoteCount / voteCount) * 100
           if (Number.isInteger(trackPercentage)) {
@@ -28,12 +45,13 @@ export default function ResultDetail({ album, voteCount }: ResultDetailProps) {
           } else {
             trackPercentage = parseFloat(trackPercentage.toFixed(1))
           }
+          const color = getRandomColor(index)
           return (
             <li key={track.id}>
               <Text>{track.name}</Text>
               <Text variant={'detailStrong'}>{trackVoteCount}</Text>
               <Text variant={'detail'}>{trackPercentage}%</Text>
-              <div css={chartBarStyles(trackPercentage)}></div>
+              <div css={chartBarStyles(trackPercentage, color)}></div>
             </li>
           )
         })}
@@ -42,7 +60,7 @@ export default function ResultDetail({ album, voteCount }: ResultDetailProps) {
   )
 }
 
-const chartBarStyles = (trackPercentage: number) => css`
+const chartBarStyles = (trackPercentage: number, color: string) => css`
   position: relative;
   width: 100%;
   height: 24px;
@@ -54,7 +72,7 @@ const chartBarStyles = (trackPercentage: number) => css`
     position: absolute;
     inset: 0;
     width: ${trackPercentage}%;
-    background-color: ${colors.coral300};
+    background-color: ${color};
     border-radius: 2px;
   }
 `
