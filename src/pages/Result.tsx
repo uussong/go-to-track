@@ -9,6 +9,7 @@ import SignOut from '@/components/shared/SignOut'
 import { useGetAlbumInfo } from '@/hooks/useGetAlbumInfo'
 import ResultDetail from '@/components/form/result/ResultDetail'
 import { useGetVoteCount } from '@/hooks/useGetVoteCount'
+import { Text } from '@/components/shared/text'
 
 export default function ResultPage() {
   const { formId } = useParams()
@@ -29,7 +30,7 @@ export default function ResultPage() {
 
   return (
     <PageLayout>
-      <p>총 {voteCount}명이 투표한 결과</p>
+      <Text>총 {voteCount}명이 투표한 결과</Text>
       <ResultDetail album={album} voteCount={voteCount} />
     </PageLayout>
   )
