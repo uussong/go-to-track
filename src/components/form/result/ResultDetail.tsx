@@ -35,7 +35,10 @@ export default function ResultDetail({ album, voteCount }: ResultDetailProps) {
 
   return (
     <section>
-      <Text variant={'heading2'}>{album.name}</Text>
+      <div css={titleStyles}>
+        <Text variant={'bodyStrong'}>{album.name}</Text>
+        <Text>최애곡은?</Text>
+      </div>
       <ul>
         {tracks.map((track, index) => {
           const trackVoteCount = trackCounts[track.track_number] || 0
@@ -48,9 +51,15 @@ export default function ResultDetail({ album, voteCount }: ResultDetailProps) {
           const color = getRandomColor(index)
           return (
             <li key={track.id}>
-              <Text>{track.name}</Text>
-              <Text variant={'detailStrong'}>{trackVoteCount}</Text>
-              <Text variant={'detail'}>{trackPercentage}%</Text>
+              <div css={listInfoStyles}>
+                <Text css={trackNameStyles}>{track.name}</Text>
+                <div>
+                  <Text css={voteCountStyles} variant={'detailStrong'}>
+                    {trackVoteCount}
+                  </Text>
+                  <Text variant={'detail'}>{trackPercentage}%</Text>
+                </div>
+              </div>
               <div css={chartBarStyles(trackPercentage, color)}></div>
             </li>
           )
@@ -59,6 +68,27 @@ export default function ResultDetail({ album, voteCount }: ResultDetailProps) {
     </section>
   )
 }
+
+const titleStyles = css`
+  padding: 6px 0;
+`
+
+const listInfoStyles = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 10px;
+  padding: 6px 0;
+`
+
+const trackNameStyles = css`
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
+const voteCountStyles = css`
+  margin-right: 4px;
+`
 
 const chartBarStyles = (trackPercentage: number, color: string) => css`
   position: relative;
