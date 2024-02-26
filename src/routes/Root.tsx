@@ -33,6 +33,7 @@ const headerStyles = css`
   position: fixed;
   background-color: ${colors.white};
   padding: 0 16px;
+  z-index: 100;
 `
 
 const navStyles = css`
