@@ -10,28 +10,27 @@ interface ResultDetailProps {
   voteCount: number
 }
 
+const getRandomColor = (() => {
+  const colorOptions: (keyof typeof colors)[] = [
+    'pink',
+    'yellow',
+    'blue',
+    'green',
+    'purple',
+  ]
+  let startingColorIndex = Math.floor(Math.random() * colorOptions.length)
+
+  return (index: number) => {
+    const colorIndex = (index + startingColorIndex) % colorOptions.length
+    const selectedColor = colorOptions[colorIndex]
+    return colors[selectedColor]
+  }
+})()
+
 export default function ResultDetail({ album, voteCount }: ResultDetailProps) {
   const { formId } = useParams()
   const { data: trackCounts } = useGetTrackCounts(formId!)
-
   const tracks = album.tracks.items
-
-  const getRandomColor = (() => {
-    const colorOptions: (keyof typeof colors)[] = [
-      'pink',
-      'yellow',
-      'blue',
-      'green',
-      'purple',
-    ]
-    let startingColorIndex = Math.floor(Math.random() * colorOptions.length)
-
-    return (index: number) => {
-      const colorIndex = (index + startingColorIndex) % colorOptions.length
-      const selectedColor = colorOptions[colorIndex]
-      return colors[selectedColor]
-    }
-  })()
 
   return (
     <section>
