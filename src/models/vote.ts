@@ -5,3 +5,8 @@ export interface VoteData {
     selectedTrack: number[]
   }
 }
+
+export interface VoteDataCount {
+  [key: string]: number
+}
+
