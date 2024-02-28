@@ -41,13 +41,20 @@ export default function ResultDetail({ album, voteCount }: ResultDetailProps) {
       <ul>
         {tracks.map((track, index) => {
           const trackVoteCount = trackCounts[track.track_number] || 0
-          let trackPercentage = (trackVoteCount / voteCount) * 100
+          let trackPercentage
+          if (trackVoteCount === 0) {
+            trackPercentage = 0
+          } else {
+            trackPercentage = (trackVoteCount / voteCount) * 100
+          }
           if (Number.isInteger(trackPercentage)) {
             trackPercentage = Math.round(trackPercentage)
           } else {
             trackPercentage = parseFloat(trackPercentage.toFixed(1))
           }
+
           const color = getRandomColor(index)
+
           return (
             <li key={track.id}>
               <div css={listInfoStyles}>
