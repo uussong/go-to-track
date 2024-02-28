@@ -1,7 +1,14 @@
-import { getDocs, collection, query } from 'firebase/firestore'
+import { addDoc, collection, doc, getDocs, query } from 'firebase/firestore'
 import { store } from './firebase'
 import { COLLECTIONS } from '@/constants/collections'
-import { VoteDataCount } from '@/models/vote'
+import { VoteData, VoteDataCount } from '@/models/vote'
+
+export const saveVoteData = async (formId: string, voteData: VoteData) => {
+  const voteRef = doc(store, COLLECTIONS.VOTE, formId)
+  const voteDataRef = collection(voteRef, COLLECTIONS.VOTEDATA)
+
+  await addDoc(voteDataRef, voteData)
+}
 
 export const getFormVoteCount = async (formId: string) => {
   const voteDataRef = collection(

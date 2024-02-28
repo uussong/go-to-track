@@ -12,9 +12,11 @@ import SpotifyAuth from './components/auth/SpotifyAuth'
 import FormTitleCreatePage from './pages/FormTitleCreate'
 import FormContentCreatePage from './pages/FormContentCreate'
 import FormPage from './pages/Form'
+import FormSharePage from './pages/FormShare'
 import FormContentUpdatePage from './pages/FormContentUpdate'
-import SharePage from './pages/Share'
+import FormSharePage from './pages/FormShare'
 import ResultPage from './pages/Result'
+import VotePage from './pages/Vote'
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -49,7 +51,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'form/share/:formId',
-        element: <SharePage />,
+        element: <FormSharePage />,
       },
       {
         path: 'form/edit/:formId',
@@ -58,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: 'form/result/:formId',
         element: <ResultPage />,
+      },
+      {
+        path: 'vote/:formId',
+        element: <VotePage />,
       },
     ],
   },

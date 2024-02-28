@@ -5,7 +5,6 @@ import { useUser } from './useUser'
 
 export const useGetFormList = () => {
   const user = useUser()
-
   return useSuspenseQuery({
     queryKey: ['formList', user],
     queryFn: () => getFormList(user as User),
