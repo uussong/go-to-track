@@ -1,5 +1,5 @@
 import { colors } from '@/styles/colors'
-import { flexCenter } from '@/styles/mixins'
+import { flexCenter, flexColumnCenter } from '@/styles/mixins'
 import { css } from '@emotion/react'
 import { Text } from '../shared/text'
 import { Button } from '../shared/button'
@@ -37,7 +37,7 @@ const modalBackdrop = css`
 `
 
 const modalDiv = css`
-  ${flexCenter}
+  ${flexColumnCenter}
   background-color: ${colors.white};
   padding: 24px;
   border-radius: 10px;
