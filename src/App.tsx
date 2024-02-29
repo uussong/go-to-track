@@ -16,6 +16,7 @@ import FormSharePage from './pages/FormShare'
 import FormContentUpdatePage from './pages/FormContentUpdate'
 import VotePage from './pages/Vote'
 import CreatorResultPage from './pages/CreatorResult'
+import VoterResultPage from './pages/VoterResult'
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
       {
         path: 'form/result/:formId',
         element: <CreatorResultPage />,
+      },
+      {
+        path: ':userId/result/:formId',
+        element: <VoterResultPage />,
       },
     ],
   },
