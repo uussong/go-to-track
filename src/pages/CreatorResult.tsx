@@ -11,7 +11,7 @@ import ResultDetail from '@/components/form/result/ResultDetail'
 import { useGetVoteCount } from '@/hooks/useGetVoteCount'
 import { Text } from '@/components/shared/text'
 
-export default function ResultPage() {
+export default function CreatorResultPage() {
   const { formId } = useParams()
   const { data: form } = useGetFormData(formId ?? '') as {
     data: FormDataFromUser
