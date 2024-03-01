@@ -32,7 +32,7 @@ export const getFormVoteCount = async (formId: string) => {
   return querySnapshot.size
 }
 
-export const getSelectedTrackCounts = async (formId: string) => {
+export const getRankedTrackVoteCounts = async (formId: string) => {
   const voteDataRef = collection(
     store,
     COLLECTIONS.VOTE,
@@ -56,7 +56,15 @@ export const getSelectedTrackCounts = async (formId: string) => {
     })
   })
 
-  return selectedTrackCounts
+  const sortedTrackCounts = Object.entries(selectedTrackCounts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([trackNumber, voteCount], index) => ({
+      trackNumber: parseInt(trackNumber),
+      voteCount,
+      rank: index + 1,
+    }))
+
+  return sortedTrackCounts
 }
 
 export const getVoteData = async (formId: string, userId: string) => {

@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import { css } from '@emotion/react'
 import { Text } from '@/components/shared/text'
 import { SingleAlbumData } from '@/models/album'
-import { useGetTrackCounts } from '@/hooks/useGetTrackCounts'
+import { useGetRankedTrackVoteCounts } from '@/hooks/useGetRankedTrackVoteCounts'
 import ResultChartItem from '../ResultChartItem'
 
 interface ResultDetailProps {
@@ -12,7 +12,7 @@ interface ResultDetailProps {
 
 export default function ResultDetail({ album, voteCount }: ResultDetailProps) {
   const { formId } = useParams()
-  const { data: trackCounts } = useGetTrackCounts(formId!)
+  const { data: rankedTrackCounts } = useGetRankedTrackVoteCounts(formId!)
   const tracks = album.tracks.items
 
   return (
@@ -22,15 +22,21 @@ export default function ResultDetail({ album, voteCount }: ResultDetailProps) {
         <Text>최애곡은?</Text>
       </div>
       <ul>
-        {tracks.map((track, index) => (
-          <ResultChartItem
-            key={track.id}
-            track={track}
-            trackVoteCount={trackCounts[track.track_number] || 0}
-            voteCount={voteCount}
-            index={index}
-          />
-        ))}
+        {tracks.map((track, index) => {
+          const trackVoteCount =
+            rankedTrackCounts.find(
+              (count) => count.trackNumber === track.track_number,
+            )?.voteCount || 0
+          return (
+            <ResultChartItem
+              key={track.id}
+              track={track}
+              trackVoteCount={trackVoteCount}
+              voteCount={voteCount}
+              index={index}
+            />
+          )
+        })}
       </ul>
     </section>
   )
