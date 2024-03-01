@@ -1,4 +1,11 @@
-import { addDoc, collection, doc, getDocs, query } from 'firebase/firestore'
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+} from 'firebase/firestore'
 import { store } from './firebase'
 import { COLLECTIONS } from '@/constants/collections'
 import { VoteData, VoteDataCount } from '@/models/vote'
@@ -50,4 +57,20 @@ export const getSelectedTrackCounts = async (formId: string) => {
   })
 
   return selectedTrackCounts
+}
+
+export const getVoteData = async (formId: string, userId: string) => {
+  const voteDataRef = doc(
+    store,
+    COLLECTIONS.VOTE,
+    formId,
+    COLLECTIONS.VOTEDATA,
+    userId,
+  )
+
+  const docSnap = await getDoc(voteDataRef)
+
+  if (docSnap.exists()) {
+    return docSnap.data() as VoteData
+  }
 }
