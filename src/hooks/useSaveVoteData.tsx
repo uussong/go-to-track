@@ -8,7 +8,7 @@ interface SaveVoteDataType {
 }
 
 export const useSaveVoteData = () => {
-  return useMutation<void, Error, SaveVoteDataType>({
+  return useMutation<string, Error, SaveVoteDataType>({
     mutationFn: ({ formId, voteData }) => saveVoteData(formId, voteData),
     onError: (error) => console.error(error),
   })

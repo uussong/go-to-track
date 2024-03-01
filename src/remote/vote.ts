@@ -7,7 +7,9 @@ export const saveVoteData = async (formId: string, voteData: VoteData) => {
   const voteRef = doc(store, COLLECTIONS.VOTE, formId)
   const voteDataRef = collection(voteRef, COLLECTIONS.VOTEDATA)
 
-  await addDoc(voteDataRef, voteData)
+  const docRef = await addDoc(voteDataRef, voteData)
+
+  return docRef.id
 }
 
 export const getFormVoteCount = async (formId: string) => {
