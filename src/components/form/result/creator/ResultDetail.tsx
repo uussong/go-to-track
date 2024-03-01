@@ -3,7 +3,7 @@ import { css } from '@emotion/react'
 import { Text } from '@/components/shared/text'
 import { SingleAlbumData } from '@/models/album'
 import { useGetTrackCounts } from '@/hooks/useGetTrackCounts'
-import ResultChartItem from './ResultChartItem'
+import ResultChartItem from '../ResultChartItem'
 
 interface ResultDetailProps {
   album: SingleAlbumData
