@@ -8,6 +8,7 @@ interface ResultChartItemProps {
   trackVoteCount: number
   voteCount: number
   index: number
+  selectedTrackNumbers?: number[]
 }
 
 const getRandomColor = (() => {
@@ -32,6 +33,7 @@ export default function ResultChartItem({
   trackVoteCount,
   voteCount,
   index,
+  selectedTrackNumbers,
 }: ResultChartItemProps) {
   let trackPercentage
   if (trackVoteCount === 0) {
@@ -46,18 +48,28 @@ export default function ResultChartItem({
   }
 
   const color = getRandomColor(index)
+  const isTrackSelected = selectedTrackNumbers
+    ? selectedTrackNumbers.includes(track.track_number)
+    : false
+
   return (
     <li>
       <div css={listInfoStyles}>
-        <Text css={trackNameStyles}>{track.name}</Text>
+        <Text css={trackNameStyles}>
+          {track.name}
+          <span css={trackNameWrapperStyles(isTrackSelected)}></span>
+        </Text>
+
         <div>
-          <Text css={voteCountStyles} variant={'detailStrong'}>
+          <Text css={voteCountStyles(isTrackSelected)} variant={'detailStrong'}>
             {trackVoteCount}
           </Text>
-          <Text variant={'detail'}>{trackPercentage}%</Text>
+          <Text css={votePercentageStyles(isTrackSelected)} variant={'detail'}>
+            {trackPercentage}%
+          </Text>
         </div>
       </div>
-      <div css={chartBarStyles(trackPercentage, color)}></div>
+      <div css={chartBarStyles(trackPercentage, color, isTrackSelected)}></div>
     </li>
   )
 }
@@ -71,15 +83,37 @@ const listInfoStyles = css`
 `
 
 const trackNameStyles = css`
+  position: relative;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding: 0 4px;
 `
 
-const voteCountStyles = css`
+const trackNameWrapperStyles = (isTrackSelected: boolean) => css`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  z-index: -1;
+  background-color: ${isTrackSelected ? colors.coral300 : null};
+  padding: 0 5px;
+`
+
+const voteCountStyles = (isTrackSelected: boolean) => css`
   margin-right: 4px;
+  color: ${isTrackSelected ? colors.coral500 : colors.gray900};
 `
 
-const chartBarStyles = (trackPercentage: number, color: string) => css`
+const votePercentageStyles = (isTrackSelected: boolean) => css`
+  color: ${isTrackSelected ? colors.coral500 : colors.gray900};
+`
+
+const chartBarStyles = (
+  trackPercentage: number,
+  color: string,
+  isTrackSelected: boolean,
+) => css`
   position: relative;
   width: 100%;
   height: 24px;
@@ -91,7 +125,7 @@ const chartBarStyles = (trackPercentage: number, color: string) => css`
     position: absolute;
     inset: 0;
     width: ${trackPercentage}%;
-    background-color: ${color};
+    background-color: ${isTrackSelected ? colors.coral500 : color};
     border-radius: 2px;
   }
 `
