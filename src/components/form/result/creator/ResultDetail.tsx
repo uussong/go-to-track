@@ -16,7 +16,7 @@ export default function ResultDetail({ album, voteCount }: ResultDetailProps) {
   const tracks = album.tracks.items
 
   return (
-    <section>
+    <>
       <div css={titleStyles}>
         <Text variant={'bodyStrong'}>{album.name}</Text>
         <Text>최애곡은?</Text>
@@ -38,7 +38,7 @@ export default function ResultDetail({ album, voteCount }: ResultDetailProps) {
           )
         })}
       </ul>
-    </section>
+    </>
   )
 }
 

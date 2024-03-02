@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom'
+import { css } from '@emotion/react'
 import { Text } from '@/components/shared/text'
 import { SingleAlbumData } from '@/models/album'
 import { VoteData } from '@/models/vote'
@@ -26,7 +27,7 @@ export default function ResultDetail({
   })
 
   return (
-    <div>
+    <>
       <Text>
         {data.nickname}의 {album.name} 최애곡
       </Text>
@@ -41,13 +42,15 @@ export default function ResultDetail({
         const rank = rankedTrackVoteCount ? rankedTrackVoteCount.rank : 0
 
         return (
-          <Text key={selectedTrack.id} variant={'bodyStrong'}>
-            {selectedTrack.name}은(는)
-            <span> {voteCount}표로 </span>
-            <span> 현재 {rank}위 </span>
-          </Text>
+          <div css={selectedTrackInfoStyles} key={selectedTrack.id}>
+            <Text>
+              <Text variant={'bodyStrong'}>{selectedTrack.name} </Text>
+              현재 {rank}위<Text variant={'detail'}>({voteCount}표)</Text>
+            </Text>
+          </div>
         )
       })}
+
       <ul>
         {tracks.map((track, index) => {
           const trackVoteCount =
@@ -66,6 +69,10 @@ export default function ResultDetail({
           )
         })}
       </ul>
-    </div>
+    </>
   )
 }
+
+const selectedTrackInfoStyles = css`
+  padding: 4px 0;
+`
