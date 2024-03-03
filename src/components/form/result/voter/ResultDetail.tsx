@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { useParams } from 'react-router-dom'
 import { css } from '@emotion/react'
 import { Text } from '@/components/shared/text'
@@ -11,6 +12,7 @@ interface ResultDetailProps {
   album: SingleAlbumData
   voteCount: number
 }
+
 export default function ResultDetail({
   data,
   album,
@@ -18,7 +20,18 @@ export default function ResultDetail({
 }: ResultDetailProps) {
   const { formId } = useParams()
   const { data: rankedTrackCount } = useGetRankedTrackVoteCounts(formId!)
-  const tracks = album.tracks.items
+
+  const tracks = _.cloneDeep(album.tracks.items)
+
+  const rankedTracks = tracks.sort((a, b) => {
+    const trackARank =
+      rankedTrackCount.find((count) => count.trackNumber === a.track_number)
+        ?.rank || Infinity
+    const trackBRank =
+      rankedTrackCount.find((count) => count.trackNumber === b.track_number)
+        ?.rank || Infinity
+    return trackARank - trackBRank
+  })
 
   const selectedTrackNumbers = data.vote.selectedTrack
   const selectedTracks = selectedTrackNumbers.map((trackNumber) => {
@@ -52,7 +65,7 @@ export default function ResultDetail({
       })}
 
       <ul>
-        {tracks.map((track, index) => {
+        {rankedTracks.map((track, index) => {
           const trackVoteCount =
             rankedTrackCount.find(
               (count) => count.trackNumber === track.track_number,
