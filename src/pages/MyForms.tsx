@@ -4,11 +4,11 @@ import PageLayout from '@/components/shared/PageLayout'
 import { Button } from '@/components/shared/button'
 import useNavbar from '@/hooks/useNavbar'
 import FormList from '@/components/myForms/FormList'
-import { useGetFormList } from '@/hooks/useGetFormList'
+import { useGetUserFormList } from '@/hooks/useGetUserFormList'
 import SignOut from '@/components/shared/SignOut'
 
 export default function MyFormsPage() {
-  const { data } = useGetFormList()
+  const { data } = useGetUserFormList()
 
   const { updateNavbar } = useNavbar()
 

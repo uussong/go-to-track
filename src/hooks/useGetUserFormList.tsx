@@ -1,12 +1,12 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { User } from 'firebase/auth'
-import { getFormList } from '@/remote/form'
+import { getUserFormList } from '@/remote/form'
 import { useUser } from './useUser'
 
-export const useGetFormList = () => {
+export const useGetUserFormList = () => {
   const user = useUser()
   return useSuspenseQuery({
     queryKey: ['formList', user],
-    queryFn: () => getFormList(user as User),
+    queryFn: () => getUserFormList(user as User),
   })
 }

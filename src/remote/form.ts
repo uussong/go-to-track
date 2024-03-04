@@ -56,7 +56,7 @@ export const getAllFormData = async () => {
   return formList
 }
 
-export const getFormList = async (user: User) => {
+export const getUserFormList = async (user: User) => {
   const { uid } = user
   const formRef = collection(store, COLLECTIONS.FORM)
 
