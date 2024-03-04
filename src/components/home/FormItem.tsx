@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { css } from '@emotion/react'
 import { FormListData } from '@/models/form'
 import { Text } from '../shared/text'
@@ -16,16 +17,20 @@ export default function FormItem({ form }: FormItemProps) {
   const { data: album } = useGetAlbumInfo(form.data.albumId)
 
   return (
-    <article css={articleStyles}>
-      <Text variant={'heading3'}>{form.data.formTitle}</Text>
-      <Text css={artistNameStyles}>{artist.name}</Text>
-      <Text>{album.name}</Text>
-      <Text variant={'detail'}>참여 {count}</Text>
+    <article>
+      <Link to={`/vote/${form.id}`}>
+        <div css={formItemContentStyles}>
+          <Text variant={'heading3'}>{form.data.formTitle}</Text>
+          <Text css={artistNameStyles}>{artist.name}</Text>
+          <Text>{album.name}</Text>
+          <Text variant={'detail'}>참여 {count}</Text>
+        </div>
+      </Link>
     </article>
   )
 }
 
-const articleStyles = css`
+const formItemContentStyles = css`
   width: 100%;
   border: 1px solid ${colors.gray100};
   border-radius: 4px;
