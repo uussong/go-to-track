@@ -7,10 +7,13 @@ import useNavbar from '@/hooks/useNavbar'
 import { useUser } from '@/hooks/useUser'
 import { flexCenter } from '@/styles/mixins'
 import SignOut from '@/components/shared/SignOut'
+import { useGetAllFormData } from '@/hooks/useGetAllFormData'
+import AllFormList from '@/components/home/AllFormList'
 
 export default function HomePage() {
   const user = useUser()
   const { updateNavbar } = useNavbar()
+  const { data: formList } = useGetAllFormData()
 
   useEffect(() => {
     updateNavbar({
@@ -24,6 +27,7 @@ export default function HomePage() {
       <Link to={user ? `myforms` : `signin`}>
         <Button>지금 시작해보기</Button>
       </Link>
+      <AllFormList formList={formList} />
     </PageLayout>
   )
 }
