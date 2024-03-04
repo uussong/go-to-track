@@ -20,4 +20,5 @@ export default function AllFormList({ formList }: AllFormListProps) {
 
 const sectionStyles = css`
   width: 100%;
+  padding-top: 50px;
 `
