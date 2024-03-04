@@ -28,7 +28,7 @@ export default function FormItem({ form }: FormItemProps) {
             </div>
             <img src={album.images[1].url} alt={album.name} css={imageStyles} />
           </div>
-          <Text variant={'detail'}>참여 {count}</Text>
+          <Text variant={'detail'}>{count}명 참여 중</Text>
         </div>
       </Link>
     </article>
