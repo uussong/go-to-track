@@ -34,7 +34,29 @@ export const saveFormData = async (user: User, formData: FormDataFromUser) => {
   await addDoc(formDataRef, formDataToSave)
 }
 
-export const getFormList = async (user: User) => {
+export const getAllFormData = async () => {
+  const formRef = collection(store, COLLECTIONS.FORM)
+
+  const querySnapshot = await getDocs(formRef)
+
+  const formList: FormListData[] = querySnapshot.docs.map((doc) => {
+    const formData = doc.data()
+    return {
+      id: doc.id,
+      data: {
+        albumId: formData.albumId,
+        artistId: formData.artistId,
+        formTitle: formData.formTitle,
+        uid: formData.uid,
+        timestamp: formData.timestamp.toDate(),
+      },
+    }
+  })
+
+  return formList
+}
+
+export const getUserFormList = async (user: User) => {
   const { uid } = user
   const formRef = collection(store, COLLECTIONS.FORM)
 
