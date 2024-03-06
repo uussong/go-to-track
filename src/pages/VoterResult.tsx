@@ -10,9 +10,9 @@ import useNavbar from '@/hooks/useNavbar'
 import { Text } from '@/components/shared/text'
 
 export default function VoterResultPage() {
-  const { userId, formId } = useParams()
+  const { userId, formId } = useParams() as { userId: string; formId: string }
 
-  const { data } = useGetVoteData(formId ?? '', userId ?? '') as {
+  const { data } = useGetVoteData(formId, userId) as {
     data: VoteData
   }
   const { data: album } = useGetAlbumInfo(data.vote.albumId)
