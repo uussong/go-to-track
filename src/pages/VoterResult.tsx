@@ -33,7 +33,7 @@ export default function VoterResultPage() {
 
   return (
     <PageLayout>
-      {data && <ResultDetail data={data} album={album} voteCount={voteCount} />}
+      <ResultDetail data={data} album={album} voteCount={voteCount} />
     </PageLayout>
   )
 }
