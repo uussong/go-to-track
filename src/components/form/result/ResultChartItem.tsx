@@ -55,11 +55,7 @@ export default function ResultChartItem({
   return (
     <li>
       <div css={listInfoStyles}>
-        <Text css={trackNameStyles(isTrackSelected)}>
-          {track.name}
-          <span css={trackNameWrapperStyles(isTrackSelected)}></span>
-        </Text>
-
+        <Text css={trackNameStyles(isTrackSelected)}>{track.name}</Text>
         <div>
           <Text css={voteCountStyles(isTrackSelected)} variant={'detailStrong'}>
             {trackVoteCount}
@@ -87,30 +83,28 @@ const trackNameStyles = (isTrackSelected: boolean) => css`
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 0 4px;
-  font-size: ${isTrackSelected && '24px'};
   font-weight: ${isTrackSelected && '500'};
-`
 
-const trackNameWrapperStyles = (isTrackSelected: boolean) => css`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 12px;
-  z-index: -1;
-  background-color: ${isTrackSelected ? colors.coral300 : null};
-  padding: 0 5px;
+  ::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    z-index: -1;
+    background-color: ${isTrackSelected ? colors.coral300 : null};
+    padding: 0 5px;
+  }
 `
 
 const voteCountStyles = (isTrackSelected: boolean) => css`
   margin-right: 4px;
   color: ${isTrackSelected ? colors.coral500 : colors.gray900};
-  font-size: ${isTrackSelected && '18px'};
 `
 
 const votePercentageStyles = (isTrackSelected: boolean) => css`
   color: ${isTrackSelected ? colors.coral500 : colors.gray900};
-  font-size: ${isTrackSelected && '18px'};
 `
 
 const chartBarStyles = (
@@ -120,7 +114,7 @@ const chartBarStyles = (
 ) => css`
   position: relative;
   width: 100%;
-  height: ${isTrackSelected ? '36px' : '24px'};
+  height: 24px;
   background-color: ${colors.gray200};
   border-radius: 2px;
 
