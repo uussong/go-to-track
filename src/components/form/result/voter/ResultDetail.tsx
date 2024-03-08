@@ -6,6 +6,8 @@ import { SingleAlbumData } from '@/models/album'
 import { VoteData } from '@/models/vote'
 import { useGetRankedTrackVoteCounts } from '@/hooks/useGetRankedTrackVoteCounts'
 import ResultChartItem from '../ResultChartItem'
+import { colors } from '@/styles/colors'
+import { a11yHidden } from '@/styles/mixins'
 
 interface ResultDetailProps {
   data: VoteData
@@ -40,29 +42,38 @@ export default function ResultDetail({
   })
 
   return (
-    <>
-      <Text>
-        {data.nickname}의 {album.name} 최애곡
+    <section css={sectionStyles}>
+      <Text css={headingStyles} variant={'heading2'}>
+        투표 결과
       </Text>
-      {selectedTracks.map((selectedTrack) => {
-        const rankedTrackVoteCount = rankedTrackCount.find(
-          (count) => count.trackNumber === selectedTrack.track_number,
-        )
+      <Text variant={'heading3'}>
+        <span css={nicknameStyles}>{data.nickname}</span>의 {album.name} 최애곡
+      </Text>
+      <ul css={selectedTrackWrapperStyles}>
+        {selectedTracks.map((selectedTrack) => {
+          const rankedTrackVoteCount = rankedTrackCount.find(
+            (count) => count.trackNumber === selectedTrack.track_number,
+          )
 
-        const voteCount = rankedTrackVoteCount
-          ? rankedTrackVoteCount.voteCount
-          : 0
-        const rank = rankedTrackVoteCount ? rankedTrackVoteCount.rank : 0
+          const voteCount = rankedTrackVoteCount
+            ? rankedTrackVoteCount.voteCount
+            : 0
+          const rank = rankedTrackVoteCount ? rankedTrackVoteCount.rank : 0
 
-        return (
-          <div css={selectedTrackInfoStyles} key={selectedTrack.id}>
-            <Text>
-              <Text variant={'bodyStrong'}>{selectedTrack.name} </Text>
-              현재 {rank}위<Text variant={'detail'}>({voteCount}표)</Text>
-            </Text>
-          </div>
-        )
-      })}
+          return (
+            <li css={selectedTrackStyles} key={selectedTrack.id}>
+              <Text variant={'bodyStrong'}>{selectedTrack.name}</Text>
+              <Text>
+                {voteCount}표로{' '}
+                <Text variant={'bodyStrong'} css={rankStyles}>
+                  {rank}
+                </Text>
+                위
+              </Text>
+            </li>
+          )
+        })}
+      </ul>
 
       <ul>
         {rankedTracks.map((track, index) => {
@@ -82,10 +93,32 @@ export default function ResultDetail({
           )
         })}
       </ul>
-    </>
+    </section>
   )
 }
 
-const selectedTrackInfoStyles = css`
-  padding: 4px 0;
+const sectionStyles = css`
+  padding-top: 25px;
+`
+
+const headingStyles = css`
+  ${a11yHidden}
+`
+
+const nicknameStyles = css`
+  color: ${colors.coral500};
+`
+
+const selectedTrackWrapperStyles = css`
+  padding: 10px 0;
+`
+
+const selectedTrackStyles = css`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`
+
+const rankStyles = css`
+  color: ${colors.coral500};
 `
