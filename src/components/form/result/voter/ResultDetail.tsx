@@ -8,6 +8,7 @@ import { useGetRankedTrackVoteCounts } from '@/hooks/useGetRankedTrackVoteCounts
 import { colors } from '@/styles/colors'
 import { a11yHidden } from '@/styles/mixins'
 import ResultChart from './ResultChart'
+import VoteResultTracks from './VoteResultTracks'
 
 interface ResultDetailProps {
   data: VoteData
@@ -49,32 +50,10 @@ export default function ResultDetail({
       <Text variant={'heading3'}>
         <span css={nicknameStyles}>{data.nickname}</span>의 {album.name} 최애곡
       </Text>
-      <ul css={selectedTrackWrapperStyles}>
-        {selectedTracks.map((selectedTrack) => {
-          const rankedTrackVoteCount = rankedTrackCount.find(
-            (count) => count.trackNumber === selectedTrack.track_number,
-          )
-
-          const voteCount = rankedTrackVoteCount
-            ? rankedTrackVoteCount.voteCount
-            : 0
-          const rank = rankedTrackVoteCount ? rankedTrackVoteCount.rank : 0
-
-          return (
-            <li css={selectedTrackStyles} key={selectedTrack.id}>
-              <Text variant={'bodyStrong'}>{selectedTrack.name}</Text>
-              <Text>
-                {voteCount}표로{' '}
-                <Text variant={'bodyStrong'} css={rankStyles}>
-                  {rank}
-                </Text>
-                위
-              </Text>
-            </li>
-          )
-        })}
-      </ul>
-
+      <VoteResultTracks
+        selectedTracks={selectedTracks}
+        rankedTrackCount={rankedTrackCount}
+      />
       <ResultChart
         rankedTracks={rankedTracks}
         rankedTrackCount={rankedTrackCount}
@@ -94,19 +73,5 @@ const headingStyles = css`
 `
 
 const nicknameStyles = css`
-  color: ${colors.coral500};
-`
-
-const selectedTrackWrapperStyles = css`
-  padding: 10px 0;
-`
-
-const selectedTrackStyles = css`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-`
-
-const rankStyles = css`
   color: ${colors.coral500};
 `
