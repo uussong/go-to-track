@@ -5,9 +5,9 @@ import { Text } from '@/components/shared/text'
 import { SingleAlbumData } from '@/models/album'
 import { VoteData } from '@/models/vote'
 import { useGetRankedTrackVoteCounts } from '@/hooks/useGetRankedTrackVoteCounts'
-import ResultChartItem from '../ResultChartItem'
 import { colors } from '@/styles/colors'
 import { a11yHidden } from '@/styles/mixins'
+import ResultChart from './ResultChart'
 
 interface ResultDetailProps {
   data: VoteData
@@ -75,24 +75,12 @@ export default function ResultDetail({
         })}
       </ul>
 
-      <ul>
-        {rankedTracks.map((track, index) => {
-          const trackVoteCount =
-            rankedTrackCount.find(
-              (count) => count.trackNumber === track.track_number,
-            )?.voteCount || 0
-          return (
-            <ResultChartItem
-              key={track.id}
-              track={track}
-              trackVoteCount={trackVoteCount}
-              voteCount={voteCount}
-              index={index}
-              selectedTrackNumbers={selectedTrackNumbers}
-            />
-          )
-        })}
-      </ul>
+      <ResultChart
+        rankedTracks={rankedTracks}
+        rankedTrackCount={rankedTrackCount}
+        voteCount={voteCount}
+        selectedTrackNumbers={selectedTrackNumbers}
+      />
     </section>
   )
 }
