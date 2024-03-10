@@ -19,10 +19,5 @@ export default function MyFormList({ data }: MyFormListProps) {
 }
 
 const listStyles = css`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-items: center;
-  gap: 10px;
-  width: 100%;
   padding-top: 25px;
 `
