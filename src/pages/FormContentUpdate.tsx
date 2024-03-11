@@ -9,6 +9,7 @@ import { useGetFormData } from '@/hooks/useGetFormData'
 import { FormDataFromServer } from '@/models/form'
 import useNavbar from '@/hooks/useNavbar'
 import SignOut from '@/components/shared/SignOut'
+import BackWithTitleNavbar from '@/components/form/BackWithTitleNavbar'
 
 export default function FormContentUpdatePage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -38,11 +39,10 @@ export default function FormContentUpdatePage() {
   useEffect(() => {
     updateNavbar({
       left: (
-        <>
-          <Link to={`/myforms`}>My forms</Link>
-          <span> / </span>
-          <Link to={`/form/${formId}`}>{form.formTitle}</Link>
-        </>
+        <BackWithTitleNavbar
+          formTitle={form.formTitle}
+          formId={formId as string}
+        />
       ),
       right: <SignOut />,
     })

@@ -4,7 +4,7 @@ import PageLayout from '@/components/shared/PageLayout'
 import { useGetFormData } from '@/hooks/useGetFormData'
 import { FormDataFromUser } from '@/models/form'
 import useNavbar from '@/hooks/useNavbar'
-import Navbar from '@/components/form/result/Navbar'
+import BackWithTitleNavbar from '@/components/form/BackWithTitleNavbar'
 import SignOut from '@/components/shared/SignOut'
 import { useGetAlbumInfo } from '@/hooks/useGetAlbumInfo'
 import ResultDetail from '@/components/form/result/ResultDetail'
@@ -23,10 +23,15 @@ export default function ResultPage() {
 
   useEffect(() => {
     updateNavbar({
-      left: <Navbar formTitle={form.formTitle} />,
+      left: (
+        <BackWithTitleNavbar
+          formTitle={form.formTitle}
+          formId={formId as string}
+        />
+      ),
       right: <SignOut />,
     })
-  }, [updateNavbar, form.formTitle])
+  }, [updateNavbar, form.formTitle, formId])
 
   return (
     <PageLayout>
