@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import { css } from '@emotion/react'
 import { Button } from '@/components/shared/button'
 import { Text } from '@/components/shared/text'
-import { colors } from '@/styles/colors'
 import { ReactComponent as LogoIcon } from '@/assets/icons/logo.svg'
 
 export default function Navbar() {
@@ -10,11 +9,7 @@ export default function Navbar() {
     <div css={navbarStyles}>
       <Link to={`/`} aria-label={'홈으로'}>
         <Text variant={'heading1'}>
-          <Button
-            variant={'secondary'}
-            size={'icon'}
-            icon={<LogoIcon css={svgStyles} />}
-          />
+          <Button variant={'secondary'} size={'icon'} icon={<LogoIcon />} />
         </Text>
       </Link>
       <div css={myformsWrapperStyles}>
@@ -32,15 +27,6 @@ const navbarStyles = css`
   align-items: center;
   gap: 4px;
   height: 100%;
-`
-
-const svgStyles = css`
-  &:hover {
-    path {
-      background-color: ${colors.gray500};
-      fill: ${colors.gray700};
-    }
-  }
 `
 
 const myformsWrapperStyles = css`
