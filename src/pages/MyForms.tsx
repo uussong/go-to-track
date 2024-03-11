@@ -6,6 +6,7 @@ import useNavbar from '@/hooks/useNavbar'
 import FormList from '@/components/myForms/FormList'
 import { useGetUserFormList } from '@/hooks/useGetUserFormList'
 import SignOut from '@/components/shared/SignOut'
+import Navbar from '@/components/myForms/Navbar'
 
 export default function MyFormsPage() {
   const { data } = useGetUserFormList()
@@ -14,7 +15,7 @@ export default function MyFormsPage() {
 
   useEffect(() => {
     updateNavbar({
-      left: <Link to={`/myforms`}>My forms</Link>,
+      left: <Navbar />,
       right: <SignOut />,
     })
   }, [updateNavbar])
