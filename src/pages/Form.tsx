@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import PageLayout from '@/components/shared/PageLayout'
 import { useGetFormData } from '@/hooks/useGetFormData'
 import FormDetail from '@/components/form/FormDetail'
@@ -10,6 +10,7 @@ import useNavbar from '@/hooks/useNavbar'
 import { Button } from '@/components/shared/button'
 import { useDeleteFormData } from '@/hooks/useDeleteFormData'
 import DeleteConfirmModal from '@/components/form/DeleteConfirmModal'
+import BackNavbar from '@/components/form/BackNavbar'
 
 export default function FormPage() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -34,7 +35,7 @@ export default function FormPage() {
 
   useEffect(() => {
     updateNavbar({
-      left: <Link to={`/myforms`}>My forms</Link>,
+      left: <BackNavbar />,
       right: (
         <Button variant={'secondary'} onClick={handleModalOpen}>
           삭제
