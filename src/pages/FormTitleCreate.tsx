@@ -6,13 +6,14 @@ import PageLayout from '@/components/shared/PageLayout'
 import EnterTitle from '@/components/form/title/EnterTitle'
 import useNavbar from '@/hooks/useNavbar'
 import SignOut from '@/components/shared/SignOut'
+import Navbar from '@/components/form/title/Navbar'
 
 export default function FormTitleCreatePage() {
   const setFormTitle = useSetRecoilState(formTitleState)
   const { updateNavbar } = useNavbar()
   useEffect(() => {
     updateNavbar({
-      left: <Link to={`/myforms`}>My forms</Link>,
+      left: <Navbar />,
       right: <SignOut />,
     })
   }, [updateNavbar])
