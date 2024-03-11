@@ -1,18 +1,20 @@
-import { colors } from '@/styles/colors'
-import { ButtonHTMLAttributes } from 'react'
+import { ButtonHTMLAttributes, ReactNode } from 'react'
 import { css } from '@emotion/react'
-import { flexCenter } from '@/styles/mixins'
+import { colors } from '@/styles/colors'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: keyof typeof variants
   size?: keyof typeof sizes
   disabled?: boolean
+  icon?: ReactNode
 }
 
 export const Button = ({
   variant = 'primary',
   size = 'medium',
   disabled = false,
+  icon,
+  children,
   ...props
 }: ButtonProps) => {
   return (
@@ -21,7 +23,10 @@ export const Button = ({
       css={[style, variants[variant], sizes[size]]}
       disabled={disabled}
       {...props}
-    />
+    >
+      {icon}
+      {children}
+    </button>
   )
 }
 
@@ -71,5 +76,8 @@ const sizes = {
     width: 100%;
     height: 50px;
     padding: 13px 0;
+  `,
+  icon: css`
+    padding: 0 6px;
   `,
 }
