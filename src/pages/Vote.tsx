@@ -9,6 +9,8 @@ import { useGetFormData } from '@/hooks/useGetFormData'
 import { FormDataFromUser } from '@/models/form'
 import { useSaveVoteData } from '@/hooks/useSaveVoteData'
 import { VoteData } from '@/models/vote'
+import useNavbar from '@/hooks/useNavbar'
+import Navbar from '@/components/form/vote/Navbar'
 
 export default function VotePage() {
   const [step, setStep] = useState<'시작' | '정보' | '투표' | '완료'>('시작')
@@ -26,6 +28,8 @@ export default function VotePage() {
 
   const { mutate } = useSaveVoteData()
 
+  const { updateNavbar } = useNavbar()
+
   const completeVote = () => {
     if (formId) {
       mutate({ formId, voteData })
@@ -37,6 +41,13 @@ export default function VotePage() {
       navigate(-1)
     }
   }, [formId, navigate])
+
+  useEffect(() => {
+    updateNavbar({
+      left: <Navbar />,
+      right: null,
+    })
+  }, [updateNavbar])
 
   return (
     <PageLayout>
