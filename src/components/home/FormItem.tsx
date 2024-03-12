@@ -15,7 +15,7 @@ export default function FormItem({ form }: FormItemProps) {
   const { data: count } = useGetVoteCount(form.id)
   const { data: artist } = useGetArtistInfo(form.data.artistId)
   const { data: album } = useGetAlbumInfo(form.data.albumId)
-  console.log(album)
+
   return (
     <article>
       <Link to={`/vote/${form.id}`}>
