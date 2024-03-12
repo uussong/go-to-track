@@ -18,22 +18,18 @@ export default function SelectAlbum({
   const { data } = useGetAlbums(artistId)
 
   return (
-    <>
+    <section css={sectionStyles}>
+      <Text variant={'heading2'}>수록곡 투표를 만들 앨범을 선택해주세요</Text>
+      <AlbumList data={data} onNext={onNext} />
       {onPrevious && (
         <Button variant={'secondary'} onClick={onPrevious}>
-          이전
+          가수 다시 검색하기
         </Button>
       )}
-      <Text css={titleStyles} variant={'heading2'}>
-        수록곡을 투표 할 앨범을 선택해주세요
-      </Text>
-
-      <AlbumList data={data} onNext={onNext} />
-    </>
+    </section>
   )
 }
 
-const titleStyles = css`
-  padding-bottom: 25px;
-  text-align: center;
+const sectionStyles = css`
+  padding-top: 50px;
 `
