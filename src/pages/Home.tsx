@@ -1,13 +1,12 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import PageLayout from '@/components/shared/PageLayout'
 import useNavbar from '@/hooks/useNavbar'
 import SignOut from '@/components/shared/SignOut'
 import { useGetAllFormData } from '@/hooks/useGetAllFormData'
 import AllFormList from '@/components/home/AllFormList'
 import Introduction from '@/components/home/Introduction'
-import { Text } from '@/components/shared/text'
 import { useUser } from '@/hooks/useUser'
+import Navbar from '@/components/home/Navbar'
 
 export default function HomePage() {
   const { updateNavbar } = useNavbar()
@@ -16,11 +15,7 @@ export default function HomePage() {
 
   useEffect(() => {
     updateNavbar({
-      left: (
-        <Link to={`/`}>
-          <Text variant={'heading1'}>go-to-track</Text>
-        </Link>
-      ),
+      left: <Navbar />,
       right: user && <SignOut />,
     })
   }, [updateNavbar, user])
