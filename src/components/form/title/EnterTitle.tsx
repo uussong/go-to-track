@@ -1,7 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
+import { css } from '@emotion/react'
 import { Button } from '../../shared/button'
 import { Text } from '../../shared/text'
 import { useNavigate } from 'react-router-dom'
+import { TextInput } from '@/components/shared/textInput'
 
 interface EnterTitleProps {
   setFormTitle: (formTitle: string) => void
@@ -22,15 +24,27 @@ export default function EnterTitle({ setFormTitle }: EnterTitleProps) {
   }
 
   return (
-    <>
-      <Text>수록곡 설문을 만들러 가봅시다</Text>
-      <Text variant={'heading2'}>먼저 제목을 입력해주세요</Text>
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={input} onChange={handleInput} />
-        <Button type={'submit'} disabled={input === ''}>
+    <section css={sectionStyles}>
+      <Text variant={'heading2'}>투표 제목을 입력해주세요</Text>
+      <form css={formStyles} onSubmit={handleSubmit}>
+        <TextInput label={'투표 폼 제목'} onChange={handleInput} />
+        <Button css={buttonStyles} type={'submit'} disabled={input === ''}>
           계속
         </Button>
       </form>
-    </>
+    </section>
   )
 }
+
+const sectionStyles = css`
+  padding-top: 50px;
+`
+
+const formStyles = css`
+  margin-top: 16px;
+`
+
+const buttonStyles = css`
+  margin-top: 16px;
+  float: right;
+`
