@@ -23,7 +23,7 @@ const listStyles = css`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  margin: 10px 0;
+  padding: 25px 0;
 `
 
 const listItemStyles = css`
