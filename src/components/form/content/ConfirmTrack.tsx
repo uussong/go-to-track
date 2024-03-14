@@ -19,21 +19,25 @@ export default function ConfirmTrack({
   const { data } = useGetTracks(albumId)
 
   return (
-    <>
+    <section css={sectionStyles}>
       <Text variant={'heading2'}>수록곡 목록을 확인해주세요</Text>
       <TrackList data={data} />
       <div css={buttonGroupStyles}>
         <Button variant={'secondary'} onClick={onPrevious}>
-          이전
+          앨범 다시 선택하기
         </Button>
         <CompleteButton onComplete={onComplete} />
       </div>
-    </>
+    </section>
   )
 }
+
+const sectionStyles = css`
+  padding-top: 50px;
+`
 
 const buttonGroupStyles = css`
   display: flex;
   justify-content: flex-end;
-  gap: 5px;
+  gap: 10px;
 `

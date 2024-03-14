@@ -20,7 +20,7 @@ export default function ArtistInfo({ data }: ArtistInfoProps) {
         alt={data[0].name}
         onLoad={() => setIsLoading(false)}
       />
-      <Text variant={'heading2'}>{data[0].name}</Text>
+      <Text variant={'heading3'}>{data[0].name}</Text>
     </article>
   )
 }
