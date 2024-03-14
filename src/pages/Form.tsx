@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import { css } from '@emotion/react'
 import PageLayout from '@/components/shared/PageLayout'
 import { useGetFormData } from '@/hooks/useGetFormData'
 import FormDetail from '@/components/form/FormDetail'
@@ -10,7 +11,7 @@ import useNavbar from '@/hooks/useNavbar'
 import { Button } from '@/components/shared/button'
 import { useDeleteFormData } from '@/hooks/useDeleteFormData'
 import DeleteConfirmModal from '@/components/form/DeleteConfirmModal'
-import BackNavbar from '@/components/form/BackNavbar'
+import { ReactComponent as BackIcon } from '@/assets/icons/back.svg'
 
 export default function FormPage() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -35,7 +36,13 @@ export default function FormPage() {
 
   useEffect(() => {
     updateNavbar({
-      left: <BackNavbar />,
+      left: (
+        <div css={navbarStyles}>
+          <Link to={`/myforms`}>
+            <Button variant={'secondary'} size={'icon'} icon={<BackIcon />} />
+          </Link>
+        </div>
+      ),
       right: (
         <Button variant={'secondary'} onClick={handleModalOpen}>
           삭제
@@ -56,3 +63,11 @@ export default function FormPage() {
     </PageLayout>
   )
 }
+
+const navbarStyles = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+`

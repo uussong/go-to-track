@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
+import { css } from '@emotion/react'
 import PageLayout from '@/components/shared/PageLayout'
 import SearchArtist from '@/components/form/content/SearchArtist'
 import SelectAlbum from '@/components/form/content/SelectAlbum'
 import ConfirmTrack from '@/components/form/content/ConfirmTrack'
 import { formTitleState } from '@/stores/form'
 import useNavbar from '@/hooks/useNavbar'
-import Navbar from '@/components/form/content/Navbar'
 import { useSaveFormData } from '@/hooks/useSaveFormData'
 import ErrorPage from '@/components/form/content/ErrorPage'
 import withErrorBoundary from '@/components/shared/errorBoundary/withErrorBoundary'
 import SignOut from '@/components/shared/SignOut'
+import { Button } from '@/components/shared/button'
+import { ReactComponent as BackIcon } from '@/assets/icons/back.svg'
+import TitleInput from '@/components/form/content/TitleInput'
 
 function FormContentCreatePage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -37,7 +40,17 @@ function FormContentCreatePage() {
   }
 
   useEffect(() => {
-    updateNavbar({ left: <Navbar />, right: <SignOut /> })
+    updateNavbar({
+      left: (
+        <div css={navbarStyles}>
+          <Link to={`/myforms`}>
+            <Button variant={'secondary'} size={'icon'} icon={<BackIcon />} />
+          </Link>
+          <TitleInput />
+        </div>
+      ),
+      right: <SignOut />,
+    })
   }, [updateNavbar])
 
   const completeFormCreation = async () => {
@@ -88,3 +101,11 @@ function FormContentCreatePage() {
 export default withErrorBoundary(FormContentCreatePage, {
   fallback: <ErrorPage />,
 })
+
+const navbarStyles = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+`

@@ -1,15 +1,17 @@
 import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import { css } from '@emotion/react'
 import PageLayout from '@/components/shared/PageLayout'
 import { useGetFormData } from '@/hooks/useGetFormData'
 import { FormDataFromUser } from '@/models/form'
 import useNavbar from '@/hooks/useNavbar'
-import BackWithTitleNavbar from '@/components/form/BackWithTitleNavbar'
 import SignOut from '@/components/shared/SignOut'
 import { useGetAlbumInfo } from '@/hooks/useGetAlbumInfo'
 import ResultDetail from '@/components/form/result/ResultDetail'
 import { useGetVoteCount } from '@/hooks/useGetVoteCount'
 import { Text } from '@/components/shared/text'
+import { Button } from '@/components/shared/button'
+import { ReactComponent as BackIcon } from '@/assets/icons/back.svg'
 
 export default function ResultPage() {
   const { formId } = useParams()
@@ -24,10 +26,16 @@ export default function ResultPage() {
   useEffect(() => {
     updateNavbar({
       left: (
-        <BackWithTitleNavbar
-          formTitle={form.formTitle}
-          formId={formId as string}
-        />
+        <div css={navbarStyles}>
+          <Link to={`/myforms`}>
+            <Button variant={'secondary'} size={'icon'} icon={<BackIcon />} />
+          </Link>
+          <Link to={`/form/${formId}`}>
+            <Text css={formTitleStyles} variant={'heading2'}>
+              <Button variant={'secondary'}>{form.formTitle}</Button>
+            </Text>
+          </Link>
+        </div>
       ),
       right: <SignOut />,
     })
@@ -40,3 +48,14 @@ export default function ResultPage() {
     </PageLayout>
   )
 }
+
+const navbarStyles = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+`
+
+const formTitleStyles = css`
+  font-size: 16px;
+`

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { css } from '@emotion/react'
 import ConfirmTrack from '@/components/form/content/ConfirmTrack'
 import SearchArtist from '@/components/form/content/SearchArtist'
 import SelectAlbum from '@/components/form/content/SelectAlbum'
@@ -9,7 +10,10 @@ import { useGetFormData } from '@/hooks/useGetFormData'
 import { FormDataFromServer } from '@/models/form'
 import useNavbar from '@/hooks/useNavbar'
 import SignOut from '@/components/shared/SignOut'
-import BackWithTitleNavbar from '@/components/form/BackWithTitleNavbar'
+
+import { Button } from '@/components/shared/button'
+import { ReactComponent as BackIcon } from '@/assets/icons/back.svg'
+import { Text } from '@/components/shared/text'
 
 export default function FormContentUpdatePage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -39,10 +43,16 @@ export default function FormContentUpdatePage() {
   useEffect(() => {
     updateNavbar({
       left: (
-        <BackWithTitleNavbar
-          formTitle={form.formTitle}
-          formId={formId as string}
-        />
+        <div css={navbarStyles}>
+          <Link to={`/myforms`}>
+            <Button variant={'secondary'} size={'icon'} icon={<BackIcon />} />
+          </Link>
+          <Link to={`/form/${formId}`}>
+            <Text css={formTitleStyles} variant={'heading2'}>
+              <Button variant={'secondary'}>{form.formTitle}</Button>
+            </Text>
+          </Link>
+        </div>
       ),
       right: <SignOut />,
     })
@@ -88,3 +98,14 @@ export default function FormContentUpdatePage() {
     </PageLayout>
   )
 }
+
+const navbarStyles = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+`
+
+const formTitleStyles = css`
+  font-size: 16px;
+`
