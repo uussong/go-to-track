@@ -10,3 +10,8 @@ export interface VoteDataCount {
   [key: string]: number
 }
 
+export interface RankedTrackCount {
+  trackNumber: number
+  voteCount: number
+  rank: number
+}

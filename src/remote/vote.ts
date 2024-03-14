@@ -1,4 +1,11 @@
-import { addDoc, collection, doc, getDocs, query } from 'firebase/firestore'
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+} from 'firebase/firestore'
 import { store } from './firebase'
 import { COLLECTIONS } from '@/constants/collections'
 import { VoteData, VoteDataCount } from '@/models/vote'
@@ -7,7 +14,9 @@ export const saveVoteData = async (formId: string, voteData: VoteData) => {
   const voteRef = doc(store, COLLECTIONS.VOTE, formId)
   const voteDataRef = collection(voteRef, COLLECTIONS.VOTEDATA)
 
-  await addDoc(voteDataRef, voteData)
+  const docRef = await addDoc(voteDataRef, voteData)
+
+  return docRef.id
 }
 
 export const getFormVoteCount = async (formId: string) => {
@@ -23,7 +32,7 @@ export const getFormVoteCount = async (formId: string) => {
   return querySnapshot.size
 }
 
-export const getSelectedTrackCounts = async (formId: string) => {
+export const getRankedTrackVoteCounts = async (formId: string) => {
   const voteDataRef = collection(
     store,
     COLLECTIONS.VOTE,
@@ -47,5 +56,29 @@ export const getSelectedTrackCounts = async (formId: string) => {
     })
   })
 
-  return selectedTrackCounts
+  const sortedTrackCounts = Object.entries(selectedTrackCounts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([trackNumber, voteCount], index) => ({
+      trackNumber: parseInt(trackNumber),
+      voteCount,
+      rank: index + 1,
+    }))
+
+  return sortedTrackCounts
+}
+
+export const getVoteData = async (formId: string, userId: string) => {
+  const voteDataRef = doc(
+    store,
+    COLLECTIONS.VOTE,
+    formId,
+    COLLECTIONS.VOTEDATA,
+    userId,
+  )
+
+  const docSnap = await getDoc(voteDataRef)
+
+  if (docSnap.exists()) {
+    return docSnap.data() as VoteData
+  }
 }

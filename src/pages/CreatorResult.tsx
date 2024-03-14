@@ -7,11 +7,11 @@ import useNavbar from '@/hooks/useNavbar'
 import Navbar from '@/components/form/result/Navbar'
 import SignOut from '@/components/shared/SignOut'
 import { useGetAlbumInfo } from '@/hooks/useGetAlbumInfo'
-import ResultDetail from '@/components/form/result/ResultDetail'
+import ResultDetail from '@/components/form/result/creator/ResultDetail'
 import { useGetVoteCount } from '@/hooks/useGetVoteCount'
 import { Text } from '@/components/shared/text'
 
-export default function ResultPage() {
+export default function CreatorResultPage() {
   const { formId } = useParams()
   const { data: form } = useGetFormData(formId ?? '') as {
     data: FormDataFromUser
