@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import PageLayout from '@/components/shared/PageLayout'
 import useNavbar from '@/hooks/useNavbar'
 import SignOut from '@/components/shared/SignOut'
-import { useGetAllFormData } from '@/hooks/useGetAllFormData'
+import { usePaginatedFormData } from '@/hooks/usePaginatedFormData'
 import AllFormList from '@/components/home/AllFormList'
 import Introduction from '@/components/home/Introduction'
 import { Text } from '@/components/shared/text'
@@ -12,7 +12,9 @@ import { useUser } from '@/hooks/useUser'
 export default function HomePage() {
   const { updateNavbar } = useNavbar()
   const user = useUser()
-  const { data: formList } = useGetAllFormData()
+  const { data } = usePaginatedFormData()
+
+  const formList = data?.pages.flatMap((forms) => forms.formList)
 
   useEffect(() => {
     updateNavbar({
@@ -28,7 +30,7 @@ export default function HomePage() {
   return (
     <PageLayout>
       <Introduction />
-      <AllFormList formList={formList} />
+      {formList && <AllFormList formList={formList} />}
     </PageLayout>
   )
 }
