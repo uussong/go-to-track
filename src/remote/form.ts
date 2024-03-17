@@ -10,8 +10,10 @@ import {
   deleteDoc,
   setDoc,
   where,
+  DocumentSnapshot,
   startAfter,
   limit,
+  DocumentData,
 } from 'firebase/firestore'
 import { store } from './firebase'
 import {
@@ -62,7 +64,9 @@ export const fetchInitialFormList = async () => {
   }
 }
 
-export const fetchNextFormList = async (lastVisible: any) => {
+export const fetchNextFormList = async (
+  lastVisible: DocumentSnapshot<DocumentData>,
+) => {
   const nextQuery = query(
     collection(store, COLLECTIONS.FORM),
     orderBy('timestamp'),
