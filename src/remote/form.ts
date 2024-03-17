@@ -41,8 +41,8 @@ export const saveFormData = async (user: User, formData: FormDataFromUser) => {
 export const fetchInitialFormList = async () => {
   const firstQuery = query(
     collection(store, COLLECTIONS.FORM),
-    orderBy('timestamp'),
-    limit(2),
+    orderBy('timestamp', 'desc'),
+    limit(5),
   )
   const firstSnapshot = await getDocs(firstQuery)
   const formList: FormListData[] = firstSnapshot.docs.map((doc) => {
@@ -69,9 +69,9 @@ export const fetchNextFormList = async (
 ) => {
   const nextQuery = query(
     collection(store, COLLECTIONS.FORM),
-    orderBy('timestamp'),
+    orderBy('timestamp', 'desc'),
     startAfter(lastVisible),
-    limit(2),
+    limit(5),
   )
   const nextSnapshot = await getDocs(nextQuery)
   const formList: FormListData[] = nextSnapshot.docs.map((doc) => {
