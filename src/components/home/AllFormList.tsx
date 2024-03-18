@@ -18,8 +18,11 @@ export default function AllFormList({
     <section css={sectionStyles}>
       <Text variant={'heading2'}>지금 바로 최애곡을 뽑아보세요</Text>
       {formList.map((form) => (
-        <Suspense fallback={<Skeleton height={162} margin={10} />}>
-          <FormItem key={form.id} form={form} />
+        <Suspense
+          key={form.id}
+          fallback={<Skeleton height={162} margin={10} />}
+        >
+          <FormItem form={form} />
         </Suspense>
       ))}
       <div ref={lastFormRef}></div>
