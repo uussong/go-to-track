@@ -20,7 +20,7 @@ export default function AllFormList({
       {formList.map((form) => (
         <Suspense
           key={form.id}
-          fallback={<Skeleton height={162} margin={10} />}
+          fallback={<Skeleton height={160} borderRadius={4} margin={10} />}
         >
           <FormItem form={form} />
         </Suspense>
