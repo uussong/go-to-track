@@ -46,7 +46,7 @@ const loading = keyframes`
 const skeletonStyles = css`
   position: relative;
   overflow: hidden;
-  background: ${colors.gray200};
+  background: ${colors.gray100};
 
   &::after {
     position: absolute;
@@ -59,7 +59,7 @@ const skeletonStyles = css`
     background: linear-gradient(
       90deg,
       transparent,
-      ${colors.gray100},
+      ${colors.white},
       transparent
     );
   }
