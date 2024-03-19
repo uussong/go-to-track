@@ -22,7 +22,9 @@ export default function FormInfo({ form, onNext }: FormInfoProps) {
         <Text css={textStyles} variant={'heading2'}>
           {album.name}
         </Text>
-        <img css={imageStyles} src={album.images[1].url} alt={album.name} />
+        <div css={imageWrapperStyles}>
+          <img css={imageStyles} src={album.images[1].url} alt={album.name} />
+        </div>
       </div>
       <Button onClick={onNext}>투표하기</Button>
     </section>
@@ -39,11 +41,19 @@ const sectionStyles = css`
 
 const divStyles = css`
   ${flexColumnCenter}
-  gap: 5px;
+  gap: 25px;
+`
+
+const imageWrapperStyles = css`
+  width: 300px;
+  height: 300px;
 `
 
 const imageStyles = css`
   display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   border-radius: 10px;
 `
 
