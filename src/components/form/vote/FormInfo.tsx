@@ -5,6 +5,8 @@ import { useGetAlbumInfo } from '@/hooks/useGetAlbumInfo'
 import { useGetArtistInfo } from '@/hooks/useGetArtistInfo'
 import { FormDataFromUser } from '@/models/form'
 import { flexColumnCenter } from '@/styles/mixins'
+import { useState } from 'react'
+import { Skeleton } from '@/components/shared/skeleton'
 
 interface FormInfoProps {
   form: FormDataFromUser
@@ -12,6 +14,7 @@ interface FormInfoProps {
 }
 
 export default function FormInfo({ form, onNext }: FormInfoProps) {
+  const [isLoading, setIsLoading] = useState(true)
   const { data: artist } = useGetArtistInfo(form.artistId)
   const { data: album } = useGetAlbumInfo(form.albumId)
 
@@ -23,7 +26,13 @@ export default function FormInfo({ form, onNext }: FormInfoProps) {
           {album.name}
         </Text>
         <div css={imageWrapperStyles}>
-          <img css={imageStyles} src={album.images[1].url} alt={album.name} />
+          {isLoading && <Skeleton width={300} height={300} borderRadius={10} />}
+          <img
+            css={imageStyles(isLoading)}
+            src={album.images[1].url}
+            alt={album.name}
+            onLoad={() => setIsLoading(false)}
+          />
         </div>
       </div>
       <Button onClick={onNext}>투표하기</Button>
@@ -49,8 +58,8 @@ const imageWrapperStyles = css`
   height: 300px;
 `
 
-const imageStyles = css`
-  display: block;
+const imageStyles = (isLoading: boolean) => css`
+  display: ${isLoading ? `none` : `block`};
   width: 100%;
   height: 100%;
   object-fit: contain;
