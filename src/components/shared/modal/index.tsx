@@ -8,16 +8,22 @@ interface PropsWithChildren {
   children: ReactNode
 }
 
-interface ModalActionsProps {
-  primary: ReactNode
-  secondary?: ReactNode
+interface ModalProps {
+  children: ReactNode
   onClick: () => void
 }
 
-export function Modal({ children }: PropsWithChildren) {
+interface ModalActionsProps {
+  primary: ReactNode
+  secondary?: ReactNode
+  onAction: () => void
+  onClose?: () => void
+}
+
+export function Modal({ children, onClick }: ModalProps) {
   return (
     <div css={ModalStyles}>
-      <div css={BackdropStyles}></div>
+      <div css={BackdropStyles} onClick={onClick}></div>
       <div css={ModalContentStyles}>{children}</div>
     </div>
   )
@@ -27,15 +33,20 @@ function ModalBody({ children }: PropsWithChildren) {
   return <div css={ModalBodyStyles}>{children}</div>
 }
 
-function ModalActions({ primary, secondary, onClick }: ModalActionsProps) {
+function ModalActions({
+  primary,
+  secondary,
+  onAction,
+  onClose,
+}: ModalActionsProps) {
   return (
     <div css={ButtonGroupStyles}>
       {secondary && (
-        <Button variant={'secondary'} onClick={onClick}>
+        <Button variant={'secondary'} onClick={onClose}>
           {secondary}
         </Button>
       )}
-      <Button onClick={onClick}>{primary}</Button>
+      <Button onClick={onAction}>{primary}</Button>
     </div>
   )
 }
