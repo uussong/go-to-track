@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { createPortal } from 'react-dom'
 import { css } from '@emotion/react'
 import { Button } from '../button'
 import { flexCenter, flexColumn } from '@/styles/mixins'
@@ -27,6 +28,14 @@ export function Modal({ children, onClick }: ModalProps) {
       <div css={ModalContentStyles}>{children}</div>
     </div>
   )
+}
+
+function ModalPortal({ children }: PropsWithChildren) {
+  const modalContainer = document.getElementById('modal')
+
+  if (modalContainer === null) return null
+
+  return createPortal(children, modalContainer)
 }
 
 function ModalBody({ children }: PropsWithChildren) {
@@ -90,5 +99,6 @@ const ButtonGroupStyles = css`
   gap: 10px;
 `
 
+Modal.Portal = ModalPortal
 Modal.Body = ModalBody
 Modal.Actions = ModalActions
