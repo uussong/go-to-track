@@ -65,6 +65,7 @@ const ModalStyles = css`
   inset: 0;
   ${flexCenter}
   padding: 64px 48px;
+  z-index: 100;
 `
 
 const ModalContentStyles = css`
