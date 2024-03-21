@@ -1,5 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { css } from '@emotion/react'
 import PageLayout from '@/components/shared/PageLayout'
 import useNavbar from '@/hooks/useNavbar'
 import SignOut from '@/components/shared/SignOut'
@@ -8,6 +10,7 @@ import AllFormList from '@/components/home/AllFormList'
 import Introduction from '@/components/home/Introduction'
 import { Text } from '@/components/shared/text'
 import { useUser } from '@/hooks/useUser'
+import { ReactComponent as LoadingIcon } from '@/assets/icons/loading.svg'
 
 export default function HomePage() {
   const { updateNavbar } = useNavbar()
@@ -16,31 +19,7 @@ export default function HomePage() {
     usePaginatedFormData()
 
   const formList = data?.pages.flatMap((forms) => forms.formList)
-
-  const lastFormRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (isFetchingNextPage) return
-
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && hasNextPage) {
-        fetchNextPage()
-      }
-    })
-
-    const currentRef = lastFormRef.current
-
-    if (currentRef) {
-      observer.observe(currentRef)
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef)
-      }
-    }
-  }, [hasNextPage, fetchNextPage, lastFormRef, isFetchingNextPage])
-
+  console.log(formList)
   useEffect(() => {
     updateNavbar({
       left: (
@@ -52,12 +31,29 @@ export default function HomePage() {
     })
   }, [updateNavbar, user])
 
+  const loadMore = () => {
+    if (hasNextPage === false || isFetchingNextPage) return
+    fetchNextPage()
+  }
+
   return (
     <PageLayout>
       <Introduction />
       {formList && (
-        <AllFormList formList={formList} lastFormRef={lastFormRef} />
+        <InfiniteScroll
+          dataLength={formList?.length}
+          next={loadMore}
+          hasMore={hasNextPage}
+          loader={<LoadingIcon css={LoadingStyles} />}
+        >
+          <AllFormList formList={formList} />
+        </InfiniteScroll>
       )}
     </PageLayout>
   )
 }
+
+const LoadingStyles = css`
+  width: 100%;
+  margin: 16px auto;
+`
