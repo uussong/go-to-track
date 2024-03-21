@@ -19,7 +19,7 @@ export default function HomePage() {
     usePaginatedFormData()
 
   const formList = data?.pages.flatMap((forms) => forms.formList)
-  console.log(formList)
+
   useEffect(() => {
     updateNavbar({
       left: (
