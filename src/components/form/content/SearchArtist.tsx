@@ -5,7 +5,8 @@ import { useSearchArtist } from '@/hooks/useSearchArtist'
 import ArtistInfo from './ArtistInfo'
 import { Button } from '../../shared/button'
 import { Text } from '../../shared/text'
-import { flexColumn } from '@/styles/mixins'
+import { flexColumnCenter } from '@/styles/mixins'
+import { TextInput } from '@/components/shared/textInput'
 
 interface SearchArtistProps {
   onNext: (artistId: string) => void
@@ -28,17 +29,17 @@ export default function SearchArtist({ onNext }: SearchArtistProps) {
     <>
       <section css={inputSectionStyles}>
         <Text variant={'heading2'}>원하는 가수를 검색해보세요</Text>
-        <form onSubmit={handleSubmit}>
-          <input type="text" value={searchInput} onChange={handleInput} />
+        <form css={formStyles} onSubmit={handleSubmit}>
+          <TextInput label={'가수 검색'} onChange={handleInput} />
         </form>
       </section>
       <section css={resultSectionStyles}>
         {isLoading || data === undefined ? null : data.length === 0 ? (
-          <Text>찾는 가수가 없어요</Text>
+          <Text>원하는 가수가 없어요</Text>
         ) : (
           <>
             <ArtistInfo data={data} />
-            <Text variant={'bodyStrong'}>찾는 가수가 맞나요?</Text>
+            <Text>원하는 가수가 맞나요?</Text>
             <Button
               onClick={() => {
                 onNext(data[0].id)
@@ -54,12 +55,16 @@ export default function SearchArtist({ onNext }: SearchArtistProps) {
 }
 
 const inputSectionStyles = css`
-  padding-bottom: 25px;
+  padding: 50px 0 25px;
+`
+
+const formStyles = css`
+  padding-top: 20px;
 `
 
 const resultSectionStyles = css`
-  ${flexColumn}
+  ${flexColumnCenter}
+  flex: 1;
   align-items: center;
   gap: 25px;
-  padding-top: 25px;
 `

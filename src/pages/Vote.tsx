@@ -27,7 +27,7 @@ export default function VotePage() {
     data: FormDataFromUser
   }
 
-  const { mutate } = useSaveVoteData()
+  const { data: userId, mutate } = useSaveVoteData()
 
   const { updateNavbar } = useNavbar()
 
@@ -99,7 +99,7 @@ export default function VotePage() {
           nickname={voteData.nickname}
         />
       )}
-      {step === '완료' && <FormEnd />}
+      {step === '완료' && <FormEnd userId={userId} />}
     </PageLayout>
   )
 }

@@ -3,6 +3,7 @@ import { css } from '@emotion/react'
 import { AlbumData } from '@/models/album'
 import { Skeleton } from '../../shared/skeleton'
 import { Text } from '../../shared/text'
+import { colors } from '@/styles/colors'
 
 interface AlbumListProps {
   data: AlbumData[]
@@ -13,7 +14,7 @@ export default function AlbumList({ data, onNext }: AlbumListProps) {
   const [isLoading, setIsLoading] = useState(true)
 
   return (
-    <section css={sectionStyles}>
+    <div css={articleWrapperStyles}>
       {data.map((album: AlbumData) => (
         <article
           css={articleStyles}
@@ -29,18 +30,21 @@ export default function AlbumList({ data, onNext }: AlbumListProps) {
             alt={album.name}
             onLoad={() => setIsLoading(false)}
           />
-          <Text css={{ textAlign: 'center' }}>{album.name}</Text>
+          <Text css={albumNameStyles} variant={'heading3'}>
+            {album.name}
+          </Text>
         </article>
       ))}
-    </section>
+    </div>
   )
 }
 
-const sectionStyles = css`
+const articleWrapperStyles = css`
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
-  gap: 13px;
+  gap: 10px 13px;
+  padding: 25px 0;
 `
 
 const articleStyles = css`
@@ -48,9 +52,20 @@ const articleStyles = css`
   flex-direction: column;
   align-items: center;
   width: 165px;
+  padding: 20px 10px;
+  background-color: ${colors.gray100};
+  border-radius: 10px;
+  cursor: pointer;
 `
 
 const imgStyles = (isLoading: boolean) => css`
   display: ${isLoading ? `none` : `block`};
-  width: 125px;
+  width: 100px;
+  border-radius: 4px;
+`
+
+const albumNameStyles = css`
+  font-size: 16px;
+  padding-top: 10px;
+  text-align: center;
 `

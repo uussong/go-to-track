@@ -4,7 +4,7 @@ import { css } from '@emotion/react'
 import PageLayout from '@/components/shared/PageLayout'
 import { Button } from '@/components/shared/button'
 import useNavbar from '@/hooks/useNavbar'
-import FormList from '@/components/myForms/FormList'
+import MyFormList from '@/components/myForms/MyFormList'
 import { useGetUserFormList } from '@/hooks/useGetUserFormList'
 import SignOut from '@/components/shared/SignOut'
 import { Text } from '@/components/shared/text'
@@ -37,10 +37,12 @@ export default function MyFormsPage() {
 
   return (
     <PageLayout>
-      <Link to={`/form/create/title`}>
-        <Button>만들기</Button>
-      </Link>
-      <FormList data={data} />
+      <section css={sectionStyles}>
+        <Link to={`/form/create/title`}>
+          <Button>새로운 투표 만들기</Button>
+        </Link>
+        <MyFormList data={data} />
+      </section>
     </PageLayout>
   )
 }
@@ -61,4 +63,8 @@ const myformsWrapperStyles = css`
 const myformsStyles = css`
   font-size: 16px;
   line-height: 20px;
+`
+
+const sectionStyles = css`
+  padding-top: 50px;
 `
