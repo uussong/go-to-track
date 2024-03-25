@@ -28,6 +28,7 @@ export default function Root() {
 }
 
 const headerStyles = css`
+  max-width: 768px;
   width: 100%;
   height: 64px;
   position: fixed;
