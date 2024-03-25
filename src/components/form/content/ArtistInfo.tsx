@@ -37,6 +37,11 @@ const articleStyles = css`
 const imgWrapperStyles = css`
   width: 300px;
   height: 300px;
+
+  @media (max-width: 576px) {
+    width: 200px;
+    height: 200px;
+  }
 `
 
 const imgStyles = (isLoading: boolean) => css`
