@@ -39,21 +39,33 @@ export default function HomePage() {
   return (
     <PageLayout>
       <Introduction />
-      {formList && (
-        <InfiniteScroll
-          dataLength={formList?.length}
-          next={loadMore}
-          hasMore={hasNextPage}
-          loader={<LoadingIcon css={LoadingStyles} />}
-        >
-          <AllFormList formList={formList} />
-        </InfiniteScroll>
-      )}
+      <section css={sectionStyles}>
+        <Text variant={'heading2'} css={headingStyles}>
+          지금 바로 최애곡을 뽑아보세요
+        </Text>
+        {formList && (
+          <InfiniteScroll
+            dataLength={formList?.length}
+            next={loadMore}
+            hasMore={hasNextPage}
+            loader={<LoadingIcon css={loadingStyles} />}
+          >
+            <AllFormList formList={formList} />
+          </InfiniteScroll>
+        )}
+      </section>
     </PageLayout>
   )
 }
 
-const LoadingStyles = css`
+const sectionStyles = css`
+  padding-top: 50px;
+`
+
+const headingStyles = css`
+  margin-bottom: 16px;
+`
+
+const loadingStyles = css`
   width: 100%;
-  margin: 16px auto;
 `
