@@ -11,6 +11,7 @@ import Introduction from '@/components/home/Introduction'
 import { Text } from '@/components/shared/text'
 import { useUser } from '@/hooks/useUser'
 import { ReactComponent as LoadingIcon } from '@/assets/icons/loading.svg'
+import { flexColumnCenter } from '@/styles/mixins'
 
 export default function HomePage() {
   const { updateNavbar } = useNavbar()
@@ -48,9 +49,13 @@ export default function HomePage() {
             dataLength={formList?.length}
             next={loadMore}
             hasMore={hasNextPage}
-            loader={<LoadingIcon css={loadingStyles} />}
+            loader={
+              <div css={loadingWrapperStyles}>
+                <LoadingIcon />
+              </div>
+            }
           >
-            <AllFormList formList={formList} />
+            <AllFormList formList={formList} isFetched={!isFetchingNextPage} />
           </InfiniteScroll>
         )}
       </section>
@@ -65,7 +70,7 @@ const sectionStyles = css`
 const headingStyles = css`
   margin-bottom: 16px;
 `
-
-const loadingStyles = css`
-  width: 100%;
+const loadingWrapperStyles = css`
+  ${flexColumnCenter}
+  padding: 24px 0;
 `
