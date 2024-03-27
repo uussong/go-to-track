@@ -32,4 +32,8 @@ export default function SelectAlbum({
 
 const sectionStyles = css`
   padding-top: 50px;
+
+  @media (max-width: 576px) {
+    padding-top: 25px;
+  }
 `
