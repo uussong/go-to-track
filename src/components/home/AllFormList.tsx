@@ -11,9 +11,11 @@ export default function AllFormList({ formList }: AllFormListProps) {
   return (
     <section css={sectionStyles}>
       <Text variant={'heading2'}>지금 바로 최애곡을 뽑아보세요</Text>
-      {formList.map((form) => (
-        <FormItem key={form.id} form={form} />
-      ))}
+      <div css={listStyles}>
+        {formList.map((form) => (
+          <FormItem key={form.id} form={form} />
+        ))}
+      </div>
     </section>
   )
 }
@@ -21,4 +23,8 @@ export default function AllFormList({ formList }: AllFormListProps) {
 const sectionStyles = css`
   width: 100%;
   padding-top: 50px;
+`
+
+const listStyles = css`
+  padding-top: 25px;
 `
