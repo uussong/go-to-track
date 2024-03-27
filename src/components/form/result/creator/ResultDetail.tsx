@@ -16,12 +16,17 @@ export default function ResultDetail({ album, voteCount }: ResultDetailProps) {
   const tracks = album.tracks.items
 
   return (
-    <>
-      <div css={titleStyles}>
-        <Text variant={'bodyStrong'}>{album.name}</Text>
-        <Text>최애곡은?</Text>
-      </div>
-      <ul>
+    <section css={sectionStyles}>
+      <Text>총 {voteCount}명이 투표한 결과</Text>
+
+      <Text variant={'heading3'}>
+        {album.name}{' '}
+        <Text css={textStyles} variant={'body'}>
+          최애곡은?
+        </Text>
+      </Text>
+
+      <ul css={listStyles}>
         {tracks.map((track, index) => {
           const trackVoteCount =
             rankedTrackCounts.find(
@@ -38,10 +43,22 @@ export default function ResultDetail({ album, voteCount }: ResultDetailProps) {
           )
         })}
       </ul>
-    </>
+    </section>
   )
 }
 
-const titleStyles = css`
-  padding: 6px 0;
+const sectionStyles = css`
+  padding-top: 50px;
+
+  @media (max-width: 576px) {
+    padding-top: 25px;
+  }
+`
+
+const textStyles = css`
+  display: inline-block;
+`
+
+const listStyles = css`
+  padding-top: 15px;
 `
