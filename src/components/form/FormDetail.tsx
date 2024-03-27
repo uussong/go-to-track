@@ -1,4 +1,5 @@
 import { ChangeEvent, KeyboardEvent, MouseEvent, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { css } from '@emotion/react'
 import { ArtistData } from '@/models/artist'
 import { FormDataFromServer } from '@/models/form'
@@ -7,8 +8,10 @@ import { SingleAlbumData } from '@/models/album'
 import { Button } from '../shared/button'
 import { colors } from '@/styles/colors'
 import { useUpdateFormData } from '@/hooks/useUpdateFormData'
-import { flexCenter } from '@/styles/mixins'
-import { useNavigate, useParams } from 'react-router-dom'
+import { flexCenter, flexColumn } from '@/styles/mixins'
+import { useModal } from '@/hooks/useModal'
+import { Modal } from '../shared/modal'
+import { Checkbox } from '../shared/checkbox'
 import { Skeleton } from '../shared/skeleton'
 
 interface formDetailProps {
@@ -24,14 +27,14 @@ export default function FormDetail({ form, artist, album }: formDetailProps) {
     artistImageLoading: true,
     albumImageLoading: true,
   })
+
   const tracks = album.tracks.items
-  const { mutate } = useUpdateFormData()
+
   const navigate = useNavigate()
   const { formId } = useParams()
 
-  const toggleTrackListVisible = () => {
-    setIsTrackListVisible(!isTrackListVisible)
-  }
+  const { mutate } = useUpdateFormData()
+  const { isOpen, openModal, closeModal } = useModal()
 
   const handleTitleChange = (e: ChangeEvent<HTMLHeadingElement>) => {
     setTitle(e.target.innerText)
@@ -124,7 +127,7 @@ export default function FormDetail({ form, artist, album }: formDetailProps) {
           </div>
           <div css={albumDetailStyles}>
             <Text variant={'bodyStrong'}>{album.name}</Text>
-            <Button variant={'primary'} onClick={toggleTrackListVisible}>
+            <Button variant={'primary'} onClick={openModal}>
               수록곡 보기
             </Button>
           </div>
@@ -138,16 +141,28 @@ export default function FormDetail({ form, artist, album }: formDetailProps) {
           수정
         </Button>
       </article>
-      {isTrackListVisible && (
-        <article css={trackArticleStyles}>
-          <ul>
-            {tracks.map((track) => (
-              <li css={liStyles} key={track.id}>
-                <Text>{track.name}</Text>
-              </li>
-            ))}
-          </ul>
-        </article>
+
+      {isOpen && (
+        <Modal.Portal>
+          <Modal onClick={closeModal}>
+            <Modal.Body>
+              <ul css={listStyles}>
+                {tracks.map((track) => (
+                  <Checkbox
+                    index={track.track_number}
+                    label={track.name}
+                    checked={false}
+                    onClick={() => {}}
+                  />
+                ))}
+              </ul>
+            </Modal.Body>
+            <Modal.Actions
+              primary={'확인'}
+              onAction={closeModal}
+            ></Modal.Actions>
+          </Modal>
+        </Modal.Portal>
       )}
     </section>
   )
@@ -194,10 +209,7 @@ const albumDetailStyles = css`
   gap: 8px;
 `
 
-const trackArticleStyles = css`
-  padding: 8px 0 0 100px;
-`
-
-const liStyles = css`
-  padding: 5px 0 0 0;
+const listStyles = css`
+  ${flexColumn}
+  gap: 5px;
 `

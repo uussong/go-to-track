@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { css } from '@emotion/react'
 import PageLayout from '@/components/shared/PageLayout'
@@ -10,13 +10,15 @@ import { useGetAlbumInfo } from '@/hooks/useGetAlbumInfo'
 import useNavbar from '@/hooks/useNavbar'
 import { Button } from '@/components/shared/button'
 import { useDeleteFormData } from '@/hooks/useDeleteFormData'
-import DeleteConfirmModal from '@/components/form/DeleteConfirmModal'
+import { Modal } from '@/components/shared/modal'
+import { useModal } from '@/hooks/useModal'
+import { Text } from '@/components/shared/text'
 import { ReactComponent as BackIcon } from '@/assets/icons/back.svg'
 
 export default function FormPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const { formId } = useParams()
   const { updateNavbar } = useNavbar()
+  const { isOpen, openModal, closeModal } = useModal()
 
   const { data: form } = useGetFormData(formId ?? '') as {
     data: FormDataFromServer
@@ -24,13 +26,9 @@ export default function FormPage() {
   const { data: artist } = useGetArtistInfo(form.artistId)
   const { data: album } = useGetAlbumInfo(form.albumId)
 
-  const handleModalOpen = useCallback(() => {
-    setIsModalOpen(!isModalOpen)
-  }, [isModalOpen])
-
   const { mutate } = useDeleteFormData()
 
-  const handleDeleteFormClick = () => {
+  const handleFormDelete = () => {
     mutate()
   }
 
@@ -44,21 +42,34 @@ export default function FormPage() {
         </div>
       ),
       right: (
-        <Button variant={'secondary'} onClick={handleModalOpen}>
+        <Button variant={'secondary'} onClick={openModal}>
           삭제
         </Button>
       ),
     })
-  }, [updateNavbar, handleModalOpen])
+  }, [updateNavbar, openModal])
 
   return (
     <PageLayout>
       <FormDetail form={form} artist={artist} album={album} />
-      {isModalOpen && (
-        <DeleteConfirmModal
-          handleModalOpen={() => setIsModalOpen(!isModalOpen)}
-          onDelete={handleDeleteFormClick}
-        />
+
+      {isOpen && (
+        <Modal.Portal>
+          <Modal onClick={closeModal}>
+            <Modal.Body>
+              <Text variant={'bodyStrong'} css={{ display: 'block' }}>
+                정말 삭제하시겠습니까?
+              </Text>
+              <Text variant={'detail'}>삭제한 글은 복구할 수 없어요.</Text>
+            </Modal.Body>
+            <Modal.Actions
+              primary={'삭제'}
+              secondary={'돌아가기'}
+              onAction={handleFormDelete}
+              onClose={closeModal}
+            ></Modal.Actions>
+          </Modal>
+        </Modal.Portal>
       )}
     </PageLayout>
   )
