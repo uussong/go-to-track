@@ -46,16 +46,17 @@ const articleWrapperStyles = css`
   grid-template-columns: 1fr 1fr;
   justify-items: center;
   gap: 10px 13px;
-  padding: 25px 0;
+  padding: 10px;
+  margin: 25px 0;
 `
 
 const articleStyles = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 165px;
-  padding: 20px 10px;
-  background-color: ${colors.gray100};
+  width: 100%;
+  padding: 20px 5px;
+  border: 1px solid ${colors.gray100};
   border-radius: 10px;
   cursor: pointer;
 `
