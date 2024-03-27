@@ -15,5 +15,5 @@ const main = css`
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
-  padding: 72px 16px 16px;
+  padding: 64px 16px 16px;
 `

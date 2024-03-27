@@ -23,13 +23,15 @@ export default function AlbumList({ data, onNext }: AlbumListProps) {
             onNext(album.id)
           }}
         >
-          {isLoading && <Skeleton width={125} height={125} />}
-          <img
-            css={imgStyles(isLoading)}
-            src={album.images[1].url}
-            alt={album.name}
-            onLoad={() => setIsLoading(false)}
-          />
+          <div css={imgWrapperStyles}>
+            {isLoading && <Skeleton width={100} height={100} />}
+            <img
+              css={imgStyles(isLoading)}
+              src={album.images[1].url}
+              alt={album.name}
+              onLoad={() => setIsLoading(false)}
+            />
+          </div>
           <Text css={albumNameStyles} variant={'heading3'}>
             {album.name}
           </Text>
@@ -58,9 +60,16 @@ const articleStyles = css`
   cursor: pointer;
 `
 
+const imgWrapperStyles = css`
+  width: 100px;
+  height: 100px;
+`
+
 const imgStyles = (isLoading: boolean) => css`
   display: ${isLoading ? `none` : `block`};
-  width: 100px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 4px;
 `
 

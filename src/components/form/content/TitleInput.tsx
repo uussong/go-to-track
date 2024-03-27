@@ -1,11 +1,9 @@
 import { ChangeEvent } from 'react'
-import { Link } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { css } from '@emotion/react'
 import { formTitleState } from '@/stores/form'
-import { Text } from '@/components/shared/text'
 
-export default function Navbar() {
+export default function TitleInput() {
   const [formTitle, setFormTitle] = useRecoilState(formTitleState)
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -13,16 +11,13 @@ export default function Navbar() {
   }
 
   return (
-    <>
-      <Link to={`/myforms`}>My forms</Link>
-      <Text variant={'detail'}> / </Text>
-      <input
-        css={inputStyles}
-        type="text"
-        value={formTitle}
-        onChange={handleInput}
-      />
-    </>
+    <input
+      css={inputStyles}
+      type="text"
+      value={formTitle}
+      onChange={handleInput}
+      spellCheck={false}
+    />
   )
 }
 

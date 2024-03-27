@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { css } from '@emotion/react'
 import PageLayout from '@/components/shared/PageLayout'
 import { useGetFormData } from '@/hooks/useGetFormData'
 import FormDetail from '@/components/form/FormDetail'
@@ -12,6 +13,7 @@ import { useDeleteFormData } from '@/hooks/useDeleteFormData'
 import { Modal } from '@/components/shared/modal'
 import { useModal } from '@/hooks/useModal'
 import { Text } from '@/components/shared/text'
+import { ReactComponent as BackIcon } from '@/assets/icons/back.svg'
 
 export default function FormPage() {
   const { formId } = useParams()
@@ -32,7 +34,13 @@ export default function FormPage() {
 
   useEffect(() => {
     updateNavbar({
-      left: <Link to={`/myforms`}>My forms</Link>,
+      left: (
+        <div css={navbarStyles}>
+          <Link to={`/myforms`}>
+            <Button variant={'secondary'} size={'icon'} icon={<BackIcon />} />
+          </Link>
+        </div>
+      ),
       right: (
         <Button variant={'secondary'} onClick={openModal}>
           삭제
@@ -66,3 +74,11 @@ export default function FormPage() {
     </PageLayout>
   )
 }
+
+const navbarStyles = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+`
