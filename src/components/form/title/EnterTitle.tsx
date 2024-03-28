@@ -27,7 +27,11 @@ export default function EnterTitle({ setFormTitle }: EnterTitleProps) {
     <section css={sectionStyles}>
       <Text variant={'heading2'}>투표 제목을 입력해주세요</Text>
       <form css={formStyles} onSubmit={handleSubmit}>
-        <TextInput label={'투표 폼 제목'} onChange={handleInput} />
+        <TextInput
+          label={'투표 폼 제목'}
+          value={input}
+          onChange={handleInput}
+        />
         <Button css={buttonStyles} type={'submit'} disabled={input === ''}>
           계속
         </Button>
