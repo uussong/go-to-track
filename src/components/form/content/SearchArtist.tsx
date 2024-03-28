@@ -30,11 +30,17 @@ export default function SearchArtist({ onNext }: SearchArtistProps) {
       <section css={inputSectionStyles}>
         <Text variant={'heading2'}>원하는 가수를 검색해보세요</Text>
         <form css={formStyles} onSubmit={handleSubmit}>
-          <TextInput label={'가수 검색'} onChange={handleInput} />
+          <TextInput
+            label={'가수 검색'}
+            value={searchInput}
+            onChange={handleInput}
+          />
         </form>
       </section>
       <section css={resultSectionStyles}>
-        {isLoading || data === undefined ? null : data.length === 0 ? (
+        {isLoading ||
+        data === undefined ||
+        searchInput === '' ? null : data.length === 0 ? (
           <Text>원하는 가수가 없어요</Text>
         ) : (
           <>
