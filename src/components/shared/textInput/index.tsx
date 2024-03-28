@@ -2,6 +2,8 @@ import { ChangeEvent, InputHTMLAttributes, useId, useRef } from 'react'
 import { css } from '@emotion/react'
 import { colors } from '@/styles/colors'
 import { a11yHidden } from '@/styles/mixins'
+import { Button } from '../button'
+import { ReactComponent as CloseIcon } from '@/assets/icons/close.svg'
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
@@ -37,9 +39,13 @@ export function TextInput({
         {...props}
       />
       {value && (
-        <button css={buttonStyles} onClick={resetValue}>
-          x
-        </button>
+        <Button
+          variant={'secondary'}
+          size={'icon'}
+          icon={<CloseIcon />}
+          css={buttonStyles}
+          onClick={resetValue}
+        />
       )}
     </div>
   )
