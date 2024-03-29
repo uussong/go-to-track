@@ -14,7 +14,7 @@ export default function ArtistInfo({ data }: ArtistInfoProps) {
   return (
     <article css={articleStyles}>
       <div css={imgWrapperStyles}>
-        {isLoading && <Skeleton width={300} height={300} borderRadius={300} />}
+        {isLoading && <Skeleton borderRadius={300} />}
         <img
           css={imgStyles(isLoading)}
           src={data[0].images[1].url}

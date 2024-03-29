@@ -26,7 +26,7 @@ export default function FormInfo({ form, onNext }: FormInfoProps) {
           {album.name}
         </Text>
         <div css={imageWrapperStyles}>
-          {isLoading && <Skeleton width={300} height={300} borderRadius={10} />}
+          {isLoading && <Skeleton borderRadius={10} />}
           <img
             css={imageStyles(isLoading)}
             src={album.images[1].url}

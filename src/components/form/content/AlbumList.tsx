@@ -24,7 +24,7 @@ export default function AlbumList({ data, onNext }: AlbumListProps) {
           }}
         >
           <div css={imgWrapperStyles}>
-            {isLoading && <Skeleton width={100} height={100} />}
+            {isLoading && <Skeleton borderRadius={10} />}
             <img
               css={imgStyles(isLoading)}
               src={album.images[1].url}
