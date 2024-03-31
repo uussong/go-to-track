@@ -22,5 +22,5 @@ export default function TitleInput() {
 }
 
 const inputStyles = css`
-  width: 150px;
+  cursor: pointer;
 `
