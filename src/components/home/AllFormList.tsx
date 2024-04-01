@@ -1,24 +1,26 @@
+import { Suspense } from 'react'
 import { FormListData } from '@/models/form'
-import { Text } from '../shared/text'
 import FormItem from './FormItem'
-import { css } from '@emotion/react'
+import { Skeleton } from '../shared/skeleton'
 
 interface AllFormListProps {
   formList: FormListData[]
+  isFetched: boolean
 }
 
-export default function AllFormList({ formList }: AllFormListProps) {
+export default function AllFormList({ formList, isFetched }: AllFormListProps) {
   return (
-    <section css={sectionStyles}>
-      <Text variant={'heading2'}>지금 바로 최애곡을 뽑아보세요</Text>
+    <>
       {formList.map((form) => (
-        <FormItem key={form.id} form={form} />
+        <Suspense
+          key={form.id}
+          fallback={
+            isFetched && <Skeleton height={180} borderRadius={4} margin={10} />
+          }
+        >
+          <FormItem form={form} />
+        </Suspense>
       ))}
-    </section>
+    </>
   )
 }
-
-const sectionStyles = css`
-  width: 100%;
-  padding-top: 50px;
-`

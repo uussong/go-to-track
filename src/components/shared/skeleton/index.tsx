@@ -2,20 +2,27 @@ import { colors } from '@/styles/colors'
 import { css, keyframes } from '@emotion/react'
 
 interface SkeletonProps {
-  width: number
+  width?: number
   height: number
   borderRadius?: number
+  margin?: number
 }
 
-export function Skeleton({ width, height, borderRadius }: SkeletonProps) {
+export function Skeleton({
+  width,
+  height,
+  borderRadius,
+  margin,
+}: SkeletonProps) {
   return (
     <div
       css={[
         skeletonStyles,
         css`
-          width: ${width}px;
+          width: ${`width ? ${width}px : 100%`};
           height: ${height}px;
           border-radius: ${borderRadius}px;
+          margin: ${margin}px;
         `,
       ]}
     ></div>
@@ -39,7 +46,7 @@ const loading = keyframes`
 const skeletonStyles = css`
   position: relative;
   overflow: hidden;
-  background: ${colors.gray200};
+  background: ${colors.gray100};
 
   &::after {
     position: absolute;
@@ -52,7 +59,7 @@ const skeletonStyles = css`
     background: linear-gradient(
       90deg,
       transparent,
-      ${colors.gray100},
+      ${colors.white},
       transparent
     );
   }

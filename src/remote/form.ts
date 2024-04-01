@@ -10,6 +10,10 @@ import {
   deleteDoc,
   setDoc,
   where,
+  DocumentSnapshot,
+  startAfter,
+  limit,
+  DocumentData,
 } from 'firebase/firestore'
 import { store } from './firebase'
 import {
@@ -34,12 +38,14 @@ export const saveFormData = async (user: User, formData: FormDataFromUser) => {
   await addDoc(formDataRef, formDataToSave)
 }
 
-export const getAllFormData = async () => {
-  const formRef = collection(store, COLLECTIONS.FORM)
-
-  const querySnapshot = await getDocs(formRef)
-
-  const formList: FormListData[] = querySnapshot.docs.map((doc) => {
+export const fetchInitialFormList = async () => {
+  const firstQuery = query(
+    collection(store, COLLECTIONS.FORM),
+    orderBy('timestamp', 'desc'),
+    limit(5),
+  )
+  const firstSnapshot = await getDocs(firstQuery)
+  const formList: FormListData[] = firstSnapshot.docs.map((doc) => {
     const formData = doc.data()
     return {
       id: doc.id,
@@ -47,13 +53,43 @@ export const getAllFormData = async () => {
         albumId: formData.albumId,
         artistId: formData.artistId,
         formTitle: formData.formTitle,
-        uid: formData.uid,
         timestamp: formData.timestamp.toDate(),
       },
     }
   })
 
-  return formList
+  return {
+    formList,
+    lastVisible: firstSnapshot.docs[firstSnapshot.docs.length - 1],
+  }
+}
+
+export const fetchNextFormList = async (
+  lastVisible: DocumentSnapshot<DocumentData>,
+) => {
+  const nextQuery = query(
+    collection(store, COLLECTIONS.FORM),
+    orderBy('timestamp', 'desc'),
+    startAfter(lastVisible),
+    limit(5),
+  )
+  const nextSnapshot = await getDocs(nextQuery)
+  const formList: FormListData[] = nextSnapshot.docs.map((doc) => {
+    const formData = doc.data()
+    return {
+      id: doc.id,
+      data: {
+        albumId: formData.albumId,
+        artistId: formData.artistId,
+        formTitle: formData.formTitle,
+        timestamp: formData.timestamp.toDate(),
+      },
+    }
+  })
+  return {
+    formList,
+    lastVisible: nextSnapshot.docs[nextSnapshot.docs.length - 1],
+  }
 }
 
 export const getUserFormList = async (user: User) => {

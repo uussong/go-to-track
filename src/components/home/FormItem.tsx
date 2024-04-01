@@ -17,7 +17,7 @@ export default function FormItem({ form }: FormItemProps) {
   const { data: album } = useGetAlbumInfo(form.data.albumId)
 
   return (
-    <article>
+    <article css={articleStyles}>
       <Link to={`/vote/${form.id}`}>
         <div css={formItemContentStyles}>
           <Text variant={'heading3'}>{form.data.formTitle}</Text>
@@ -34,6 +34,10 @@ export default function FormItem({ form }: FormItemProps) {
     </article>
   )
 }
+
+const articleStyles = css`
+  width: 100%;
+`
 
 const formItemContentStyles = css`
   width: 100%;
