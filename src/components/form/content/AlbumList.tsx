@@ -24,7 +24,7 @@ export default function AlbumList({ data, onNext }: AlbumListProps) {
           }}
         >
           <div css={imgWrapperStyles}>
-            {isLoading && <Skeleton width={100} height={100} />}
+            {isLoading && <Skeleton borderRadius={10} />}
             <img
               css={imgStyles(isLoading)}
               src={album.images[1].url}
@@ -46,16 +46,17 @@ const articleWrapperStyles = css`
   grid-template-columns: 1fr 1fr;
   justify-items: center;
   gap: 10px 13px;
-  padding: 25px 0;
+  padding: 10px;
+  margin: 25px 0;
 `
 
 const articleStyles = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 165px;
-  padding: 20px 10px;
-  background-color: ${colors.gray100};
+  width: 100%;
+  padding: 20px 5px;
+  border: 1px solid ${colors.gray100};
   border-radius: 10px;
   cursor: pointer;
 `

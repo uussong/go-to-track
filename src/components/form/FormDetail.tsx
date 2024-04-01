@@ -22,7 +22,6 @@ interface formDetailProps {
 
 export default function FormDetail({ form, artist, album }: formDetailProps) {
   const [title, setTitle] = useState('')
-  // const [isTrackListVisible, setIsTrackListVisible] = useState(false)
   const [isLoading, setIsLoading] = useState({
     artistImageLoading: true,
     albumImageLoading: true,
@@ -202,8 +201,8 @@ const imageWrapperStyles = css`
 
 const imageStyles = (isLoading: boolean) => css`
   display: ${isLoading ? `none` : `block`};
-  width: 100%;
-  height: 100%;
+  width: 75px;
+  height: 75px;
   object-fit: cover;
   border-radius: 10px;
 `

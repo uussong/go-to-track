@@ -3,7 +3,7 @@ import { css, keyframes } from '@emotion/react'
 
 interface SkeletonProps {
   width?: number
-  height: number
+  height?: number
   borderRadius?: number
   margin?: number
 }
@@ -19,7 +19,7 @@ export function Skeleton({
       css={[
         skeletonStyles,
         css`
-          width: ${`width ? ${width}px : 100%`};
+          width: ${width}px;
           height: ${height}px;
           border-radius: ${borderRadius}px;
           margin: ${margin}px;
@@ -44,6 +44,8 @@ const loading = keyframes`
 `
 
 const skeletonStyles = css`
+  width: 100%;
+  height: 100%;
   position: relative;
   overflow: hidden;
   background: ${colors.gray100};

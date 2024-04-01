@@ -1,5 +1,6 @@
-import { SerializedStyles, css } from '@emotion/react'
 import { ReactNode } from 'react'
+import { SerializedStyles, css } from '@emotion/react'
+import { flexColumn } from '@/styles/mixins'
 
 interface PageLayoutProps {
   children: ReactNode
@@ -11,8 +12,7 @@ export default function PageLayout({ children, styles }: PageLayoutProps) {
 }
 
 const main = css`
-  display: flex;
-  flex-direction: column;
+  ${flexColumn}
   width: 100%;
   min-height: 100vh;
   padding: 64px 16px 16px;

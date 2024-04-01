@@ -43,7 +43,6 @@ export default function CreatorResultPage() {
 
   return (
     <PageLayout>
-      <Text>총 {voteCount}명이 투표한 결과</Text>
       <ResultDetail album={album} voteCount={voteCount} />
     </PageLayout>
   )

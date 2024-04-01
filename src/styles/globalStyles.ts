@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
 import { fonts } from './fonts'
+import { colors } from './colors'
 
 export const globalStyles = css`
   ${fonts}
@@ -14,6 +15,7 @@ export const globalStyles = css`
 
   body {
     line-height: inherit;
+    background-color: ${colors.gray200};
   }
 
   h1,
@@ -82,5 +84,11 @@ export const globalStyles = css`
 
   [contenteditable] {
     outline: none;
+  }
+
+  #root {
+    max-width: 768px;
+    margin: 0 auto;
+    background-color: ${colors.white};
   }
 `

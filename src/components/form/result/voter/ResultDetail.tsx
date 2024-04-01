@@ -65,7 +65,11 @@ export default function ResultDetail({
 }
 
 const sectionStyles = css`
-  padding-top: 25px;
+  padding-top: 50px;
+
+  @media (max-width: 576px) {
+    padding-top: 25px;
+  }
 `
 
 const headingStyles = css`

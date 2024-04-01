@@ -70,6 +70,11 @@ const sectionStyles = css`
   justify-content: space-between;
   gap: 16px;
   flex-grow: 1;
+  padding-top: 50px;
+
+  @media (max-width: 576px) {
+    padding-top: 25px;
+  }
 `
 
 const textGroupStyles = css`
