@@ -8,10 +8,11 @@ import SignOut from '@/components/shared/SignOut'
 import { usePaginatedFormData } from '@/hooks/usePaginatedFormData'
 import AllFormList from '@/components/home/AllFormList'
 import Introduction from '@/components/home/Introduction'
-import { Text } from '@/components/shared/text'
 import { useUser } from '@/hooks/useUser'
 import { ReactComponent as LoadingIcon } from '@/assets/icons/loading.svg'
 import { flexColumnCenter } from '@/styles/mixins'
+import { Text } from '@/components/shared/text'
+
 
 export default function HomePage() {
   const { updateNavbar } = useNavbar()
@@ -25,7 +26,13 @@ export default function HomePage() {
     updateNavbar({
       left: (
         <Link to={`/`}>
-          <Text variant={'heading1'}>go-to-track</Text>
+          <Text variant={'heading1'}>
+            <img
+              css={imageStyles}
+              src={'/images/logo.png'}
+              alt="go-to-track 로고"
+            />
+          </Text>
         </Link>
       ),
       right: user && <SignOut />,
@@ -70,7 +77,12 @@ const sectionStyles = css`
 const headingStyles = css`
   margin-bottom: 16px;
 `
+
 const loadingWrapperStyles = css`
   ${flexColumnCenter}
   padding: 24px 0;
+`  
+
+const imageStyles = css`
+  height: 44px;
 `

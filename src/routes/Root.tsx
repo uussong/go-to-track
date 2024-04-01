@@ -29,10 +29,10 @@ export default function Root() {
 
 const headerStyles = css`
   width: 100%;
-  height: 72px;
+  height: 64px;
   position: fixed;
   background-color: ${colors.white};
-  padding: 0 16px;
+  padding: 10px 16px;
   z-index: 100;
 `
 
@@ -45,4 +45,8 @@ const ulStyles = css`
   justify-content: space-between;
   align-items: center;
   height: 100%;
+
+  > li {
+    height: 100%;
+  }
 `

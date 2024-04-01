@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { css } from '@emotion/react'
 import FormEnter from '@/components/form/vote/FormEnter'
 import FormInfo from '@/components/form/vote/FormInfo'
 import SelectTrack from '@/components/form/vote/SelectTrack'
@@ -9,6 +10,8 @@ import { useGetFormData } from '@/hooks/useGetFormData'
 import { FormDataFromUser } from '@/models/form'
 import { useSaveVoteData } from '@/hooks/useSaveVoteData'
 import { VoteData } from '@/models/vote'
+import useNavbar from '@/hooks/useNavbar'
+import { Text } from '@/components/shared/text'
 
 export default function VotePage() {
   const [step, setStep] = useState<'시작' | '정보' | '투표' | '완료'>('시작')
@@ -26,6 +29,8 @@ export default function VotePage() {
 
   const { data: userId, mutate } = useSaveVoteData()
 
+  const { updateNavbar } = useNavbar()
+
   const completeVote = () => {
     if (formId) {
       mutate({ formId, voteData })
@@ -37,6 +42,23 @@ export default function VotePage() {
       navigate(-1)
     }
   }, [formId, navigate])
+
+  useEffect(() => {
+    updateNavbar({
+      left: (
+        <Link to={`/`}>
+          <Text variant={'heading1'}>
+            <img
+              css={imageStyles}
+              src={'/images/logo.png'}
+              alt="go-to-track 로고"
+            />
+          </Text>
+        </Link>
+      ),
+      right: null,
+    })
+  }, [updateNavbar])
 
   return (
     <PageLayout>
@@ -81,3 +103,7 @@ export default function VotePage() {
     </PageLayout>
   )
 }
+
+const imageStyles = css`
+  height: 44px;
+`

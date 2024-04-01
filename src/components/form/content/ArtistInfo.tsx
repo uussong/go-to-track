@@ -13,13 +13,15 @@ export default function ArtistInfo({ data }: ArtistInfoProps) {
 
   return (
     <article css={articleStyles}>
-      {isLoading && <Skeleton width={200} height={200} borderRadius={200} />}
-      <img
-        css={imgStyles(isLoading)}
-        src={data[0].images[1].url}
-        alt={data[0].name}
-        onLoad={() => setIsLoading(false)}
-      />
+      <div css={imgWrapperStyles}>
+        {isLoading && <Skeleton width={300} height={300} borderRadius={300} />}
+        <img
+          css={imgStyles(isLoading)}
+          src={data[0].images[1].url}
+          alt={data[0].name}
+          onLoad={() => setIsLoading(false)}
+        />
+      </div>
       <Text variant={'heading3'}>{data[0].name}</Text>
     </article>
   )
@@ -29,13 +31,18 @@ const articleStyles = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 25px;
+`
+
+const imgWrapperStyles = css`
+  width: 300px;
+  height: 300px;
 `
 
 const imgStyles = (isLoading: boolean) => css`
   display: ${isLoading ? `none` : `block`};
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   object-fit: cover;
 `
