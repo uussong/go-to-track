@@ -22,7 +22,7 @@ interface formDetailProps {
 
 export default function FormDetail({ form, artist, album }: formDetailProps) {
   const [title, setTitle] = useState('')
-  const [isTrackListVisible, setIsTrackListVisible] = useState(false)
+  // const [isTrackListVisible, setIsTrackListVisible] = useState(false)
   const [isLoading, setIsLoading] = useState({
     artistImageLoading: true,
     albumImageLoading: true,
@@ -69,12 +69,14 @@ export default function FormDetail({ form, artist, album }: formDetailProps) {
   return (
     <section>
       <Text
+        css={editableTextStyles}
         variant={'heading2'}
         contentEditable={true}
         onInput={handleTitleChange}
         onKeyDown={handleEnterKey}
         onBlur={handleBlur}
         suppressContentEditableWarning={true}
+        spellCheck={false}
       >
         {form.formTitle}
       </Text>
@@ -167,6 +169,15 @@ export default function FormDetail({ form, artist, album }: formDetailProps) {
     </section>
   )
 }
+
+const editableTextStyles = css`
+  display: inline-block;
+  padding: 5px 5px 5px 0;
+
+  :focus {
+    box-shadow: 0px 2px 0px 0px ${colors.coral300};
+  }
+`
 
 const articleStyles = css`
   display: flex;
