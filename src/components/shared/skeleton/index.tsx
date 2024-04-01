@@ -5,9 +5,15 @@ interface SkeletonProps {
   width?: number
   height?: number
   borderRadius?: number
+  margin?: number
 }
 
-export function Skeleton({ width, height, borderRadius }: SkeletonProps) {
+export function Skeleton({
+  width,
+  height,
+  borderRadius,
+  margin,
+}: SkeletonProps) {
   return (
     <div
       css={[
@@ -16,6 +22,7 @@ export function Skeleton({ width, height, borderRadius }: SkeletonProps) {
           width: ${width}px;
           height: ${height}px;
           border-radius: ${borderRadius}px;
+          margin: ${margin}px;
         `,
       ]}
     ></div>
@@ -41,7 +48,7 @@ const skeletonStyles = css`
   height: 100%;
   position: relative;
   overflow: hidden;
-  background: ${colors.gray200};
+  background: ${colors.gray100};
 
   &::after {
     position: absolute;
@@ -54,7 +61,7 @@ const skeletonStyles = css`
     background: linear-gradient(
       90deg,
       transparent,
-      ${colors.gray100},
+      ${colors.white},
       transparent
     );
   }
