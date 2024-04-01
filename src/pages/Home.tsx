@@ -13,7 +13,6 @@ import { ReactComponent as LoadingIcon } from '@/assets/icons/loading.svg'
 import { flexColumnCenter } from '@/styles/mixins'
 import { Text } from '@/components/shared/text'
 
-
 export default function HomePage() {
   const { updateNavbar } = useNavbar()
   const user = useUser()
@@ -81,7 +80,7 @@ const headingStyles = css`
 const loadingWrapperStyles = css`
   ${flexColumnCenter}
   padding: 24px 0;
-`  
+`
 
 const imageStyles = css`
   height: 44px;
