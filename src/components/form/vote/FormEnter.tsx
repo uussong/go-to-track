@@ -33,7 +33,9 @@ export default function FormEnter({ formTitle, onNext }: FormEnterProps) {
           value={nickname}
           onChange={handleInputChange}
         />
-        <Button disabled={nickname === ''}>시작하기</Button>
+        <Button type="submit" disabled={nickname === ''}>
+          시작하기
+        </Button>
       </form>
     </section>
   )
