@@ -1,4 +1,4 @@
-import { signInWithRedirect } from 'firebase/auth'
+import { signInWithPopup } from 'firebase/auth'
 import { css } from '@emotion/react'
 import { auth, provider } from '@/remote/firebase'
 import { Button } from '../shared/button'
@@ -7,7 +7,7 @@ import { colors } from '@/styles/colors'
 export default function GoogleSignIn() {
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithRedirect(auth, provider)
+      await signInWithPopup(auth, provider)
     } catch (error) {
       alert('로그인을 다시 시도해 주세요.') // 변경 예정
     }
