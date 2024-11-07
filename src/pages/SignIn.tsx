@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { css } from '@emotion/react'
 import { useUser } from '@/hooks/useUser'
-import { getGoogleRedirectResult } from '@/remote/auth'
 import Loading from '@/components/shared/Loading'
 import GoogleSignIn from '@/components/signin/GoogleSignIn'
 import PageLayout from '@/components/shared/PageLayout'
@@ -17,12 +16,11 @@ export default function SignInPage() {
   useEffect(() => {
     const getRedirectResult = async () => {
       try {
-        const result = await getGoogleRedirectResult()
-        if (result) {
+        if (user) {
           navigate('/myforms')
           setHasResult(true)
         }
-        if (result === null) {
+        if (user === null) {
           setHasResult(false)
         }
       } catch (error) {
@@ -30,7 +28,7 @@ export default function SignInPage() {
       }
     }
     getRedirectResult()
-  }, [navigate])
+  }, [user, navigate])
 
   if (hasResult === false && user) {
     return <Loading />
